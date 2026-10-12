@@ -1,0 +1,728 @@
+:root {
+  --go-orange: #F4A66A;
+  --go-purple: #8B72B8;
+  --go-purple-dark: #73589F;
+  --go-yellow: #F5DFA0;
+
+  --go-text: #302B38;
+  --go-text-light: #625A6D;
+  --go-muted: #93899F;
+
+  --go-bg: #FAF9FC;
+  --go-white: #FFFFFF;
+  --go-purple-light: #F3EEF9;
+  --go-border: #F0ECF4;
+
+  --go-shadow: 0 4px 18px rgba(66, 45, 91, 0.055);
+  --go-shadow-hover: 0 8px 24px rgba(66, 45, 91, 0.10);
+
+  --go-transition: 0.25s ease;
+}
+
+/* ============================================
+   HEADER WRAPPER
+============================================ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  width: 100%;
+  height: 78px;
+  padding: 8px 20px;
+
+  background: var(--go-bg);
+}
+
+/* ============================================
+   HEADER CONTAINER
+============================================ */
+
+.header-container {
+  position: relative;
+
+  width: 100%;
+  max-width: 1600px;
+  height: 62px;
+
+  margin: 0 auto;
+  padding: 0 14px 0 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  background: var(--go-white);
+  border: 1px solid var(--go-border);
+  border-radius: 40px;
+
+  box-shadow: var(--go-shadow);
+
+  transition: box-shadow var(--go-transition);
+}
+
+.header-container:hover {
+  box-shadow: var(--go-shadow-hover);
+}
+
+/* ============================================
+   LOGO
+============================================ */
+
+.header-logo {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Logo icon */
+
+.logo-symbol {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--go-white);
+  background: var(--go-orange);
+
+  border-radius: 50%;
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+
+  transition:
+    transform var(--go-transition),
+    background var(--go-transition);
+}
+
+.header-logo:hover .logo-symbol {
+  transform: rotate(-8deg) scale(1.05);
+  background: #ED9858;
+}
+
+/* Logo text */
+
+.logo-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.logo-name {
+  color: #E99A5A;
+
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  line-height: 1;
+}
+
+.logo-tagline {
+  width: 100%;
+
+  color: #D69A69;
+
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-align: center;
+  line-height: 1;
+}
+
+/* ============================================
+   DESKTOP NAVIGATION
+============================================ */
+
+.header-nav {
+  min-width: 0;
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+/* Navigation link */
+
+.nav-link {
+  position: relative;
+
+  min-height: 42px;
+  padding: 0 11px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--go-text);
+  background: transparent;
+
+  border-radius: 30px;
+
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition:
+    color var(--go-transition),
+    background var(--go-transition),
+    transform var(--go-transition);
+}
+
+.nav-link:hover {
+  color: var(--go-purple-dark);
+  background: var(--go-purple-light);
+}
+
+.nav-link:active {
+  transform: scale(0.97);
+}
+
+/* Contact link */
+
+.nav-link.nav-contact {
+  min-width: 88px;
+  padding: 0 17px;
+
+  color: var(--go-white);
+  background: var(--go-purple);
+}
+
+.nav-link.nav-contact:hover {
+  color: var(--go-white);
+  background: var(--go-purple-dark);
+}
+
+/* ============================================
+   HEADER ACTIONS
+============================================ */
+
+.header-actions {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+/* ============================================
+   LANGUAGE SWITCHER
+============================================ */
+
+.language-switcher {
+  min-height: 40px;
+  padding: 0 11px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  background: var(--go-purple-light);
+  border: 1px solid rgba(139, 114, 184, 0.07);
+  border-radius: 30px;
+
+  transition: background var(--go-transition);
+}
+
+.language-switcher:hover {
+  background: #EEE6F7;
+}
+
+.language-switcher button,
+.mobile-language button {
+  padding: 5px 2px;
+
+  color: var(--go-muted);
+  background: transparent;
+  border: none;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: color var(--go-transition);
+}
+
+.language-switcher button:hover,
+.mobile-language button:hover {
+  color: var(--go-purple-dark);
+}
+
+.language-switcher button.selected,
+.mobile-language button.selected {
+  color: var(--go-purple-dark);
+  font-weight: 900;
+}
+
+.language-chevron {
+  margin-left: 1px;
+
+  color: var(--go-purple);
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* ============================================
+   BOOKING BUTTON
+============================================ */
+
+.booking-button,
+.mobile-booking {
+  min-height: 42px;
+  padding: 0 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #302B38;
+  background: var(--go-yellow);
+
+  border: 1px solid rgba(210, 177, 92, 0.12);
+  border-radius: 30px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background var(--go-transition),
+    transform var(--go-transition),
+    box-shadow var(--go-transition);
+}
+
+.booking-button:hover,
+.mobile-booking:hover {
+  color: #302B38;
+  background: #EED38A;
+
+  box-shadow: 0 5px 14px rgba(160, 125, 60, 0.12);
+
+  transform: translateY(-1px);
+}
+
+.booking-button:active,
+.mobile-booking:active {
+  transform: translateY(0);
+}
+
+.booking-button:disabled,
+.mobile-booking:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* ============================================
+   MOBILE CONTROLS
+============================================ */
+
+.menu-toggle,
+.mobile-language,
+.mobile-booking {
+  display: none;
+}
+
+.menu-toggle {
+  border: none;
+  font-family: inherit;
+}
+
+/* ============================================
+   ACCESSIBILITY
+============================================ */
+
+.header-logo:focus-visible,
+.nav-link:focus-visible,
+.booking-button:focus-visible,
+.language-switcher button:focus-visible,
+.menu-toggle:focus-visible,
+.mobile-language button:focus-visible,
+.mobile-booking:focus-visible {
+  outline: 2px solid var(--go-purple);
+  outline-offset: 3px;
+}
+
+/* ============================================
+   TABLET / LAPTOP NHỎ
+============================================ */
+
+@media (max-width: 1250px) {
+  .site-header {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .header-container {
+    gap: 13px;
+    padding-left: 17px;
+    padding-right: 10px;
+  }
+
+  .logo-name {
+    font-size: 19px;
+  }
+
+  .header-nav {
+    gap: 1px;
+  }
+
+  .nav-link {
+    padding-right: 8px;
+    padding-left: 8px;
+    font-size: 12px;
+  }
+
+  .nav-link.nav-contact {
+    min-width: 75px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .language-switcher {
+    padding-right: 8px;
+    padding-left: 8px;
+    gap: 5px;
+  }
+
+  .booking-button {
+    padding-right: 12px;
+    padding-left: 12px;
+    font-size: 12px;
+  }
+}
+
+/* ============================================
+   MOBILE MENU
+============================================ */
+
+@media (max-width: 1000px) {
+  .site-header {
+    height: 72px;
+    padding: 6px 12px;
+  }
+
+  .header-container {
+    height: 60px;
+    padding: 0 12px 0 15px;
+
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .header-logo {
+    flex: 0 0 auto;
+  }
+
+  .logo-symbol {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logo-name {
+    font-size: 20px;
+  }
+
+  /* Dropdown navigation */
+
+  .header-nav {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 4px;
+
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+
+    padding: 13px;
+
+    background: var(--go-white);
+    border: 1px solid var(--go-border);
+    border-radius: 22px;
+
+    box-shadow: 0 14px 35px rgba(66, 45, 91, 0.12);
+  }
+
+  .header-nav.nav-open {
+    display: flex;
+    animation: goMenuIn 0.2s ease;
+  }
+
+  .nav-link {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 15px;
+
+    justify-content: flex-start;
+
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  .nav-link.nav-contact {
+    min-width: 0;
+    justify-content: flex-start;
+  }
+
+  /* Header action buttons */
+
+  .header-actions {
+    margin-left: auto;
+    gap: 7px;
+  }
+
+  .language-switcher {
+    min-height: 37px;
+    padding: 0 9px;
+  }
+
+  .booking-button {
+    min-height: 38px;
+    padding: 0 13px;
+    font-size: 12px;
+  }
+
+  /* Hamburger button */
+
+  .menu-toggle {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    padding: 0;
+
+    background: var(--go-purple-light);
+    border: 1px solid rgba(139, 114, 184, 0.08);
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition: background var(--go-transition);
+  }
+
+  .menu-toggle:hover {
+    background: #EEE6F7;
+  }
+
+  .menu-toggle span {
+    width: 18px;
+    height: 2px;
+
+    background: var(--go-purple-dark);
+    border-radius: 3px;
+
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .menu-toggle.is-open span:first-child {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .menu-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.is-open span:last-child {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Language in mobile dropdown */
+
+  .mobile-language {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 10px 13px;
+
+    color: #C9BDDB;
+  }
+
+  .mobile-language button {
+    font-size: 13px;
+  }
+
+  /* Booking in mobile dropdown */
+
+  .mobile-booking {
+    width: 100%;
+    min-height: 44px;
+
+    display: flex;
+
+    margin-top: 3px;
+  }
+}
+
+/* ============================================
+   MENU ANIMATION
+============================================ */
+
+@keyframes goMenuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   SMALL MOBILE
+============================================ */
+
+@media (max-width: 480px) {
+  .site-header {
+    height: 66px;
+    padding: 5px 8px;
+  }
+
+  .header-container {
+    height: 56px;
+    padding: 0 8px 0 11px;
+    gap: 5px;
+  }
+
+  .header-logo {
+    gap: 5px;
+  }
+
+  .logo-symbol {
+    width: 29px;
+    height: 29px;
+    font-size: 10px;
+  }
+
+  .logo-name {
+    font-size: 18px;
+    letter-spacing: -0.7px;
+  }
+
+  .logo-tagline {
+    font-size: 6px;
+    letter-spacing: 1.2px;
+  }
+
+  .header-actions {
+    gap: 4px;
+  }
+
+  .language-switcher {
+    min-height: 34px;
+    padding: 0 6px;
+    gap: 4px;
+  }
+
+  .language-switcher button {
+    font-size: 10px;
+  }
+
+  .language-chevron {
+    font-size: 13px;
+  }
+
+  .booking-button {
+    min-height: 34px;
+    padding: 0 9px;
+    font-size: 10px;
+  }
+
+  .menu-toggle {
+    width: 32px;
+    height: 32px;
+  }
+
+  .menu-toggle span {
+    width: 16px;
+  }
+
+  .header-nav {
+    top: calc(100% + 8px);
+    border-radius: 18px;
+  }
+}
+
+/* ============================================
+   EXTRA SMALL MOBILE
+============================================ */
+
+@media (max-width: 350px) {
+  .logo-name {
+    font-size: 16px;
+  }
+
+  .logo-symbol {
+    width: 26px;
+    height: 26px;
+  }
+
+  .language-switcher {
+    gap: 3px;
+    padding: 0 5px;
+  }
+
+  .booking-button {
+    padding: 0 7px;
+    font-size: 9px;
+  }
+
+  .menu-toggle {
+    width: 29px;
+    height: 29px;
+  }
+}
+
+/* ============================================
+   REDUCE MOTION
+============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
