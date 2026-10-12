@@ -1,248 +1,411 @@
-
 import {
   useState,
   useEffect,
   useMemo,
   useCallback,
+  useRef,
 } from "react";
+
+import { Link, NavLink, useNavigate } from "react-router-dom";
+
+import {
+  CarFront,
+  Menu,
+  X,
+  ArrowRight,
+  ChevronDown,
+} from "lucide-react";
 
 import "./Header.css";
 
-// ================================
-// NGÔN NGỮ VIỆT - ANH CHO HEADER
-// ================================
 const translations = {
   vi: {
-    Main: "Trang chủ",
+    home: "Trang chủ",
     personal: "Cá nhân",
     business: "Doanh nghiệp",
     events: "Sự kiện",
-    automotive: "Ô tô",
-    driver: "Tài xế",
-    company: "Công ty",
+    automotive: "Đưa đón & hành trình",
+    driver: "Dành cho tài xế",
+    company: "Về GoAnywhere",
     contact: "Liên hệ",
     booking: "Đặt tài xế",
-    home: "Trang chủ",
-    tagline: "Dịch vụ tài xế chuyên nghiệp",
+    language: "Chọn ngôn ngữ",
+    services: "Dịch vụ",
+    tagline: "DỊCH VỤ TÀI XẾ CHUYÊN NGHIỆP",
     openMenu: "Mở menu",
     closeMenu: "Đóng menu",
+    mainNavigation: "Menu điều hướng chính",
   },
 
   en: {
-    Main: "Home",
+    home: "Home",
     personal: "Personal",
     business: "Business",
     events: "Events",
-    automotive: "Automotive",
-    driver: "Driver",
-    company: "Company",
+    automotive: "Transfers & Trips",
+    driver: "Become a Driver",
+    company: "About GoAnywhere",
     contact: "Contact",
     booking: "Book a Driver",
-    home: "Home",
-    tagline: "Professional Driver Services",
+    language: "Select language",
+    services: "Services",
+    tagline: "PROFESSIONAL DRIVER SERVICES",
     openMenu: "Open menu",
     closeMenu: "Close menu",
+    mainNavigation: "Main navigation",
   },
 };
 
-// ================================
-// HEADER COMPONENT
-// ================================
 export default function Header({
-  language = "vi",
+  language: languageProp,
   onLanguageChange,
 }) {
+  const [localLanguage, setLocalLanguage] = useState("vi");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
+  const servicesRef = useRef(null);
+  const navigate = useNavigate();
+
+  const language = languageProp ?? localLanguage;
   const t = translations[language] || translations.vi;
 
-  // Cập nhật tiêu đề và ngôn ngữ trình duyệt
+  // Cập nhật tiêu đề và ngôn ngữ của trang.
   useEffect(() => {
     document.title =
-      language === "vi"
-        ? "Ten doanh nghiệp | Dịch vụ tài xế"
-        : "Ten doanh nghiệp | Driver Services";
+      language === "en"
+        ? "GoAnywhere | Professional Driver Services"
+        : "GoAnywhere | Dịch vụ tài xế chuyên nghiệp";
 
     document.documentElement.lang = language;
   }, [language]);
 
-  // Danh sách menu điều hướng
+  // Các mục điều hướng chính.
   const navItems = useMemo(
     () => [
-      { label: t.Main, href: "Home" },
-      { label: t.personal, href: "Personal" },
-      { label: t.business, href: "Business" },
-      { label: t.events, href: "Events" },
-      { label: t.automotive, href: "Automotive" },
-      { label: t.driver, href: "Driver" },
-      { label: t.company, href: "Company" },
       {
-        label: t.contact,
-        href: "#contact",
-        highlight: true,
+        key: "home",
+        label: t.home,
+        path: "/",
+        end: true,
+      },
+      {
+        key: "events",
+        label: t.events,
+        path: "/events",
+      },
+      {
+        key: "driver",
+        label: t.driver,
+        path: "/driver",
+      },
+      {
+        key: "company",
+        label: t.company,
+        path: "/company",
       },
     ],
     [t]
   );
 
-  // Chuyển đổi ngôn ngữ
-  const changeLanguage = useCallback(
-    (lang) => {
-      if (lang !== "vi" && lang !== "en") return;
-
-      onLanguageChange?.(lang);
-      setMenuOpen(false);
-    },
-    [onLanguageChange]
-  );
-
-  // Đóng menu
+  // Đóng menu và dropdown.
   const closeMenu = useCallback(() => {
     setMenuOpen(false);
+    setServicesOpen(false);
   }, []);
 
-  // Cuộn đến khu vực đặt tài xế
+  // Chuyển ngôn ngữ.
+  const changeLanguage = useCallback(
+    (nextLanguage) => {
+      if (!["vi", "en"].includes(nextLanguage)) {
+        return;
+      }
+
+      if (languageProp === undefined) {
+        setLocalLanguage(nextLanguage);
+      }
+
+      onLanguageChange?.(nextLanguage);
+      closeMenu();
+    },
+    [languageProp, onLanguageChange, closeMenu]
+  );
+
+  // Mở hoặc đóng dropdown dịch vụ.
+  const toggleServices = useCallback(() => {
+    setServicesOpen((previous) => !previous);
+  }, []);
+
+  // Đặt tài xế.
   const handleBooking = useCallback(() => {
-    setMenuOpen(false);
+    closeMenu();
 
-    document.getElementById("booking")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    const bookingSection = document.getElementById("booking");
+
+    if (bookingSection) {
+      bookingSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    } else {
+      navigate("/contact");
+    }
+  }, [closeMenu, navigate]);
+
+  // Đóng dropdown khi nhấn bên ngoài.
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        servicesRef.current &&
+        !servicesRef.current.contains(event.target)
+      ) {
+        setServicesOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener(
+        "pointerdown",
+        handleOutsideClick
+      );
+    };
   }, []);
+
+  // Đóng menu bằng phím Escape.
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [closeMenu]);
+
+  // Nút chuyển ngôn ngữ dùng chung.
+  const renderLanguageButtons = () => (
+    <>
+      <button
+        type="button"
+        className={language === "vi" ? "selected" : ""}
+        onClick={() => changeLanguage("vi")}
+        aria-pressed={language === "vi"}
+      >
+        VI
+      </button>
+
+      <button
+        type="button"
+        className={language === "en" ? "selected" : ""}
+        onClick={() => changeLanguage("en")}
+        aria-pressed={language === "en"}
+      >
+        EN
+      </button>
+    </>
+  );
 
   return (
     <header className="site-header">
       <div className="header-container">
         {/* LOGO */}
-        <a
-          href="#home"
+        <Link
+          to="/"
           className="header-logo"
-          aria-label={t.home}
+          aria-label="GoAnywhere - Home"
           onClick={closeMenu}
         >
-          <span className="logo-symbol">GO</span>
+          <span className="logo-symbol">
+            <CarFront size={27} strokeWidth={2.2} />
+          </span>
 
           <span className="logo-content">
             <span className="logo-name">
-              Ten doanh nghiệp
+              Go<span>Anywhere</span>
             </span>
 
             <span className="logo-tagline">
               {t.tagline}
             </span>
           </span>
-        </a>
+        </Link>
+
+        {/* NÚT MENU MOBILE */}
+        <button
+          type="button"
+          className={`menu-toggle ${
+            menuOpen ? "is-open" : ""
+          }`}
+          onClick={() => {
+            setMenuOpen((previous) => !previous);
+            setServicesOpen(false);
+          }}
+          aria-label={
+            menuOpen ? t.closeMenu : t.openMenu
+          }
+          aria-expanded={menuOpen}
+          aria-controls="header-navigation"
+        >
+          {menuOpen ? (
+            <X size={24} />
+          ) : (
+            <Menu size={24} />
+          )}
+        </button>
 
         {/* MENU ĐIỀU HƯỚNG */}
         <nav
+          id="header-navigation"
           className={`header-nav ${
             menuOpen ? "nav-open" : ""
           }`}
-          id="header-navigation"
-          aria-label={language === "vi" ? "Điều hướng chính" : "Main navigation"}
+          aria-label={t.mainNavigation}
         >
           {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className={`nav-link ${
-                item.highlight ? "nav-contact" : ""
-              }`}
+            <NavLink
+              key={item.key}
+              to={item.path}
+              end={item.end}
+              className={({ isActive }) =>
+                `nav-link ${
+                  isActive ? "nav-active" : ""
+                }`
+              }
               onClick={closeMenu}
             >
               {item.label}
-            </a>
+            </NavLink>
           ))}
 
-          {/* CHUYỂN NGÔN NGỮ MOBILE */}
-          <div className="mobile-language">
+          {/* DROPDOWN DỊCH VỤ */}
+          <div
+            ref={servicesRef}
+            className={`nav-services ${
+              servicesOpen ? "services-open" : ""
+            }`}
+          >
             <button
               type="button"
-              className={language === "vi" ? "selected" : ""}
-              onClick={() => changeLanguage("vi")}
-              aria-pressed={language === "vi"}
+              className="services-trigger"
+              onClick={toggleServices}
+              aria-expanded={servicesOpen}
+              aria-controls="services-dropdown"
+              aria-label={t.services}
             >
-              VI
+              <span>{t.services}</span>
+
+              <ChevronDown
+                size={16}
+                className="services-chevron"
+                aria-hidden="true"
+              />
             </button>
 
-            <span>|</span>
-
-            <button
-              type="button"
-              className={language === "en" ? "selected" : ""}
-              onClick={() => changeLanguage("en")}
-              aria-pressed={language === "en"}
+            <div
+              id="services-dropdown"
+              className="services-dropdown"
+              aria-hidden={!servicesOpen}
+              inert={!servicesOpen}
             >
-              EN
-            </button>
+              <NavLink
+                to="/services/personal"
+                className="dropdown-link"
+                onClick={closeMenu}
+                tabIndex={servicesOpen ? 0 : -1}
+              >
+                {t.personal}
+              </NavLink>
+
+              <NavLink
+                to="/services/business"
+                className="dropdown-link"
+                onClick={closeMenu}
+                tabIndex={servicesOpen ? 0 : -1}
+              >
+                {t.business}
+              </NavLink>
+
+              <NavLink
+                to="/services/automotive"
+                className="dropdown-link"
+                onClick={closeMenu}
+                tabIndex={servicesOpen ? 0 : -1}
+              >
+                {t.automotive}
+              </NavLink>
+            </div>
           </div>
 
-          {/* NÚT ĐẶT TÀI XẾ MOBILE */}
+          {/* NGÔN NGỮ MOBILE */}
+          <div className="mobile-language">
+            <span className="language-label">
+              {t.language}
+            </span>
+
+            <div
+              className="language-options"
+              role="group"
+              aria-label={t.language}
+            >
+              {renderLanguageButtons()}
+            </div>
+          </div>
+
+          {/* LIÊN HỆ MOBILE */}
+          <Link
+            to="/contact"
+            className="mobile-contact"
+            onClick={closeMenu}
+          >
+            {t.contact}
+            <ArrowRight size={17} />
+          </Link>
+
+          {/* ĐẶT TÀI XẾ MOBILE */}
           <button
             type="button"
             className="mobile-booking"
             onClick={handleBooking}
           >
             {t.booking}
+            <ArrowRight size={17} />
           </button>
         </nav>
 
-        {/* CÁC NÚT BÊN PHẢI */}
+        {/* CỤM NÚT DESKTOP */}
         <div className="header-actions">
-          {/* CHUYỂN NGÔN NGỮ DESKTOP */}
           <div
             className="language-switcher"
-            aria-label="Language selector"
+            role="group"
+            aria-label={t.language}
           >
-            <button
-              type="button"
-              className={language === "vi" ? "selected" : ""}
-              onClick={() => changeLanguage("vi")}
-              aria-label="Chuyển sang tiếng Việt"
-              aria-pressed={language === "vi"}
-            >
-              VN
-            </button>
-
-            <button
-              type="button"
-              className={language === "en" ? "selected" : ""}
-              onClick={() => changeLanguage("en")}
-              aria-label="Switch to English"
-              aria-pressed={language === "en"}
-            >
-              EN
-            </button>
-
-            <span className="language-chevron"></span>
+            {renderLanguageButtons()}
           </div>
 
-          {/* NÚT ĐẶT TÀI XẾ DESKTOP */}
+          <Link
+            to="/contact"
+            className="header-contact"
+            onClick={closeMenu}
+          >
+            {t.contact}
+          </Link>
+
           <button
             type="button"
             className="booking-button"
             onClick={handleBooking}
           >
             {t.booking}
-          </button>
 
-          {/* NÚT MENU MOBILE */}
-          <button
-            type="button"
-            className={`menu-toggle ${
-              menuOpen ? "is-open" : ""
-            }`}
-            onClick={() => setMenuOpen((open) => !open)}
-            aria-label={
-              menuOpen ? t.closeMenu : t.openMenu
-            }
-            aria-expanded={menuOpen}
-            aria-controls="header-navigation"
-          >
-            <span />
-            <span />
-            <span />
+            <span className="booking-icon">
+              <ArrowRight size={17} />
+            </span>
           </button>
         </div>
       </div>
@@ -250,5 +413,4 @@ export default function Header({
   );
 }
 
-// Cho phép App.jsx sử dụng bản dịch của Header
 export { translations };

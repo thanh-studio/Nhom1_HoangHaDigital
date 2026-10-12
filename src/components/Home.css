@@ -1,0 +1,797 @@
+
+/* =========================================
+   GOANYWHERE - HOME PAGE
+   Purple + Orange | Responsive Fix
+   Desktop / Tablet / Mobile 390px
+========================================= */
+
+/* 1. BOX MODEL & GLOBAL */
+.home-page,
+.home-page *,
+.home-page *::before,
+.home-page *::after {
+  box-sizing: border-box;
+}
+
+.home-page {
+  width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+  color: var(--go-text, #302B38);
+  background: #FFFFFF;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.home-page img {
+  display: block;
+  max-width: 100%;
+}
+
+.home-page h1,
+.home-page h2,
+.home-page h3,
+.home-page p {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.home-page a {
+  text-decoration: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.home-page button,
+.home-page a {
+  font: inherit;
+}
+
+.home-page a:focus-visible,
+.home-page button:focus-visible {
+  outline: 3px solid #F4A66A;
+  outline-offset: 4px;
+}
+
+.home-page section {
+  scroll-margin-top: 90px;
+}
+
+/* 2. HERO */
+.home-hero {
+  width: 100%;
+  max-width: 1280px;
+  min-width: 0;
+  min-height: 0;
+  margin-inline: auto;
+  padding: 76px 32px 86px;
+  gap: clamp(28px, 4vw, 54px);
+}
+
+.home-hero-content,
+.home-about-content,
+.home-cta-content {
+  min-width: 0;
+}
+
+.home-hero h1 {
+  margin: 24px 0 20px;
+  font-size: clamp(38px, 4.2vw, 60px);
+  font-weight: 800;
+  letter-spacing: -1.8px;
+  line-height: 1.16;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.home-hero h1 span,
+.home-about-content h2 span {
+  display: block;
+  color: var(--go-purple, #47118D);
+}
+
+.home-hero-content > p {
+  max-width: 540px;
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.home-hero-actions {
+  gap: 12px;
+}
+
+.home-btn-primary,
+.home-btn-secondary {
+  min-width: 0;
+  min-height: 50px;
+  padding: 12px 21px;
+  border-radius: 999px;
+  white-space: normal;
+}
+
+.home-hero-visual {
+  min-width: 0;
+}
+
+.home-hero-image-card {
+  max-width: 100%;
+}
+
+.home-hero-image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-floating-card {
+  max-width: calc(100% - 8px);
+  min-width: 0;
+}
+
+.home-floating-card > div {
+  min-width: 0;
+}
+
+.home-image-caption {
+  min-width: 0;
+}
+
+.home-image-caption > div:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* 3. PARTNERS */
+.home-partner-strip {
+  min-width: 0;
+}
+
+.home-partner-list {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.home-partner-list span {
+  overflow-wrap: anywhere;
+}
+
+/* 4. SECTION HEADINGS */
+.home-services-section,
+.home-advantages-section {
+  min-width: 0;
+}
+
+.home-section-heading {
+  min-width: 0;
+}
+
+.home-section-heading > div {
+  min-width: 0;
+}
+
+.home-section-heading h2,
+.home-about-content h2,
+.home-advantages-heading h2 {
+  font-size: clamp(29px, 3vw, 42px);
+  line-height: 1.28;
+  letter-spacing: -1px;
+  overflow-wrap: normal;
+}
+
+.home-section-heading > p {
+  min-width: 0;
+}
+
+/* 5. SERVICE CARDS */
+.home-services-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.home-service-card {
+  min-width: 0;
+  height: 100%;
+  overflow-wrap: anywhere;
+}
+
+.home-service-card h3 {
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.home-service-card > p {
+  overflow-wrap: anywhere;
+}
+
+.home-service-link {
+  max-width: 100%;
+}
+
+/* 6. ABOUT */
+.home-about-section {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  min-width: 0;
+  gap: clamp(32px, 5vw, 70px);
+}
+
+.home-about-visual {
+  min-width: 0;
+}
+
+.home-about-visual > img {
+  width: 100%;
+  max-width: 100%;
+}
+
+.home-about-badge {
+  min-width: 0;
+  max-width: calc(100% - 12px);
+}
+
+.home-about-badge > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* 7. ADVANTAGES */
+.home-advantages-section {
+  width: 100%;
+}
+
+.home-advantages-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.home-advantage-card {
+  min-width: 0;
+}
+
+.home-advantage-card h3,
+.home-advantage-card p {
+  overflow-wrap: anywhere;
+}
+
+/* 8. CTA */
+.home-cta-section {
+  min-width: 0;
+}
+
+.home-cta-content {
+  overflow-wrap: anywhere;
+}
+
+.home-cta-button {
+  max-width: 100%;
+  white-space: normal;
+}
+
+/* =========================================
+   TABLET: 761px - 1100px
+========================================= */
+@media (max-width: 1100px) {
+  .home-hero {
+    padding: 60px 28px 70px;
+    gap: 28px;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(35px, 4.5vw, 49px);
+    letter-spacing: -1.4px;
+  }
+
+  .home-hero-visual {
+    min-height: 360px;
+  }
+
+  .home-hero-image-card {
+    width: 88%;
+    height: 330px;
+  }
+
+  .home-circle-one {
+    width: 260px;
+    height: 260px;
+  }
+
+  .home-floating-card {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .home-services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-service-card {
+    min-height: 250px;
+  }
+
+  .home-about-section {
+    gap: 35px;
+  }
+
+  .home-about-visual > img {
+    height: 350px;
+  }
+
+  .home-cta-section {
+    padding: 38px;
+  }
+}
+
+/* =========================================
+   MOBILE & SMALL TABLET: 760px
+========================================= */
+@media (max-width: 760px) {
+  .home-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    min-height: 0;
+    padding: 48px 24px 56px;
+  }
+
+  .home-hero-content {
+    max-width: 650px;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(36px, 7vw, 50px);
+    letter-spacing: -1.3px;
+  }
+
+  .home-hero-content > p {
+    font-size: 15px;
+  }
+
+  .home-hero-visual {
+    width: 100%;
+    max-width: 550px;
+    min-height: 370px;
+    margin-inline: auto;
+  }
+
+  .home-hero-image-card {
+    width: 86%;
+    height: 340px;
+  }
+
+  .home-floating-top {
+    left: 0;
+  }
+
+  .home-floating-bottom {
+    right: 0;
+  }
+
+  .home-services-section,
+  .home-advantages-section {
+    padding: 68px 24px;
+  }
+
+  .home-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+
+  .home-section-heading > p {
+    max-width: 600px;
+  }
+
+  .home-about-section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    padding: 65px 24px 72px;
+  }
+
+  .home-about-visual {
+    width: 100%;
+    max-width: 590px;
+    margin-inline: auto;
+  }
+
+  .home-about-visual > img {
+    height: 380px;
+  }
+
+  .home-about-content {
+    max-width: 650px;
+  }
+
+  .home-advantages-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .home-cta-section {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+    width: calc(100% - 48px);
+    margin: 60px auto;
+    padding: 34px 28px;
+  }
+
+  .home-cta-button {
+    align-self: flex-start;
+  }
+}
+
+/* =========================================
+   MOBILE: 390px AND BELOW
+========================================= */
+@media (max-width: 480px) {
+  .home-hero {
+    gap: 28px;
+    padding: 40px 18px 46px;
+  }
+
+  .home-eyebrow {
+    padding: 7px 11px;
+    font-size: 9px;
+    letter-spacing: 0.7px;
+  }
+
+  .home-hero h1 {
+    margin: 19px 0 16px;
+    font-size: clamp(31px, 8.4vw, 39px);
+    letter-spacing: -1px;
+    line-height: 1.2;
+  }
+
+  .home-hero-content > p {
+    font-size: 14px;
+    line-height: 1.85;
+  }
+
+  .home-hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 23px;
+  }
+
+  .home-btn-primary,
+  .home-btn-secondary {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 15px;
+    font-size: 13px;
+  }
+
+  .home-hero-note {
+    align-items: flex-start;
+    font-size: 11px;
+  }
+
+  .home-hero-visual {
+    min-height: 295px;
+  }
+
+  .home-hero-image-card {
+    width: 88%;
+    height: 275px;
+    border-width: 5px;
+    border-radius: 24px;
+  }
+
+  .home-circle-one {
+    top: 4%;
+    right: 4%;
+    width: 205px;
+    height: 205px;
+  }
+
+  .home-circle-two {
+    bottom: 1%;
+    left: 1%;
+    width: 82px;
+    height: 82px;
+  }
+
+  .home-floating-card {
+    gap: 7px;
+    max-width: 68%;
+    padding: 8px 9px;
+    border-radius: 13px;
+  }
+
+  .home-floating-top {
+    top: 3%;
+    left: 0;
+  }
+
+  .home-floating-bottom {
+    right: 0;
+    bottom: 4%;
+  }
+
+  .home-floating-icon {
+    width: 29px;
+    height: 29px;
+    border-radius: 9px;
+    font-size: 16px;
+  }
+
+  .home-floating-card strong {
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  .home-floating-card span:not(.home-floating-icon) {
+    font-size: 9px;
+  }
+
+  .home-image-caption {
+    right: 9px;
+    bottom: 9px;
+    left: 9px;
+    gap: 8px;
+    padding: 9px;
+  }
+
+  .home-brand-mark {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+
+  .home-image-caption strong {
+    font-size: 10px;
+  }
+
+  .home-image-caption span {
+    font-size: 9px;
+  }
+
+  .home-partner-strip {
+    gap: 15px;
+    padding: 22px 14px;
+  }
+
+  .home-partner-strip > p {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .home-partner-list {
+    gap: 10px 12px;
+  }
+
+  .home-partner-list span {
+    font-size: 9px;
+    letter-spacing: 0.4px;
+  }
+
+  .home-services-section,
+  .home-advantages-section {
+    padding: 52px 18px;
+  }
+
+  .home-section-heading h2,
+  .home-advantages-heading h2 {
+    font-size: 28px;
+    letter-spacing: -0.7px;
+  }
+
+  .home-section-heading > p,
+  .home-advantages-heading > p {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .home-services-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .home-service-card {
+    min-height: 0;
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .home-service-card-top {
+    margin-bottom: 17px;
+  }
+
+  .home-service-icon {
+    width: 49px;
+    height: 49px;
+    border-radius: 15px;
+    font-size: 22px;
+  }
+
+  .home-service-card h3 {
+    font-size: 17px;
+  }
+
+  .home-service-card > p {
+    margin-bottom: 18px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .home-about-section {
+    gap: 34px;
+    padding: 48px 18px 58px;
+  }
+
+  .home-about-visual {
+    padding: 0 10px 17px 0;
+  }
+
+  .home-about-visual::before {
+    top: -8px;
+    left: -7px;
+    width: 85px;
+    height: 85px;
+    border-radius: 20px;
+  }
+
+  .home-about-visual > img {
+    height: 280px;
+    border-width: 4px;
+    border-radius: 22px;
+  }
+
+  .home-about-badge {
+    right: 0;
+    bottom: 13px;
+    gap: 8px;
+    padding: 9px 11px;
+    border-radius: 14px;
+  }
+
+  .home-about-badge > span {
+    width: 32px;
+    height: 32px;
+    font-size: 10px;
+  }
+
+  .home-about-badge strong {
+    font-size: 10px;
+  }
+
+  .home-about-badge small {
+    font-size: 9px;
+  }
+
+  .home-about-content h2 {
+    font-size: 30px;
+    letter-spacing: -0.8px;
+  }
+
+  .home-about-content > p {
+    font-size: 13px;
+    line-height: 1.85;
+  }
+
+  .home-about-link {
+    font-size: 13px;
+  }
+
+  .home-advantages-heading {
+    margin-bottom: 28px;
+  }
+
+  .home-advantage-card {
+    padding: 22px;
+    border-radius: 19px;
+  }
+
+  .home-advantage-icon {
+    margin-bottom: 15px;
+  }
+
+  .home-advantage-card h3 {
+    font-size: 16px;
+  }
+
+  .home-advantage-card p {
+    font-size: 13px;
+  }
+
+  .home-cta-section {
+    width: calc(100% - 36px);
+    gap: 21px;
+    margin: 44px auto;
+    padding: 28px 21px;
+    border-radius: 22px;
+  }
+
+  .home-cta-content > span {
+    font-size: 9px;
+    letter-spacing: 0.8px;
+  }
+
+  .home-cta-content h2 {
+    font-size: 26px;
+    letter-spacing: -0.5px;
+  }
+
+  .home-cta-content p {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .home-cta-button {
+    align-self: stretch;
+    width: 100%;
+    min-height: 47px;
+    padding: 12px 15px;
+    font-size: 13px;
+  }
+}
+
+/* =========================================
+   EXTRA SMALL: 350px AND BELOW
+========================================= */
+@media (max-width: 350px) {
+  .home-hero {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .home-hero h1 {
+    font-size: 29px;
+    letter-spacing: -0.7px;
+  }
+
+  .home-hero-visual {
+    min-height: 255px;
+  }
+
+  .home-hero-image-card {
+    height: 235px;
+  }
+
+  .home-floating-card {
+    max-width: 72%;
+    gap: 5px;
+    padding: 7px;
+  }
+
+  .home-floating-icon {
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+  }
+
+  .home-floating-card strong {
+    font-size: 9px;
+  }
+
+  .home-floating-card span:not(.home-floating-icon) {
+    font-size: 8px;
+  }
+
+  .home-services-section,
+  .home-advantages-section,
+  .home-about-section {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .home-cta-section {
+    width: calc(100% - 28px);
+    padding: 24px 17px;
+  }
+
+  .home-cta-content h2 {
+    font-size: 24px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+@media (prefers-reduced-motion: reduce) {
+  .home-page *,
+  .home-page *::before,
+  .home-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

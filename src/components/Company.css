@@ -1,0 +1,278 @@
+
+.company-page {
+  --company-purple: #6035a5;
+  --company-orange: #ff8a3d;
+  color: #241b35;
+  overflow: hidden;
+}
+
+.company-page * {
+  box-sizing: border-box;
+}
+
+.company-page a {
+  text-decoration: none;
+}
+
+.company-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 50px;
+  padding: 90px max(7%, calc((100% - 1200px) / 2));
+  background: linear-gradient(135deg, #f8f5ff, #fff8f2);
+}
+
+.company-hero-content {
+  max-width: 650px;
+}
+
+.company-eyebrow {
+  display: inline-block;
+  color: var(--company-purple);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.company-hero h1 {
+  margin: 22px 0;
+  font-size: clamp(36px, 4.5vw, 60px);
+  line-height: 1.13;
+  letter-spacing: -1.8px;
+}
+
+.company-hero h1 span {
+  color: var(--company-purple);
+}
+
+.company-hero p,
+.company-intro p,
+.company-value-card p,
+.company-bottom p {
+  color: #746c81;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.company-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.company-btn,
+.company-btn-outline {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 13px 22px;
+  border-radius: 12px;
+  font-weight: 700;
+  transition: 0.25s ease;
+}
+
+.company-btn {
+  color: #fff;
+  background: var(--company-purple);
+}
+
+.company-btn:hover {
+  background: #492681;
+  transform: translateY(-2px);
+}
+
+.company-btn-outline {
+  color: var(--company-purple);
+  border: 1px solid #d9cbed;
+  background: #fff;
+}
+
+.company-btn-outline:hover {
+  border-color: var(--company-purple);
+}
+
+.company-hero-art {
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.company-art-circle {
+  width: min(290px, 70vw);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #7042b7, #49227e);
+  color: white;
+  font-size: 130px;
+  font-weight: 900;
+  box-shadow: 0 30px 70px #6035a533;
+}
+
+.company-art-card {
+  position: absolute;
+  right: 0;
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border: 1px solid #ffffff;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 15px 40px #35204b16;
+}
+
+.company-art-card > span {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  color: white;
+  background: var(--company-orange);
+}
+
+.company-art-card strong,
+.company-art-card small {
+  display: block;
+}
+
+.company-art-card small {
+  margin-top: 5px;
+  color: #82798d;
+}
+
+.company-intro {
+  max-width: 850px;
+  margin: auto;
+  padding: 85px 24px;
+  text-align: center;
+}
+
+.company-intro h2,
+.company-section-heading h2,
+.company-bottom h2 {
+  margin: 15px 0;
+  font-size: clamp(28px, 3.5vw, 42px);
+  line-height: 1.25;
+}
+
+.company-values {
+  padding: 75px max(7%, calc((100% - 1200px) / 2));
+  background: #fbf9fe;
+}
+
+.company-section-heading {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.company-value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.company-value-card {
+  padding: 30px;
+  border: 1px solid #eee6f8;
+  border-radius: 20px;
+  background: white;
+  transition: 0.25s ease;
+}
+
+.company-value-card:hover {
+  transform: translateY(-5px);
+  border-color: #cbb6ed;
+  box-shadow: 0 15px 35px #6035a512;
+}
+
+.company-value-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: #f2eaff;
+  font-size: 26px;
+}
+
+.company-value-card h3 {
+  margin: 22px 0 10px;
+  font-size: 20px;
+}
+
+.company-bottom {
+  padding: 75px 24px;
+  text-align: center;
+  background: linear-gradient(120deg, #f3eaff, #fff1e6);
+}
+
+.company-bottom .company-btn {
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .company-hero {
+    grid-template-columns: 1fr;
+    padding: 60px 22px;
+    gap: 20px;
+  }
+
+  .company-hero h1 {
+    font-size: clamp(34px, 9vw, 48px);
+  }
+
+  .company-hero-art {
+    min-height: 280px;
+  }
+
+  .company-art-circle {
+    width: 220px;
+    font-size: 100px;
+  }
+
+  .company-art-card {
+    right: 0;
+    bottom: 12px;
+  }
+
+  .company-intro {
+    padding: 60px 22px;
+  }
+
+  .company-values {
+    padding: 60px 22px;
+  }
+
+  .company-value-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .company-value-card {
+    padding: 24px;
+  }
+
+  .company-bottom {
+    padding: 60px 22px;
+  }
+}
+
+@media (max-width: 420px) {
+  .company-actions {
+    flex-direction: column;
+  }
+
+  .company-btn,
+  .company-btn-outline {
+    width: 100%;
+  }
+}

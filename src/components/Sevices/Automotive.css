@@ -1,0 +1,220 @@
+
+.automotive-page {
+  --auto-purple: #6035a5;
+  --auto-orange: #ff8a3d;
+  color: #251c35;
+  overflow: hidden;
+}
+
+.automotive-page * {
+  box-sizing: border-box;
+}
+
+.automotive-page a {
+  text-decoration: none;
+}
+
+.automotive-hero {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  align-items: center;
+  gap: 40px;
+  padding: 85px max(7%, calc((100% - 1200px) / 2));
+  background: linear-gradient(135deg, #f6f1ff, #fff5ec);
+}
+
+.automotive-label {
+  color: var(--auto-purple);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.automotive-hero h1 {
+  margin: 20px 0;
+  font-size: clamp(36px, 4.5vw, 58px);
+  line-height: 1.13;
+  letter-spacing: -1.5px;
+}
+
+.automotive-hero h1 span {
+  display: block;
+  color: var(--auto-purple);
+}
+
+.automotive-hero p,
+.automotive-card p,
+.automotive-cta p {
+  color: #766d83;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.automotive-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  color: #fff;
+  background: var(--auto-purple);
+  font-weight: 700;
+  transition: 0.25s ease;
+}
+
+.automotive-button:hover {
+  background: #492681;
+  transform: translateY(-2px);
+}
+
+.automotive-visual {
+  position: relative;
+  min-height: 340px;
+  display: grid;
+  place-items: center;
+}
+
+.automotive-car {
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6035a5, #8b63cb);
+  font-size: 100px;
+  box-shadow: 0 25px 70px #6035a533;
+}
+
+.automotive-orbit {
+  position: absolute;
+  border: 1px solid #bda6df;
+  border-radius: 50%;
+}
+
+.automotive-orbit-one {
+  width: 310px;
+  height: 310px;
+}
+
+.automotive-orbit-two {
+  width: 360px;
+  height: 360px;
+  border-color: #f3c19f;
+}
+
+.automotive-bubble {
+  position: absolute;
+  right: 0;
+  bottom: 18px;
+  z-index: 2;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #fff;
+  color: var(--auto-purple);
+  box-shadow: 0 12px 35px #35204b17;
+  font-weight: 700;
+}
+
+.automotive-content {
+  padding: 80px max(7%, calc((100% - 1200px) / 2));
+}
+
+.automotive-heading {
+  max-width: 700px;
+  margin: 0 auto 35px;
+  text-align: center;
+}
+
+.automotive-heading h2,
+.automotive-cta h2 {
+  margin: 15px 0;
+  font-size: clamp(28px, 3.5vw, 42px);
+  line-height: 1.25;
+}
+
+.automotive-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.automotive-card {
+  padding: 30px;
+  border: 1px solid #eee6f8;
+  border-radius: 20px;
+  background: #fff;
+  transition: 0.25s ease;
+}
+
+.automotive-card:hover {
+  transform: translateY(-5px);
+  border-color: #cbb6ed;
+  box-shadow: 0 15px 35px #6035a512;
+}
+
+.automotive-card > span {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 17px;
+  background: #f2eaff;
+  font-size: 28px;
+}
+
+.automotive-card h3 {
+  margin: 22px 0 10px;
+  font-size: 20px;
+}
+
+.automotive-cta {
+  padding: 75px 24px;
+  text-align: center;
+  background: linear-gradient(120deg, #f3eaff, #fff1e6);
+}
+
+@media (max-width: 768px) {
+  .automotive-hero {
+    grid-template-columns: 1fr;
+    padding: 60px 22px;
+  }
+
+  .automotive-hero h1 {
+    font-size: clamp(34px, 9vw, 48px);
+  }
+
+  .automotive-visual {
+    min-height: 300px;
+  }
+
+  .automotive-car {
+    width: 210px;
+    height: 210px;
+    font-size: 82px;
+  }
+
+  .automotive-orbit-one {
+    width: 260px;
+    height: 260px;
+  }
+
+  .automotive-orbit-two {
+    width: 300px;
+    height: 300px;
+  }
+
+  .automotive-content {
+    padding: 60px 22px;
+  }
+
+  .automotive-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .automotive-card {
+    padding: 24px;
+  }
+}

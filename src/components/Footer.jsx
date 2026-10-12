@@ -82,7 +82,7 @@ function LinkColumn({ title, items, english, variant }) {
 function AppCard({ driver = false, english }) {
   const title = driver
     ? (english ? "Become a driver" : "Đăng ký làm lái xe")
-    : (english ? "GOChapa App" : "Ứng dụng GOChapa");
+    : (english ? "Ten doanh nghiep App" : "Ứng dụng Ten doanh nghiep");
 
   return (
     <article className={`footer-app-card ${driver ? "footer-driver-card" : ""}`}>
@@ -113,7 +113,7 @@ export default function Footer({ language = "vi" }) {
       <div className="footer-ambassador">
         <span className="footer-ambassador-icon" aria-hidden="true">↗</span>
         <span className="footer-ambassador-copy">
-          <strong>{english ? "BECOME A PARTNER — Grow with GOChapa!" : "TRỞ THÀNH ĐỐI TÁC — Đồng hành cùng GOChapa!"}</strong>
+          <strong>{english ? "BECOME A PARTNER — Grow with Ten doanh nghiep!" : "TRỞ THÀNH ĐỐI TÁC — Đồng hành cùng Ten doanh nghiep!"}</strong>
           <span>{english ? "Connect with us to explore partnership opportunities" : "Kết nối với chúng tôi để tìm hiểu cơ hội hợp tác"}</span>
         </span>
         <span className="footer-ambassador-cta">{english ? "Join now" : "Tham gia ngay"} <span aria-hidden="true">→</span></span>
@@ -130,8 +130,8 @@ export default function Footer({ language = "vi" }) {
         <div className="footer-container">
           <div className="footer-info-grid">
             <div className="footer-company">
-              <a href="#home" aria-label={english ? "GOChapa home" : "Trang chủ GOChapa"}>
-                <span className="footer-brand"><span className="logo-symbol">GO</span>GOChapa</span>
+              <a href="#home" aria-label={english ? "Ten doanh nghiep home" : "Trang chủ Ten doanh nghiep"}>
+                <span className="footer-brand"><span className="logo-symbol">GO</span>Ten doanh nghiep</span>
               </a>
               <p className="footer-company-name">{english ? "COMPANY NAME" : "TÊN DOANH NGHIỆP"}</p>
               <p>{english ? "Professional driver services for individuals, businesses and events." : "Dịch vụ tài xế chuyên nghiệp dành cho cá nhân, doanh nghiệp và sự kiện."}</p>
@@ -153,7 +153,7 @@ export default function Footer({ language = "vi" }) {
                   : <span key={`pending-${index}`}>{english ? en : vi}</span>
               ))}
             </nav>
-            <p>© {currentYear} GOChapa. {english ? "All rights reserved." : "Bảo lưu mọi quyền."}</p>
+            <p>© {currentYear} Ten doanh nghiep. {english ? "All rights reserved." : "Bảo lưu mọi quyền."}</p>
           </div>
         </div>
       </div>
