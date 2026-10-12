@@ -1,8 +1,8 @@
 :root {
   --go-orange: #F4A66A;
-  --go-purple: #8B72B8;
-  --go-purple-dark: #73589F;
-  --go-yellow: #F5DFA0;
+  --go-purple: #47118D;
+  --go-purple-dark: #2D0A5C;
+  --go-yellow: #FEBE00;
 
   --go-text: #302B38;
   --go-text-light: #625A6D;
@@ -24,6 +24,7 @@
 ============================================ */
 
 .site-header {
+  box-sizing: border-box;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -32,7 +33,11 @@
   height: 78px;
   padding: 8px 20px;
 
-  background: var(--go-bg);
+  background: transparent;
+}
+
+.site-header *, .site-header *::before, .site-header *::after {
+  box-sizing: border-box;
 }
 
 /* ============================================
@@ -43,7 +48,7 @@
   position: relative;
 
   width: 100%;
-  max-width: 1600px;
+  max-width: 1280px;
   height: 62px;
 
   margin: 0 auto;
@@ -57,7 +62,7 @@
   border: 1px solid var(--go-border);
   border-radius: 40px;
 
-  box-shadow: var(--go-shadow);
+  box-shadow: 0 6px 26px rgba(45, 10, 92, 0.16);
 
   transition: box-shadow var(--go-transition);
 }
@@ -271,6 +276,11 @@
 }
 
 .language-chevron {
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
   margin-left: 1px;
 
   color: var(--go-purple);
@@ -314,7 +324,7 @@
 .booking-button:hover,
 .mobile-booking:hover {
   color: #302B38;
-  background: #EED38A;
+  background: #E5AB00;
 
   box-shadow: 0 5px 14px rgba(160, 125, 60, 0.12);
 

@@ -67,7 +67,6 @@ export default function Header({
   // Danh sách menu điều hướng
   const navItems = useMemo(
     () => [
-      { label: t.home, href: "#home" },
       { label: t.personal, href: "#personal" },
       { label: t.business, href: "#business" },
       { label: t.events, href: "#events" },
@@ -137,7 +136,8 @@ export default function Header({
           className={`header-nav ${
             menuOpen ? "nav-open" : ""
           }`}
-          aria-label="Main navigation"
+          id="header-navigation"
+          aria-label={language === "vi" ? "Điều hướng chính" : "Main navigation"}
         >
           {navItems.map((item) => (
             <a
@@ -235,6 +235,7 @@ export default function Header({
               menuOpen ? t.closeMenu : t.openMenu
             }
             aria-expanded={menuOpen}
+            aria-controls="header-navigation"
           >
             <span />
             <span />

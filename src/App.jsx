@@ -1,6 +1,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Header, { translations } from "./components/Header";
+import Footer from "./components/Footer";
 import heroImg from "./assets/hero.png";
 import "./App.css";
 
@@ -216,17 +217,7 @@ function App() {
       </main>
 
       {/* FOOTER */}
-      <footer className="site-footer">
-        <a href="#home" className="footer-brand">
-          Ten doanh nghiệp
-        </a>
-
-        <p>{t.footer}</p>
-
-        <span>
-          © {new Date().getFullYear()} Ten doanh nghiệp. All rights reserved.
-        </span>
-      </footer>
+      <Footer language={language} />
     </>
   );
 }
