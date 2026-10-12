@@ -58,8 +58,8 @@ export default function Header({
   useEffect(() => {
     document.title =
       language === "vi"
-        ? "GOChapa | Dịch vụ tài xế"
-        : "GOChapa | Driver Services";
+        ? "Ten doanh nghiệp | Dịch vụ tài xế"
+        : "Ten doanh nghiệp | Driver Services";
 
     document.documentElement.lang = language;
   }, [language]);
@@ -123,7 +123,7 @@ export default function Header({
 
           <span className="logo-content">
             <span className="logo-name">
-              GOChapa
+              Ten doanh nghiệp
             </span>
 
             <span className="logo-tagline">
