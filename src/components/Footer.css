@@ -1,0 +1,98 @@
+.site-footer {
+  width: 100%;
+  margin-top: auto;
+  color: #d1d5db;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: left;
+  color-scheme: light;
+}
+
+.site-footer *,
+.site-footer *::before,
+.site-footer *::after { box-sizing: border-box; }
+.site-footer a { text-decoration: none; }
+.site-footer a:focus-visible { outline: 3px solid #febe00; outline-offset: 5px; border-radius: 4px; }
+.footer-container { width: 100%; max-width: 1170px; margin: 0 auto; padding: 0 24px; }
+
+.footer-ambassador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 14px 24px;
+  color: #febe00;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 18px, #ffffff08 18px, #ffffff08 36px), linear-gradient(110deg, #1a0f2e, #47118d 45%, #2d0a5c);
+  border-bottom: 3px solid #febe00;
+}
+.footer-ambassador-icon { font-size: 32px; font-weight: 800; }
+.footer-ambassador-copy { display: flex; flex-direction: column; line-height: 1.4; }
+.footer-ambassador-copy strong { font-size: 16px; }
+.footer-ambassador-copy > span { color: #ffffffbf; font-size: 13px; }
+.footer-ambassador-cta { flex-shrink: 0; padding: 8px 18px; color: #1a0f2e; background: #febe00; border-radius: 24px; font-weight: 800; box-shadow: 0 0 14px #febe004d; }
+.footer-ambassador:hover .footer-ambassador-cta { background: #fff; }
+
+.footer-apps { padding: 48px 0; background: linear-gradient(90deg, #eff6ff, #fff, #eff6ff); }
+.footer-app-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.footer-app-card { padding: 32px; background: #fff; border: 2px solid transparent; border-radius: 16px; box-shadow: 0 10px 20px #11182712; text-align: center; }
+.footer-driver-card { border-color: #fed7aa; }
+.footer-app-card h2 { margin: 0 0 10px; color: #1f2937; font-size: 28px; font-weight: 700; line-height: 1.3; letter-spacing: 0; }
+.footer-app-badge { display: inline-block; padding: 3px 16px; color: #fff; background: #15803d; border-radius: 24px; font-weight: 700; }
+.footer-driver-card .footer-app-badge { color: #422006; background: linear-gradient(90deg, #f97316, #eab308); }
+.footer-app-preview { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; width: 160px; height: 160px; margin: 24px auto; color: #47118d; background: #f3eef9; border-radius: 28px; }
+.footer-app-preview > span { display: grid; place-items: center; width: 64px; height: 64px; color: #fff; background: #f4a66a; border-radius: 50%; font-size: 24px; font-weight: 900; }
+.footer-store-links { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-store-links a { display: inline-flex; max-width: 100%; transition: transform .2s ease; }
+.footer-store-links a:hover { transform: translateY(-3px); }
+.footer-store-links img { display: block; height: 48px; max-width: 100%; object-fit: contain; }
+.footer-app-card p { margin-top: 16px; color: #4b5563; }
+
+.footer-info { padding: 48px 0 28px; background: linear-gradient(135deg, #111827, #1f2937, #111827); }
+.footer-info-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+.footer-brand { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px; color: #f4a66a; font-size: 26px; font-weight: 800; }
+.footer-company p { margin: 0 0 8px; }
+.footer-company-name { color: #fff; font-weight: 600; }
+.footer-representative { font-size: 12px; }
+.footer-company address { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; font-style: normal; }
+.footer-company address a { color: #60a5fa; overflow-wrap: anywhere; }
+.footer-company address a:hover { color: #93c5fd; }
+.footer-column h2 { padding-bottom: 8px; margin: 0 0 16px; border-bottom: 1px solid #374151; color: #fff; font-size: 18px; font-weight: 700; line-height: 1.5; letter-spacing: 0; }
+.footer-column ul { list-style: none; padding: 0; margin: 0; }
+.footer-column li + li { margin-top: 8px; }
+.footer-column a, .footer-link-label { display: flex; align-items: baseline; gap: 8px; color: #d1d5db; transition: color .2s ease; }
+.footer-column a > span, .footer-link-label > span { color: #60a5fa; font-size: 18px; line-height: 1; }
+.footer-column a:hover { color: #60a5fa; }
+.footer-services a > span, .footer-services .footer-link-label > span { color: #fb923c; }
+.footer-services a:hover { color: #fb923c; }
+.footer-column .footer-nested { padding-left: 16px; font-size: 13px; }
+.footer-nested a, .footer-nested .footer-link-label { color: #9ca3af; }
+.footer-bottom { margin-top: 32px; padding-top: 24px; border-top: 1px solid #374151; text-align: center; }
+.footer-quick-links { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px 16px; }
+.footer-quick-links > * { color: #9ca3af; }
+.footer-quick-links > * + *::before { content: "•"; display: inline-block; margin-right: 16px; color: #6b7280; }
+.footer-quick-links a:hover { color: #fb923c; }
+.footer-quick-links > :last-child { color: #febe00; font-weight: 600; }
+.footer-bottom p { margin-top: 16px; color: #9ca3af; font-size: 12px; }
+
+@media (max-width: 1000px) {
+  .footer-info-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-app-card { padding: 28px 20px; }
+  .footer-app-card h2 { font-size: 24px; }
+}
+@media (max-width: 640px) {
+  .footer-container { padding: 0 20px; }
+  .footer-app-grid, .footer-info-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .footer-apps, .footer-info { padding-top: 32px; padding-bottom: 32px; }
+  .footer-ambassador { flex-wrap: wrap; gap: 10px; padding: 14px 16px; }
+  .footer-ambassador-copy { flex: 1; min-width: 180px; }
+  .footer-ambassador-copy strong { font-size: 14px; }
+  .footer-ambassador-copy > span { font-size: 12px; }
+  .footer-ambassador-cta { margin-left: auto; }
+  .footer-store-links { gap: 12px; }
+  .footer-store-links img { height: 40px; }
+  .footer-column li + li { margin-top: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-store-links a, .footer-column a { transition: none; }
+}
