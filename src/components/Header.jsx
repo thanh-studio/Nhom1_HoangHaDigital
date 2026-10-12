@@ -13,6 +13,7 @@ import "./Header.css";
 // ================================
 const translations = {
   vi: {
+    Main: "Trang chủ",
     personal: "Cá nhân",
     business: "Doanh nghiệp",
     events: "Sự kiện",
@@ -28,6 +29,7 @@ const translations = {
   },
 
   en: {
+    Main: "Home",
     personal: "Personal",
     business: "Business",
     events: "Events",
@@ -67,12 +69,13 @@ export default function Header({
   // Danh sách menu điều hướng
   const navItems = useMemo(
     () => [
-      { label: t.personal, href: "#personal" },
-      { label: t.business, href: "#business" },
-      { label: t.events, href: "#events" },
-      { label: t.automotive, href: "#automotive" },
-      { label: t.driver, href: "#driver" },
-      { label: t.company, href: "#company" },
+      { label: t.Main, href: "Home" },
+      { label: t.personal, href: "Personal" },
+      { label: t.business, href: "Business" },
+      { label: t.events, href: "Events" },
+      { label: t.automotive, href: "Automotive" },
+      { label: t.driver, href: "Driver" },
+      { label: t.company, href: "Company" },
       {
         label: t.contact,
         href: "#contact",
