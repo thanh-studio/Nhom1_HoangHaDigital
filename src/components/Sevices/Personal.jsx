@@ -25,7 +25,7 @@ const Personal = ({ language = "vi" }) => {
           <span className="personal-label">{vi ? "DỊCH VỤ CÁ NHÂN" : "PERSONAL SERVICES"}</span>
           <h1>
             {vi ? "Bạn tận hưởng," : "Enjoy your day,"}
-            <span>{vi ? " GOChapa lo hành trình." : " let GOChapa handle the ride."}</span>
+            <span>{vi ? " GoAnywhere lo hành trình." : " let GoAnywhere handle the ride."}</span>
           </h1>
           <p>
             {vi
@@ -66,8 +66,8 @@ const Personal = ({ language = "vi" }) => {
               <span className="personal-card-icon">{item.icon}</span>
               <h3>{item.title}</h3>
               <p>{item.desc}</p>
-              <Link to="/contact" aria-label={item.title} className="personal-card-link">
-                {vi ? "Tìm hiểu thêm" : "Learn more"} ↗
+              <Link to="/contact" aria-label={vi ? `Liên hệ tư vấn: ${item.title}` : `Contact us about: ${item.title}`} className="personal-card-link">
+                {vi ? "Liên hệ tư vấn" : "Contact us"} ↗
               </Link>
             </article>
           ))}
@@ -76,7 +76,7 @@ const Personal = ({ language = "vi" }) => {
 
       <section className="personal-cta">
         <h2>{vi ? "Hành trình tiếp theo bắt đầu từ đây" : "Your next journey starts here"}</h2>
-        <p>{vi ? "Liên hệ với GOChapa để tìm hiểu dịch vụ." : "Contact GOChapa to explore our services."}</p>
+        <p>{vi ? "Liên hệ với GoAnywhere để tìm hiểu dịch vụ." : "Contact GoAnywhere to explore our services."}</p>
         <Link to="/contact" className="personal-button">{vi ? "Liên hệ ngay" : "Contact us"} ↗</Link>
       </section>
     </main>

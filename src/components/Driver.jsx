@@ -29,15 +29,15 @@ const Driver = ({ language = "vi" }) => {
           </h1>
           <p>
             {vi
-              ? "Tìm hiểu giải pháp tài xế của GOChapa dành cho nhu cầu di chuyển cá nhân, công việc và những dịp đặc biệt."
-              : "Explore GOChapa driver solutions for personal travel, work and special occasions."}
+              ? "Tìm hiểu giải pháp tài xế của GoAnywhere dành cho nhu cầu di chuyển cá nhân, công việc và những dịp đặc biệt."
+              : "Explore GoAnywhere driver solutions for personal travel, work and special occasions."}
           </p>
           <Link to="/contact" className="driver-button">{vi ? "Liên hệ đặt dịch vụ" : "Book a service"} ↗</Link>
         </div>
         <div className="driver-visual">
           <div className="driver-avatar">👨‍✈️</div>
           <div className="driver-visual-card">
-            <strong>GOChapa</strong>
+            <strong>GoAnywhere</strong>
             <span>{vi ? "Phục vụ tận tâm" : "Service with care"}</span>
           </div>
         </div>
@@ -66,7 +66,7 @@ const Driver = ({ language = "vi" }) => {
 
       <section className="driver-cta">
         <h2>{vi ? "Cần hỗ trợ cho chuyến đi của bạn?" : "Need help with your journey?"}</h2>
-        <p>{vi ? "Kết nối với đội ngũ GOChapa để tìm hiểu thêm." : "Connect with GOChapa to learn more."}</p>
+        <p>{vi ? "Kết nối với đội ngũ GoAnywhere để tìm hiểu thêm." : "Connect with GoAnywhere to learn more."}</p>
         <Link to="/contact" className="driver-button">{vi ? "Gửi yêu cầu" : "Send an inquiry"} ↗</Link>
       </section>
     </main>

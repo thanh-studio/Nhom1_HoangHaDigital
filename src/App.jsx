@@ -73,7 +73,7 @@ const homeTranslations = {
     driverSectionLabel: "ĐỘI NGŨ TÀI XẾ",
     driverTitle: "Đồng hành cùng tài xế chuyên nghiệp",
     driverDesc:
-      "Khám phá cơ hội trở thành tài xế cùng chúng tôi.",
+      "Tìm hiểu dịch vụ tài xế cho nhu cầu di chuyển của bạn.",
 
     companySectionLabel: "VỀ CHÚNG TÔI",
     companyTitle: "Về GoAnywhere",
@@ -133,7 +133,7 @@ const homeTranslations = {
     driverSectionLabel: "OUR DRIVERS",
     driverTitle: "Professional drivers by your side",
     driverDesc:
-      "Discover opportunities to become a driver with us.",
+      "Explore driver services for your travel needs.",
 
     companySectionLabel: "ABOUT US",
     companyTitle: "About GoAnywhere",

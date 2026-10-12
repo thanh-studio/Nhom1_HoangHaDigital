@@ -62,7 +62,7 @@ const Events = ({ language = "vi" }) => {
       <section className="events-cta">
         <h2>{vi ? "Lên kế hoạch cho sự kiện sắp tới" : "Plan your upcoming event"}</h2>
         <p>{vi ? "Chia sẻ lịch trình dự kiến để tìm hiểu lựa chọn phù hợp." : "Share your plans to explore suitable options."}</p>
-        <Link to="/contact" className="events-button">{vi ? "Liên hệ GOChapa" : "Contact GOChapa"} ↗</Link>
+        <Link to="/contact" className="events-button">{vi ? "Liên hệ GoAnywhere" : "Contact GoAnywhere"} ↗</Link>
       </section>
     </main>
   );

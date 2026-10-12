@@ -23,7 +23,7 @@ const Company = ({ language = "vi" }) => {
       <section className="company-hero">
         <div className="company-hero-content">
           <span className="company-eyebrow">
-            {vi ? "VỀ GOCHAPA" : "ABOUT GOCHAPA"}
+            {vi ? "VỀ GoAnywhere" : "ABOUT GoAnywhere"}
           </span>
           <h1>
             {vi ? "Di chuyển dễ dàng," : "Move with ease,"}
@@ -31,8 +31,8 @@ const Company = ({ language = "vi" }) => {
           </h1>
           <p>
             {vi
-              ? "GOChapa kết nối khách hàng với các giải pháp tài xế linh hoạt, chuyên nghiệp và đáng tin cậy."
-              : "GOChapa connects customers with flexible, professional and reliable driver services."}
+              ? "GoAnywhere kết nối khách hàng với các giải pháp tài xế linh hoạt, chuyên nghiệp và đáng tin cậy."
+              : "GoAnywhere connects customers with flexible, professional and reliable driver services."}
           </p>
           <div className="company-actions">
             <Link to="/contact" className="company-btn">
@@ -48,7 +48,7 @@ const Company = ({ language = "vi" }) => {
           <div className="company-art-card">
             <span>✓</span>
             <div>
-              <strong>GOChapa</strong>
+              <strong>GoAnywhere</strong>
               <small>{vi ? "Đồng hành cùng bạn" : "Moving with you"}</small>
             </div>
           </div>
@@ -70,7 +70,7 @@ const Company = ({ language = "vi" }) => {
       <section className="company-values">
         <div className="company-section-heading">
           <span className="company-eyebrow">{vi ? "GIÁ TRỊ CỐT LÕI" : "OUR VALUES"}</span>
-          <h2>{vi ? "Điều tạo nên GOChapa" : "What defines GOChapa"}</h2>
+          <h2>{vi ? "Điều tạo nên GoAnywhere" : "What defines GoAnywhere"}</h2>
         </div>
         <div className="company-value-grid">
           {values.map((item) => (

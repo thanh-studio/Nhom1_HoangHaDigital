@@ -65,7 +65,7 @@ const Contact = ({ language = "vi" }) => {
       <section className="contact-hero">
         <div className="contact-hero-content">
           <span className="contact-eyebrow">
-            {vi ? "LIÊN HỆ GOCHAPA" : "CONTACT GOCHAPA"}
+            {vi ? "LIÊN HỆ GoAnywhere" : "CONTACT GoAnywhere"}
           </span>
 
           <h1>
@@ -120,8 +120,8 @@ const Contact = ({ language = "vi" }) => {
 
           <p>
             {vi
-              ? "Điền thông tin vào biểu mẫu. Đội ngũ GOChapa sẽ có cơ sở để tìm hiểu yêu cầu của bạn."
-              : "Complete the form to tell the GOChapa team more about your inquiry."}
+              ? "Điền thông tin vào biểu mẫu. Đội ngũ GoAnywhere sẽ có cơ sở để tìm hiểu yêu cầu của bạn."
+              : "Complete the form to tell the GoAnywhere team more about your inquiry."}
           </p>
 
           <div className="contact-info-card">

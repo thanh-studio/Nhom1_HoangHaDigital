@@ -39,7 +39,7 @@ const Business = ({ language = "vi" }) => {
         <div className="business-hero-visual">
           <div className="business-visual-main">
             <span>🏢</span>
-            <strong>GOChapa Business</strong>
+            <strong>GoAnywhere Business</strong>
             <small>{vi ? "Giải pháp cho doanh nghiệp" : "Business mobility solutions"}</small>
           </div>
           <div className="business-mini-card">✦ {vi ? "Chuyên nghiệp" : "Professional"}</div>

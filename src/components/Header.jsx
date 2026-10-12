@@ -25,7 +25,7 @@ const translations = {
     business: "Doanh nghiệp",
     events: "Sự kiện",
     automotive: "Đưa đón & hành trình",
-    driver: "Dành cho tài xế",
+    driver: "Dịch vụ tài xế",
     company: "Về GoAnywhere",
     contact: "Liên hệ",
     booking: "Đặt tài xế",
@@ -43,7 +43,7 @@ const translations = {
     business: "Business",
     events: "Events",
     automotive: "Transfers & Trips",
-    driver: "Become a Driver",
+    driver: "Driver Services",
     company: "About GoAnywhere",
     contact: "Contact",
     booking: "Book a Driver",
@@ -86,7 +86,7 @@ export default function Header({
       {
         key: "home",
         label: t.home,
-        path: "/",
+        path: "/home",
         end: true,
       },
       {
@@ -148,7 +148,7 @@ export default function Header({
         block: "start",
       });
     } else {
-      navigate("/contact");
+      navigate("/home#booking");
     }
   }, [closeMenu, navigate]);
 
@@ -216,7 +216,7 @@ export default function Header({
       <div className="header-container">
         {/* LOGO */}
         <Link
-          to="/"
+          to="/home"
           className="header-logo"
           aria-label="GoAnywhere - Home"
           onClick={closeMenu}
@@ -314,7 +314,7 @@ export default function Header({
               inert={!servicesOpen}
             >
               <NavLink
-                to="/services/personal"
+                to="/personal"
                 className="dropdown-link"
                 onClick={closeMenu}
                 tabIndex={servicesOpen ? 0 : -1}
@@ -323,7 +323,7 @@ export default function Header({
               </NavLink>
 
               <NavLink
-                to="/services/business"
+                to="/business"
                 className="dropdown-link"
                 onClick={closeMenu}
                 tabIndex={servicesOpen ? 0 : -1}
@@ -332,7 +332,7 @@ export default function Header({
               </NavLink>
 
               <NavLink
-                to="/services/automotive"
+                to="/automotive"
                 className="dropdown-link"
                 onClick={closeMenu}
                 tabIndex={servicesOpen ? 0 : -1}

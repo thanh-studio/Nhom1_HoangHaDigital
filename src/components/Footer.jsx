@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 const currentYear = new Date().getFullYear();
@@ -16,7 +17,7 @@ const services = [
   [null, "Xe công ty / đoàn", "Company / group vehicles", true],
   [null, "Xe du lịch đoàn", "Group travel", true],
   [null, "Xe sân bay", "Airport transfers", true],
-  ["#business", "Hub Doanh Nghiệp", "Business Hub"],
+  ["/business", "Hub Doanh Nghiệp", "Business Hub"],
   [null, "Xe Doanh Nghiệp", "Business vehicles", true],
   [null, "Lái xe cho Sếp", "Executive driver", true],
   [null, "Valet Parking", "Valet Parking", true],
@@ -31,7 +32,7 @@ const partners = [
   [null, "Câu Hỏi Thường Gặp", "Frequently Asked Questions"],
   [null, "Blog", "Blog"],
   [null, "Đánh Giá Dịch Vụ", "Service Reviews"],
-  ["#company", "Về Chúng Tôi", "About Us"],
+  ["/company", "Về Chúng Tôi", "About Us"],
   [null, "Bộ Nhận Diện Thương Hiệu", "Brand Identity"],
 ];
 // TODO: Bổ sung URL các trang chính sách khi được triển khai.
@@ -42,9 +43,9 @@ const policies = [
   [null, "Quy tắc ứng xử", "Code of Conduct"],
 ];
 const quickLinks = [
-  ["#personal", "Thuê Lái Xe", "Hire a Driver"],
+  ["/personal", "Thuê Lái Xe", "Hire a Driver"],
   [null, "Xe Hợp Đồng", "Charter Vehicles"],
-  ["#business", "Doanh Nghiệp", "Business"],
+  ["/business", "Doanh Nghiệp", "Business"],
   [null, "Valet Parking", "Valet Parking"],
   [null, "Testing Car", "Testing Car"],
   [null, "Thanh toán", "Payment"],
@@ -62,10 +63,10 @@ function LinkColumn({ title, items, english, variant }) {
         {items.map(([path, vi, en, nested], index) => (
           <li key={`${path}-${index}`} className={nested ? "footer-nested" : undefined}>
             {path ? (
-              <a href={path}>
+              <Link to={path}>
                 <span aria-hidden="true">{nested ? "·" : "›"}</span>
                 {english ? en : vi}
-              </a>
+              </Link>
             ) : (
               // TODO: Chỉ hiển thị nhãn, gắn liên kết khi có URL thật.
               <span className="footer-link-label">
@@ -82,7 +83,7 @@ function LinkColumn({ title, items, english, variant }) {
 function AppCard({ driver = false, english }) {
   const title = driver
     ? (english ? "Become a driver" : "Đăng ký làm lái xe")
-    : (english ? "Ten doanh nghiep App" : "Ứng dụng Ten doanh nghiep");
+    : (english ? "GoAnywhere App" : "Ứng dụng GoAnywhere");
 
   return (
     <article className={`footer-app-card ${driver ? "footer-driver-card" : ""}`}>
@@ -90,7 +91,7 @@ function AppCard({ driver = false, english }) {
       <span className="footer-app-badge">{driver ? "DRIVERX" : (english ? "FREE" : "MIỄN PHÍ")}</span>
       <div className="footer-app-preview" aria-hidden="true">
         <span>GO</span>
-        <strong>{driver ? "Driver" : "GOChapa"}</strong>
+        <strong>{driver ? "Driver" : "GoAnywhere"}</strong>
       </div>
       <div className="footer-store-links">
         {/* TODO: Gắn URL Google Play / App Store khi ứng dụng của project sẵn sàng. */}
@@ -113,7 +114,7 @@ export default function Footer({ language = "vi" }) {
       <div className="footer-ambassador">
         <span className="footer-ambassador-icon" aria-hidden="true">↗</span>
         <span className="footer-ambassador-copy">
-          <strong>{english ? "BECOME A PARTNER — Grow with Ten doanh nghiep!" : "TRỞ THÀNH ĐỐI TÁC — Đồng hành cùng Ten doanh nghiep!"}</strong>
+          <strong>{english ? "BECOME A PARTNER — Grow with GoAnywhere!" : "TRỞ THÀNH ĐỐI TÁC — Đồng hành cùng GoAnywhere!"}</strong>
           <span>{english ? "Connect with us to explore partnership opportunities" : "Kết nối với chúng tôi để tìm hiểu cơ hội hợp tác"}</span>
         </span>
         <span className="footer-ambassador-cta">{english ? "Join now" : "Tham gia ngay"} <span aria-hidden="true">→</span></span>
@@ -130,15 +131,15 @@ export default function Footer({ language = "vi" }) {
         <div className="footer-container">
           <div className="footer-info-grid">
             <div className="footer-company">
-              <a href="#home" aria-label={english ? "Ten doanh nghiep home" : "Trang chủ Ten doanh nghiep"}>
-                <span className="footer-brand"><span className="logo-symbol">GO</span>Ten doanh nghiep</span>
-              </a>
-              <p className="footer-company-name">{english ? "COMPANY NAME" : "TÊN DOANH NGHIỆP"}</p>
+              <Link to="/home" aria-label={english ? "GoAnywhere home" : "Trang chủ GoAnywhere"}>
+                <span className="footer-brand"><span className="logo-symbol">GO</span>GoAnywhere</span>
+              </Link>
+              <p className="footer-company-name">GoAnywhere</p>
               <p>{english ? "Professional driver services for individuals, businesses and events." : "Dịch vụ tài xế chuyên nghiệp dành cho cá nhân, doanh nghiệp và sự kiện."}</p>
               <address>
-                <a href="#company">{english ? "Company information" : "Thông tin doanh nghiệp"}</a>
-                <a href="#contact">{english ? "Contact us" : "Liên hệ với chúng tôi"}</a>
-                <a href="#booking">{english ? "Book a driver" : "Đặt tài xế"}</a>
+                <Link to="/company">{english ? "Company information" : "Thông tin doanh nghiệp"}</Link>
+                <Link to="/contact">{english ? "Contact us" : "Liên hệ với chúng tôi"}</Link>
+                <Link to="/home#booking">{english ? "Book a driver" : "Đặt tài xế"}</Link>
               </address>
             </div>
             <LinkColumn title={english ? "Services" : "Dịch Vụ"} items={services} english={english} variant="footer-services" />
@@ -148,12 +149,12 @@ export default function Footer({ language = "vi" }) {
           <div className="footer-bottom">
             <nav className="footer-quick-links" aria-label={english ? "More links" : "Liên kết khác"}>
               {quickLinks.map(([path, vi, en], index) => (
-                path ? <a key={`${path}-${index}`} href={path}>{english ? en : vi}</a>
+                path ? <Link key={`${path}-${index}`} to={path}>{english ? en : vi}</Link>
                   // TODO: Bổ sung URL thật cho các mục chưa có trang đích.
                   : <span key={`pending-${index}`}>{english ? en : vi}</span>
               ))}
             </nav>
-            <p>© {currentYear} Ten doanh nghiep. {english ? "All rights reserved." : "Bảo lưu mọi quyền."}</p>
+            <p>© {currentYear} GoAnywhere. {english ? "All rights reserved." : "Bảo lưu mọi quyền."}</p>
           </div>
         </div>
       </div>
