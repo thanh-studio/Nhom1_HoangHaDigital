@@ -455,7 +455,7 @@ function AppLayout() {
           {/* TRANG CHỦ */}
           <Route
             path="/"
-            element={<Navigate to="/company" replace />}
+            element={<Navigate to="/home" replace />}
           />
           
           {/* DỊCH VỤ CÁ NHÂN */}
