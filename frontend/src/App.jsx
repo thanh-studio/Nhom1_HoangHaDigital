@@ -15,6 +15,12 @@ import {
 
 import Header, { translations } from "./components/Header";
 import Footer from "./components/Footer";
+import Booking from "./components/Pages/Booking";
+import Trips from "./components/Pages/Trips";
+import Pricing from "./components/Pages/Pricing";
+import Home from "./components/Pages/Home";
+import Login from "./components/Pages/Login";
+import Register from "./components/Pages/Register";
 
 import Personal from "./components/Sevices/Personal";
 import Automotive from "./components/Sevices/Automotive";
@@ -458,6 +464,27 @@ function AppLayout() {
             element={<Navigate to="/home" replace />}
           />
           
+          <Route path="/home" element={<Home language={language} />} />
+
+          <Route path="/login" element={<Login language={language} />} />
+
+          <Route path="/register" element={<Register language={language} />} />
+          
+          <Route
+            path="/booking"
+            element={<Booking language={language} />}
+          />
+
+          <Route
+            path="/trips"
+            element={<Trips language={language} />}
+          />
+
+          <Route
+            path="/pricing"
+            element={<Pricing language={language} />}
+          />
+
           {/* DỊCH VỤ CÁ NHÂN */}
           <Route
             path="/personal"

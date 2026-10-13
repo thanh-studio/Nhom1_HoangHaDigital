@@ -309,21 +309,25 @@ export default function Header({
             {t.home}
           </NavLink>
 
-          <button
-            type="button"
-            className="header-nav-link header-nav-button"
-            onClick={() => goToSection("booking")}
+         <NavLink
+            to="/booking"
+            className={({ isActive }) =>
+              `header-nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={closeMenu}
           >
             {t.booking}
-          </button>
+          </NavLink>
 
-          <button
-            type="button"
-            className="header-nav-link header-nav-button"
-            onClick={() => goToSection("trips")}
+          <NavLink
+            to="/trips"
+            className={({ isActive }) =>
+              `header-nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={closeMenu}
           >
             {t.trips}
-          </button>
+          </NavLink>
 
           {/* DROPDOWN DỊCH VỤ */}
           <div
@@ -393,14 +397,16 @@ export default function Header({
             </div>
           </div>
 
-          <button
-            type="button"
-            className="header-nav-link header-nav-button"
-            onClick={() => goToSection("pricing")}
+          <NavLink
+            to="/pricing"
+            className={({ isActive }) =>
+              `header-nav-link header-nav-button ${isActive ? "active" : ""}`
+            }
+            onClick={closeMenu}
           >
             <Tag size={16} className="mobile-nav-icon" />
             {t.pricing}
-          </button>
+          </NavLink>
 
           <NavLink
             to="/contact"
