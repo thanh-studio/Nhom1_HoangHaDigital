@@ -86,6 +86,12 @@
   background: linear-gradient(135deg, #6035a5, #8b63cb);
   font-size: 100px;
   box-shadow: 0 25px 70px #6035a533;
+  overflow: hidden;
+}
+
+.automotive-car svg {
+  width: 100%;
+  height: 100%;
 }
 
 .automotive-orbit {
@@ -161,6 +167,7 @@
   width: 58px;
   height: 58px;
   border-radius: 17px;
+  color: var(--auto-purple);
   background: #f2eaff;
   font-size: 28px;
 }

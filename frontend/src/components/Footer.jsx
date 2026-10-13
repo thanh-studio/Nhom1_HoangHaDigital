@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 import "./Footer.css";
 
 const currentYear = new Date().getFullYear();
@@ -55,26 +57,83 @@ const quickLinks = [
   [null, "ĐẠI SỨ 2026", "AMBASSADOR 2026"],
 ];
 
+function FooterItem({ item, english }) {
+  const [path, vi, en, nested] = item;
+
+  return path ? (
+    <Link to={path}>
+      <span aria-hidden="true">{nested ? "·" : "›"}</span>
+      {english ? en : vi}
+    </Link>
+  ) : (
+    // TODO: Chỉ hiển thị nhãn, gắn liên kết khi có URL thật.
+    <span className="footer-link-label">
+      <span aria-hidden="true">{nested ? "·" : "›"}</span>{english ? en : vi}
+    </span>
+  );
+}
+
+// Mục cha có mục con (nested) -> hiển thị dạng dropdown
+function FooterGroup({ group, english }) {
+  const [open, setOpen] = useState(false);
+  const [, vi, en] = group.item;
+
+  return (
+    <li className="footer-group">
+      <div className="footer-group-row">
+        <FooterItem item={group.item} english={english} />
+        <button
+          type="button"
+          className="footer-toggle"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          aria-label={`${open ? (english ? "Collapse" : "Thu gọn") : (english ? "Expand" : "Mở rộng")}: ${english ? en : vi}`}
+        >
+          <ChevronDown size={16} />
+        </button>
+      </div>
+
+      <div className={`footer-collapse ${open ? "is-open" : ""}`} inert={!open}>
+        <ul className="footer-sublist">
+          {group.children.map((child, index) => (
+            <li key={index} className="footer-nested">
+              <FooterItem item={child} english={english} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </li>
+  );
+}
+
+// Gom các mục con (nested) vào mục cha đứng ngay trước nó
+const groupItems = (items) =>
+  items.reduce((groups, item) => {
+    const nested = item[3];
+
+    if (nested && groups.length) {
+      groups[groups.length - 1].children.push(item);
+    } else {
+      groups.push({ item, children: [] });
+    }
+
+    return groups;
+  }, []);
+
 function LinkColumn({ title, items, english, variant }) {
   return (
     <nav className={`footer-column ${variant || ""}`} aria-label={title}>
       <h2>{title}</h2>
       <ul>
-        {items.map(([path, vi, en, nested], index) => (
-          <li key={`${path}-${index}`} className={nested ? "footer-nested" : undefined}>
-            {path ? (
-              <Link to={path}>
-                <span aria-hidden="true">{nested ? "·" : "›"}</span>
-                {english ? en : vi}
-              </Link>
-            ) : (
-              // TODO: Chỉ hiển thị nhãn, gắn liên kết khi có URL thật.
-              <span className="footer-link-label">
-                <span aria-hidden="true">{nested ? "·" : "›"}</span>{english ? en : vi}
-              </span>
-            )}
-          </li>
-        ))}
+        {groupItems(items).map((group, index) =>
+          group.children.length ? (
+            <FooterGroup key={index} group={group} english={english} />
+          ) : (
+            <li key={index}>
+              <FooterItem item={group.item} english={english} />
+            </li>
+          )
+        )}
       </ul>
     </nav>
   );
