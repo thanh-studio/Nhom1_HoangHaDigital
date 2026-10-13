@@ -17,7 +17,6 @@ import Header, { translations } from "./components/Header";
 import Footer from "./components/Footer";
 
 import Personal from "./components/Sevices/Personal";
-import Business from "./components/Sevices/Business";
 import Automotive from "./components/Sevices/Automotive";
 
 import Events from "./components/Events";
@@ -468,17 +467,6 @@ function AppLayout() {
           <Route
             path="/services/personal"
             element={<Navigate to="/personal" replace />}
-          />
-
-          {/* DỊCH VỤ DOANH NGHIỆP */}
-          <Route
-            path="/business"
-            element={<Business language={language} />}
-          />
-
-          <Route
-            path="/services/business"
-            element={<Navigate to="/business" replace />}
           />
 
           {/* DỊCH VỤ SỰ KIỆN */}

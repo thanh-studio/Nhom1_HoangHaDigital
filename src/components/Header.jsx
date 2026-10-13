@@ -322,15 +322,6 @@ export default function Header({
               </NavLink>
 
               <NavLink
-                to="/business"
-                className="dropdown-link"
-                onClick={closeMenu}
-                tabIndex={servicesOpen ? 0 : -1}
-              >
-                {t.business}
-              </NavLink>
-
-              <NavLink
                 to="/automotive"
                 className="dropdown-link"
                 onClick={closeMenu}
