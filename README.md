@@ -1,4 +1,19 @@
-# React + Vite
+# Hoang Ha Digital
+
+## Cấu trúc dự án
+
+- `frontend/`: ứng dụng React + Vite, mã nguồn, tài nguyên và cấu hình frontend.
+- `goanywhere-backend/`: ứng dụng Spring Boot; xem [hướng dẫn backend](goanywhere-backend/README.md).
+
+## Chạy frontend
+
+```powershell
+cd frontend
+npm ci
+npm run dev
+```
+
+## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
