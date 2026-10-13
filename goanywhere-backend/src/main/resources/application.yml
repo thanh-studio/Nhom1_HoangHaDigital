@@ -4,3 +4,8 @@ spring:
 
 server:
   port: ${SERVER_PORT:8080}
+
+# Tạo JWT_SECRET dưới dạng Base64 từ khóa ngẫu nhiên tối thiểu 32 byte.
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
