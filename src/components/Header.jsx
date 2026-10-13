@@ -20,7 +20,7 @@ import "./Header.css";
 
 const translations = {
   vi: {
-    home: "Trang chủ",
+
     personal: "Cá nhân",
     business: "Doanh nghiệp",
     events: "Sự kiện",
@@ -38,7 +38,6 @@ const translations = {
   },
 
   en: {
-    home: "Home",
     personal: "Personal",
     business: "Business",
     events: "Events",

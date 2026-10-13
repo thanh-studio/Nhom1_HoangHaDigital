@@ -456,14 +456,9 @@ function AppLayout() {
           {/* TRANG CHỦ */}
           <Route
             path="/"
-            element={<Navigate to="/home" replace />}
+            element={<Navigate to="/company" replace />}
           />
-
-          <Route
-            path="/home"
-            element={<HomePage language={language} />}
-          />
-
+          
           {/* DỊCH VỤ CÁ NHÂN */}
           <Route
             path="/personal"

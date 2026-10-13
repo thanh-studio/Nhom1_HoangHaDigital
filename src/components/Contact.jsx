@@ -160,7 +160,7 @@ const Contact = ({ language = "vi" }) => {
             </div>
           </div>
 
-          <Link to="/home" className="contact-back-link">
+          <Link to="/company" className="contact-back-link">
             ← {vi ? "Quay về trang chủ" : "Back to home"}
           </Link>
         </div>
