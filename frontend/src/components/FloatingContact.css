@@ -1,137 +1,354 @@
+/* ========================================
+   NÚT LIÊN HỆ NHANH (cố định bên phải màn hình)
+   ======================================== */
+
 .floating-contact {
+  --fc-purple: #6035a5;
+  --fc-purple-light: #f2eaff;
+  --fc-orange: #ff8a3d;
+  --fc-text: #4a4158;
+
   position: fixed;
-  right: 0;
   top: 50%;
+  right: 16px;
   z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 9px;
-  width: 78px;
-  padding: 14px 8px;
-  background: linear-gradient(180deg, #ffbd08, #ffab00);
-  border-radius: 18px 0 0 18px;
-  box-shadow: 0 8px 28px rgba(92, 58, 15, 0.17);
+  gap: 4px;
+  width: 70px;
+  padding: 8px 6px;
+  border: 1px solid #ece4f7;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 45px rgba(53, 32, 75, 0.16);
+  backdrop-filter: blur(12px);
   transform: translateY(-50%);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
 }
+
+/* Trạng thái đã ẩn */
+.floating-contact.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(24px, -50%) scale(0.96);
+}
+
+/* ===== CÁC NÚT CHÍNH ===== */
 
 .floating-contact-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  width: 62px;
-  min-height: 61px;
-  padding: 7px 3px;
-  color: #ff9814;
-  background: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  box-shadow: 0 3px 0 rgba(78, 58, 20, 0.16);
+  gap: 5px;
+  width: 100%;
+  padding: 9px 2px 8px;
+  border-radius: 16px;
+  color: var(--fc-purple);
   text-decoration: none;
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .floating-contact-item svg {
-  width: 25px;
-  height: 25px;
-  stroke-width: 2.8;
+  width: 22px;
+  height: 22px;
+  stroke-width: 2;
+  transition: transform 0.2s ease;
 }
 
 .floating-contact-item span {
-  color: #3d3547;
-  font-size: 10px;
+  color: var(--fc-text);
+  font-size: 11px;
   font-weight: 600;
+  line-height: 1.2;
   text-align: center;
+  white-space: nowrap;
 }
 
 .floating-contact-item:hover {
-  background: #fff8eb;
-  box-shadow: 0 5px 12px rgba(81, 49, 10, 0.14);
-  transform: translateX(-5px);
+  background: var(--fc-purple-light);
 }
+
+.floating-contact-item:hover svg {
+  transform: scale(1.12);
+}
+
+/* Nút Hotline nổi bật màu cam */
+.floating-contact-item[href^="tel:"] {
+  margin-top: 2px;
+  color: #fff;
+  background: linear-gradient(135deg, #ffa25f, var(--fc-orange));
+  box-shadow: 0 8px 18px rgba(255, 138, 61, 0.35);
+}
+
+.floating-contact-item[href^="tel:"] span {
+  color: #fff;
+}
+
+.floating-contact-item[href^="tel:"]:hover {
+  background: linear-gradient(135deg, #ff964c, #f07423);
+  transform: translateY(-2px);
+}
+
+.floating-contact-item[href^="tel:"] svg {
+  animation: floating-ring 2.4s ease-in-out infinite;
+}
+
+/* ===== ZALO & MESSENGER ===== */
 
 .floating-contact-socials {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 8px;
+  width: 100%;
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid #ece4f7;
 }
 
 .floating-social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   color: #fff;
   font-weight: 800;
   text-decoration: none;
-  box-shadow: 0 5px 12px rgba(38, 39, 70, 0.13);
-  transition: transform 0.2s ease;
+  box-shadow: 0 6px 16px rgba(38, 39, 70, 0.16);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .floating-social-link:hover {
-  transform: scale(1.08);
+  box-shadow: 0 10px 22px rgba(38, 39, 70, 0.22);
+  transform: translateY(-2px) scale(1.06);
 }
 
 .floating-zalo {
-  color: #0878ff;
-  background: #fff;
-  border: 3px solid #0878ff;
-  font-size: 15px;
+  color: #fff;
+  background: #0068ff;
+  font-size: 13px;
+  letter-spacing: 0.2px;
 }
 
 .floating-messenger {
-  background: linear-gradient(135deg, #0878ff, #a331f4);
+  background: linear-gradient(135deg, #0a7cff, #a334fa);
 }
 
 .floating-messenger svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
+
+/* ===== NÚT ẨN (×) ===== */
+
+.floating-contact-close {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 50%;
+  color: #8a8199;
+  background: #f4f1f8;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.floating-contact-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.floating-contact-close:hover {
+  color: var(--fc-purple);
+  background: var(--fc-purple-light);
+  transform: rotate(90deg);
+}
+
+/* ===== NÚT TRÒN KHI ĐÃ THU GỌN ===== */
+
+.floating-contact-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(135deg, #7a4bc6, #6035a5);
+  box-shadow: 0 14px 32px rgba(96, 53, 165, 0.4);
+  cursor: pointer;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease,
+    box-shadow 0.2s ease;
+}
+
+.floating-contact-fab svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* Vòng sóng lan ra để gây chú ý */
+.floating-contact-fab::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #8b5fd6;
+  animation: floating-pulse 2s ease-out infinite;
+}
+
+.floating-contact-fab:hover {
+  box-shadow: 0 18px 40px rgba(96, 53, 165, 0.5);
+  transform: translateY(-3px);
+}
+
+.floating-contact-fab.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(0.6);
+}
+
+@keyframes floating-pulse {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+/* Viền focus khi dùng bàn phím */
+.floating-contact button:focus-visible,
+.floating-contact-fab:focus-visible,
+.floating-contact a:focus-visible {
+  outline: 3px solid #cbb6ed;
+  outline-offset: 2px;
+}
+
+/* Rung nhẹ icon điện thoại */
+@keyframes floating-ring {
+  0%,
+  70%,
+  100% {
+    transform: rotate(0);
+  }
+
+  75% {
+    transform: rotate(-14deg);
+  }
+
+  80% {
+    transform: rotate(12deg);
+  }
+
+  85% {
+    transform: rotate(-8deg);
+  }
+
+  90% {
+    transform: rotate(6deg);
+  }
+}
+
+/* ===== ĐIỆN THOẠI: THANH NGANG Ở ĐÁY ===== */
 
 @media (max-width: 768px) {
   .floating-contact {
     top: auto;
     right: 12px;
-    bottom: 18px;
-    gap: 7px;
-    width: 59px;
-    padding: 9px 5px;
-    border-radius: 16px;
+    bottom: 12px;
+    left: 12px;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2px;
+    width: auto;
+    padding: 6px;
+    border-radius: 20px;
     transform: none;
   }
 
+  .floating-contact.is-hidden {
+    transform: translateY(24px);
+  }
+
+  .floating-contact-close {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    margin: 0 0 0 4px;
+  }
+
+  .floating-contact-fab {
+    right: 16px;
+    bottom: 16px;
+    width: 52px;
+    height: 52px;
+  }
+
   .floating-contact-item {
-    width: 49px;
-    min-height: 49px;
-    border-radius: 10px;
+    flex: 1;
+    min-width: 0;
+    padding: 7px 2px 6px;
+    border-radius: 14px;
+  }
+
+  .floating-contact-item[href^="tel:"] {
+    margin-top: 0;
   }
 
   .floating-contact-item svg {
-    width: 21px;
-    height: 21px;
+    width: 20px;
+    height: 20px;
   }
 
   .floating-contact-item span {
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .floating-contact-socials {
-    gap: 7px;
-    margin-top: 8px;
+    flex-direction: row;
+    gap: 6px;
+    width: auto;
+    margin: 0 0 0 4px;
+    padding: 0 0 0 8px;
+    border-top: none;
+    border-left: 1px solid #ece4f7;
   }
 
   .floating-social-link {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .floating-zalo {
+    font-size: 12px;
   }
 }
 
@@ -140,5 +357,6 @@
   .floating-contact *::before,
   .floating-contact *::after {
     transition: none !important;
+    animation: none !important;
   }
 }
