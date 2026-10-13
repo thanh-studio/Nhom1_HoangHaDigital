@@ -67,6 +67,18 @@
 .footer-services a:hover { color: #fb923c; }
 .footer-column .footer-nested { padding-left: 16px; font-size: 13px; }
 .footer-nested a, .footer-nested .footer-link-label { color: #9ca3af; }
+/* Dropdown cho mục cha có mục con */
+.footer-group-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.footer-toggle { display: grid; place-items: center; flex-shrink: 0; width: 26px; height: 26px; padding: 0; color: #9ca3af; background: #ffffff0d; border: none; border-radius: 6px; cursor: pointer; transition: color .2s ease, background .2s ease; }
+.footer-toggle:hover { color: #fb923c; background: #ffffff1a; }
+.footer-toggle:focus-visible { outline: 3px solid #febe00; outline-offset: 2px; }
+.footer-toggle svg { transition: transform .25s ease; }
+.footer-toggle[aria-expanded="true"] { color: #fb923c; }
+.footer-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.footer-collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .25s ease; }
+.footer-collapse.is-open { grid-template-rows: 1fr; }
+.footer-sublist { min-height: 0; overflow: hidden; list-style: none; padding: 0; margin: 0; }
+.footer-collapse.is-open .footer-sublist { padding-top: 8px; }
 .footer-bottom { margin-top: 32px; padding-top: 24px; border-top: 1px solid #374151; text-align: center; }
 .footer-quick-links { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px 16px; }
 .footer-quick-links > * { color: #9ca3af; }
@@ -94,5 +106,5 @@
   .footer-column li + li { margin-top: 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .footer-store-links a, .footer-column a { transition: none; }
+  .footer-store-links a, .footer-column a, .footer-toggle, .footer-toggle svg, .footer-collapse { transition: none; }
 }
