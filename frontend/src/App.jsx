@@ -531,6 +531,7 @@ function AppLayout() {
             }
           />
         </Routes>
+        
       </div>
 
       {/* FOOTER */}
