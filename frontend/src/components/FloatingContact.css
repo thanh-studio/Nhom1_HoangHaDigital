@@ -1,0 +1,144 @@
+.floating-contact {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 78px;
+  padding: 14px 8px;
+  background: linear-gradient(180deg, #ffbd08, #ffab00);
+  border-radius: 18px 0 0 18px;
+  box-shadow: 0 8px 28px rgba(92, 58, 15, 0.17);
+  transform: translateY(-50%);
+}
+
+.floating-contact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 62px;
+  min-height: 61px;
+  padding: 7px 3px;
+  color: #ff9814;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 3px 0 rgba(78, 58, 20, 0.16);
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.floating-contact-item svg {
+  width: 25px;
+  height: 25px;
+  stroke-width: 2.8;
+}
+
+.floating-contact-item span {
+  color: #3d3547;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.floating-contact-item:hover {
+  background: #fff8eb;
+  box-shadow: 0 5px 12px rgba(81, 49, 10, 0.14);
+  transform: translateX(-5px);
+}
+
+.floating-contact-socials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.floating-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 5px 12px rgba(38, 39, 70, 0.13);
+  transition: transform 0.2s ease;
+}
+
+.floating-social-link:hover {
+  transform: scale(1.08);
+}
+
+.floating-zalo {
+  color: #0878ff;
+  background: #fff;
+  border: 3px solid #0878ff;
+  font-size: 15px;
+}
+
+.floating-messenger {
+  background: linear-gradient(135deg, #0878ff, #a331f4);
+}
+
+.floating-messenger svg {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 768px) {
+  .floating-contact {
+    top: auto;
+    right: 12px;
+    bottom: 18px;
+    gap: 7px;
+    width: 59px;
+    padding: 9px 5px;
+    border-radius: 16px;
+    transform: none;
+  }
+
+  .floating-contact-item {
+    width: 49px;
+    min-height: 49px;
+    border-radius: 10px;
+  }
+
+  .floating-contact-item svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .floating-contact-item span {
+    font-size: 9px;
+  }
+
+  .floating-contact-socials {
+    gap: 7px;
+    margin-top: 8px;
+  }
+
+  .floating-social-link {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-contact *,
+  .floating-contact *::before,
+  .floating-contact *::after {
+    transition: none !important;
+  }
+}

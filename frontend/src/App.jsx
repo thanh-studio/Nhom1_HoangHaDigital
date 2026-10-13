@@ -29,6 +29,7 @@ import Events from "./components/Events";
 import Driver from "./components/Driver";
 import Company from "./components/Company";
 import Contact from "./components/Contact";
+import FloatingContact from "./components/FloatingContact";
 
 import heroImg from "./assets/hero.png";
 
@@ -469,7 +470,7 @@ function AppLayout() {
           <Route path="/login" element={<Login language={language} />} />
 
           <Route path="/register" element={<Register language={language} />} />
-          
+
           <Route
             path="/booking"
             element={<Booking language={language} />}
@@ -563,6 +564,7 @@ function AppLayout() {
 
       {/* FOOTER */}
       <Footer language={language} />
+      <FloatingContact />
     </div>
   );
 }
