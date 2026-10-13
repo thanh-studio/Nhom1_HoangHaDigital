@@ -1,0 +1,5 @@
+# Activate with SPRING_PROFILES_ACTIVE=test.
+# Use a dedicated test database; do not use production credentials.
+logging:
+  level:
+    com.goanywhere.backend: WARN

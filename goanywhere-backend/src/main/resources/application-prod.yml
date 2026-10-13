@@ -1,0 +1,11 @@
+# Activate with SPRING_PROFILES_ACTIVE=prod.
+# Supply connection settings through the deployment environment.
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+logging:
+  level:
+    com.goanywhere.backend: INFO
