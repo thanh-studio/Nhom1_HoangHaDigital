@@ -497,11 +497,6 @@ export default function Header({
             <span>{t.login}</span>
           </Link>
 
-          <Link to="/register" className="header-register">
-            <UserRoundPlus size={17} />
-            <span>{t.register}</span>
-            <ArrowRight size={15} />
-          </Link>
         </div>
       </div>
     </header>

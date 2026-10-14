@@ -26,10 +26,14 @@ import Personal from "./components/Sevices/Personal";
 import Automotive from "./components/Sevices/Automotive";
 
 import Events from "./components/Events";
-import Driver from "./components/Driver";
+import Driver from "./components/Sevices/Driver";
 import Company from "./components/Company";
 import Contact from "./components/Contact";
 import FloatingContact from "./components/FloatingContact";
+
+import Reviews from "./components/Pages/Reviews";
+import Business from "./components/Pages/Business";
+import Payment from "./components/Pages/Payment";
 
 import heroImg from "./assets/hero.png";
 
@@ -537,6 +541,22 @@ function AppLayout() {
             element={<Contact language={language} />}
           />
 
+          {/* ĐÁNH GIÁ */}
+          <Route
+            path="/reviews"
+            element={<Reviews language={language} />}
+          />
+
+          <Route
+            path="/business"
+            element={<Business language={language} />}
+          />
+
+          <Route
+            path="/payment"
+            element={<Payment language={language} />}
+          />
+          
           {/* TRANG KHÔNG TỒN TẠI */}
           <Route
             path="*"

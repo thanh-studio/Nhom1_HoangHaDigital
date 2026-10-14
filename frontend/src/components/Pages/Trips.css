@@ -1700,3 +1700,312 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* ========================================
+   ĐÁNH GIÁ CHUYẾN ĐI
+======================================== */
+
+.trips-review-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 13px;
+  border: 1px solid #f5d18b;
+  border-radius: 10px;
+  background: #fff9ec;
+  color: #a45a00;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.trips-review-button:hover {
+  border-color: #f0ad35;
+  background: #ffefd1;
+  transform: translateY(-1px);
+}
+
+.trips-review-button-done {
+  border-color: #bce8ce;
+  background: #effbf3;
+  color: #16834b;
+}
+
+.trips-review-saved {
+  margin: 0 22px 18px;
+  padding: 13px 15px;
+  border: 1px solid #f2e7ca;
+  border-radius: 12px;
+  background: #fffcf5;
+}
+
+.trips-review-saved-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.trips-review-saved-heading > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #16834b;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.trips-review-saved-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #f1ad20;
+}
+
+.trips-review-saved p {
+  margin: 9px 0 0;
+  color: #655b4d;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.trips-review-modal {
+  width: min(100% - 32px, 560px);
+}
+
+.trips-review-subtitle {
+  margin: 0 0 20px;
+  color: #777087;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.trips-review-trip {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 14px;
+  border: 1px solid #eee7fa;
+  border-radius: 14px;
+  background: #faf8ff;
+  color: #6938c5;
+}
+
+.trips-review-trip > svg {
+  flex-shrink: 0;
+}
+
+.trips-review-trip > div {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.trips-review-trip strong {
+  color: #35234f;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.trips-review-trip span {
+  color: #777087;
+  font-size: 12px;
+}
+
+.trips-review-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #35234f;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.trips-review-label > span:first-child {
+  color: #e45a36;
+}
+
+.trips-review-optional {
+  color: #9991a7 !important;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.trips-review-stars-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.trips-review-stars-input button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #d7d0e3;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.trips-review-stars-input button:hover {
+  color: #f1ad20;
+  transform: scale(1.1);
+}
+
+.trips-review-stars-input button.selected {
+  color: #f1ad20;
+}
+
+.trips-review-rating-text {
+  min-height: 20px;
+  margin: 9px 0 22px;
+  color: #a45a00;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.trips-review-textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 110px;
+  padding: 13px 14px;
+  border: 1px solid #e4ddef;
+  border-radius: 12px;
+  outline: none;
+  background: #fff;
+  color: #35234f;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.trips-review-textarea:focus {
+  border-color: #6938c5;
+  box-shadow: 0 0 0 3px rgb(105 56 197 / 10%);
+}
+
+.trips-review-textarea::placeholder {
+  color: #aaa2b7;
+}
+
+.trips-review-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.trips-review-footer > span {
+  margin-right: auto;
+  color: #9991a7;
+  font-size: 12px;
+}
+
+.trips-review-cancel,
+.trips-review-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 14px;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.trips-review-cancel {
+  border: 1px solid #e4ddef;
+  background: #fff;
+  color: #625871;
+}
+
+.trips-review-cancel:hover {
+  background: #f7f4fc;
+}
+
+.trips-review-submit {
+  border: 1px solid #6938c5;
+  background: #6938c5;
+  color: #fff;
+}
+
+.trips-review-submit:hover {
+  border-color: #4d249c;
+  background: #4d249c;
+}
+
+.trips-review-error {
+  margin: 12px 0 0;
+  color: #d43b48;
+  font-size: 13px;
+}
+
+.trips-modal-review {
+  margin: 18px 0;
+  padding: 14px;
+  border-radius: 12px;
+  background: #fffcf5;
+}
+
+.trips-modal-review > strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #16834b;
+  font-size: 13px;
+}
+
+.trips-modal-review > p {
+  margin: 9px 0 0;
+  color: #655b4d;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .trips-review-saved {
+    margin-right: 14px;
+    margin-left: 14px;
+  }
+
+  .trips-review-footer {
+    justify-content: stretch;
+  }
+
+  .trips-review-footer > span {
+    flex-basis: 100%;
+  }
+
+  .trips-review-cancel,
+  .trips-review-submit {
+    flex: 1;
+  }
+
+  .trips-review-stars-input {
+    gap: 4px;
+  }
+}

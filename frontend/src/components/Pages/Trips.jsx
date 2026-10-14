@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   CarFront,
@@ -18,6 +19,9 @@ import {
   ArrowUpRight,
   History,
   Plus,
+  Star,
+  MessageSquareText,
+  X,
 } from "lucide-react";
 
 import "./Trips.css";
@@ -70,6 +74,29 @@ const translations = {
     footerDesc:
       "Đặt xe nhanh chóng, di chuyển thoải mái cùng GoAnywhere.",
     footerButton: "Đặt xe ngay",
+
+    review: "Đánh giá chuyến đi",
+    reviewTitle: "Bạn cảm thấy chuyến đi thế nào?",
+    reviewSubtitle:
+      "Chia sẻ trải nghiệm của bạn để GoAnywhere phục vụ tốt hơn.",
+    ratingLabel: "Mức độ hài lòng",
+    reviewPlaceholder:
+      "Nhập nhận xét về tài xế và chuyến đi...",
+    submitReview: "Gửi đánh giá",
+    cancelReview: "Để sau",
+    alreadyReviewed: "Đã đánh giá",
+    reviewSuccess: "Đánh giá đã được lưu!",
+    ratingRequired: "Vui lòng chọn số sao trước khi gửi.",
+    reviewCount: "đánh giá",
+    rating1: "Rất không hài lòng",
+    rating2: "Chưa hài lòng",
+    rating3: "Bình thường",
+    rating4: "Hài lòng",
+    rating5: "Rất hài lòng",
+    commentLabel: "Nhận xét của bạn",
+    reviewOptional: "Không bắt buộc",
+    close: "Đóng",
+    noComment: "Không có nhận xét.",
   },
 
   en: {
@@ -119,11 +146,32 @@ const translations = {
     footerDesc:
       "Book quickly and travel comfortably with GoAnywhere.",
     footerButton: "Book now",
+
+    review: "Rate this trip",
+    reviewTitle: "How was your trip?",
+    reviewSubtitle:
+      "Share your experience to help GoAnywhere improve.",
+    ratingLabel: "Your rating",
+    reviewPlaceholder: "Review your driver and trip...",
+    submitReview: "Submit review",
+    cancelReview: "Maybe later",
+    alreadyReviewed: "Reviewed",
+    reviewSuccess: "Your review has been saved!",
+    ratingRequired: "Please select a star rating.",
+    reviewCount: "reviews",
+    rating1: "Very dissatisfied",
+    rating2: "Dissatisfied",
+    rating3: "Average",
+    rating4: "Satisfied",
+    rating5: "Very satisfied",
+    commentLabel: "Your comments",
+    reviewOptional: "Optional",
+    close: "Close",
+    noComment: "No comment.",
   },
 };
 
-// Dữ liệu minh họa giao diện.
-// Khi tích hợp backend, thay bằng dữ liệu lấy từ API.
+// Dữ liệu minh họa. Thay bằng dữ liệu API khi kết nối backend.
 const sampleTrips = [
   {
     id: "GA-20261001",
@@ -192,6 +240,8 @@ const sampleTrips = [
   },
 ];
 
+const REVIEW_STORAGE_KEY = "goanywhere_trip_reviews";
+
 const formatPrice = (price, language) =>
   new Intl.NumberFormat(
     language === "vi" ? "vi-VN" : "en-US",
@@ -221,6 +271,35 @@ export default function Trips({ language = "vi" }) {
   const [vehicleFilter, setVehicleFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [selectedTrip, setSelectedTrip] = useState(null);
+
+  // Modal đánh giá
+  const [reviewTrip, setReviewTrip] = useState(null);
+  const [reviewRating, setReviewRating] = useState(0);
+  const [reviewComment, setReviewComment] = useState("");
+  const [reviewError, setReviewError] = useState("");
+  const [reviewNotice, setReviewNotice] = useState("");
+
+  // Đọc đánh giá đã lưu trên trình duyệt
+  const [reviews, setReviews] = useState(() => {
+    try {
+      const saved = localStorage.getItem(REVIEW_STORAGE_KEY);
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  // Lưu lại sau mỗi lần đánh giá thay đổi
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        REVIEW_STORAGE_KEY,
+        JSON.stringify(reviews)
+      );
+    } catch {
+      // Có thể không lưu được nếu trình duyệt chặn localStorage.
+    }
+  }, [reviews]);
 
   const getStatusLabel = (status) => {
     const labels = {
@@ -259,6 +338,18 @@ export default function Trips({ language = "vi" }) {
     return <CalendarDays size={15} />;
   };
 
+  const getRatingLabel = (rating) => {
+    const labels = {
+      1: t.rating1,
+      2: t.rating2,
+      3: t.rating3,
+      4: t.rating4,
+      5: t.rating5,
+    };
+
+    return labels[rating] || "";
+  };
+
   const normalizedKeyword = keyword.trim().toLowerCase();
 
   const filteredTrips = sampleTrips.filter((trip) => {
@@ -267,12 +358,9 @@ export default function Trips({ language = "vi" }) {
 
     const matchesKeyword =
       !normalizedKeyword ||
-      [
-        trip.id,
-        trip.pickup,
-        trip.destination,
-      ].some((value) =>
-        value.toLowerCase().includes(normalizedKeyword)
+      [trip.id, trip.pickup, trip.destination].some(
+        (value) =>
+          value.toLowerCase().includes(normalizedKeyword)
       );
 
     const matchesVehicle =
@@ -311,6 +399,49 @@ export default function Trips({ language = "vi" }) {
     setStatusFilter("all");
   };
 
+  const openReview = (trip) => {
+    setReviewTrip(trip);
+    setReviewRating(reviews[trip.id]?.rating || 0);
+    setReviewComment(reviews[trip.id]?.comment || "");
+    setReviewError("");
+    setReviewNotice("");
+  };
+
+  const closeReview = () => {
+    setReviewTrip(null);
+    setReviewRating(0);
+    setReviewComment("");
+    setReviewError("");
+    setReviewNotice("");
+  };
+
+  const handleSubmitReview = (event) => {
+    event.preventDefault();
+
+    if (!reviewTrip) return;
+
+    if (reviewRating < 1 || reviewRating > 5) {
+      setReviewError(t.ratingRequired);
+      return;
+    }
+
+    const review = {
+      tripId: reviewTrip.id,
+      rating: reviewRating,
+      comment: reviewComment.trim(),
+      createdAt: new Date().toISOString(),
+    };
+
+    setReviews((previous) => ({
+      ...previous,
+      [reviewTrip.id]: review,
+    }));
+
+    setReviewError("");
+    setReviewNotice(t.reviewSuccess);
+    closeReview();
+  };
+
   return (
     <main className="trips-page">
       {/* HERO */}
@@ -326,7 +457,6 @@ export default function Trips({ language = "vi" }) {
             </span>
 
             <h1>{t.title}</h1>
-
             <p>{t.subtitle}</p>
 
             <Link
@@ -360,14 +490,18 @@ export default function Trips({ language = "vi" }) {
               <div className="trips-floating-card trips-floating-card-top">
                 <CircleCheck size={18} />
                 <span>
-                  {en ? "Your trip, your way" : "Hành trình của bạn"}
+                  {en
+                    ? "Your trip, your way"
+                    : "Hành trình của bạn"}
                 </span>
               </div>
 
               <div className="trips-floating-card trips-floating-card-bottom">
                 <Route size={18} />
                 <span>
-                  {en ? "Travel with ease" : "Di chuyển dễ dàng"}
+                  {en
+                    ? "Travel with ease"
+                    : "Di chuyển dễ dàng"}
                 </span>
               </div>
             </div>
@@ -382,7 +516,6 @@ export default function Trips({ language = "vi" }) {
             <div className="trips-stat-icon purple">
               <CarFront size={23} />
             </div>
-
             <div>
               <span>{t.total}</span>
               <strong>{stats.total}</strong>
@@ -396,7 +529,6 @@ export default function Trips({ language = "vi" }) {
             <div className="trips-stat-icon orange">
               <CalendarDays size={23} />
             </div>
-
             <div>
               <span>{t.upcomingStat}</span>
               <strong>{stats.upcoming}</strong>
@@ -410,7 +542,6 @@ export default function Trips({ language = "vi" }) {
             <div className="trips-stat-icon green">
               <CircleCheck size={23} />
             </div>
-
             <div>
               <span>{t.completedStat}</span>
               <strong>{stats.completed}</strong>
@@ -424,7 +555,6 @@ export default function Trips({ language = "vi" }) {
             <div className="trips-stat-icon red">
               <CircleX size={23} />
             </div>
-
             <div>
               <span>{t.cancelledStat}</span>
               <strong>{stats.cancelled}</strong>
@@ -466,7 +596,6 @@ export default function Trips({ language = "vi" }) {
                 onClick={() => setActiveTab(tab.key)}
               >
                 {tab.label}
-
                 <span>
                   {tab.key === "all"
                     ? stats.total
@@ -543,140 +672,188 @@ export default function Trips({ language = "vi" }) {
           {/* DANH SÁCH CHUYẾN */}
           {filteredTrips.length > 0 ? (
             <div className="trips-list">
-              {filteredTrips.map((trip) => (
-                <article
-                  className="trips-card"
-                  key={trip.id}
-                >
-                  <div className="trips-card-top">
-                    <div className="trips-card-code">
-                      <span className="trips-car-icon">
-                        <CarFront size={24} />
-                      </span>
+              {filteredTrips.map((trip) => {
+                const savedReview = reviews[trip.id];
 
-                      <div>
-                        <span>{t.bookingCode}</span>
-                        <strong>{trip.id}</strong>
-                      </div>
-                    </div>
+                return (
+                  <article className="trips-card" key={trip.id}>
+                    <div className="trips-card-top">
+                      <div className="trips-card-code">
+                        <span className="trips-car-icon">
+                          <CarFront size={24} />
+                        </span>
 
-                    <span
-                      className={`trips-status trips-status-${trip.status}`}
-                    >
-                      {getStatusIcon(trip.status)}
-                      {getStatusLabel(trip.status)}
-                    </span>
-                  </div>
-
-                  <div className="trips-card-content">
-                    <div className="trips-route">
-                      <div className="trips-route-line">
-                        <span className="trips-dot pickup-dot" />
-                        <span className="trips-route-vertical" />
-                        <span className="trips-dot destination-dot" />
-                      </div>
-
-                      <div className="trips-route-locations">
-                        <div className="trips-location">
-                          <span>{t.pickup}</span>
-                          <strong>{trip.pickup}</strong>
-                        </div>
-
-                        <div className="trips-location">
-                          <span>{t.destination}</span>
-                          <strong>{trip.destination}</strong>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="trips-card-details">
-                      <div className="trips-detail-item">
-                        <CalendarDays size={18} />
                         <div>
-                          <span>{t.date}</span>
-                          <strong>
-                            {formatDate(trip.date, language)}
-                          </strong>
+                          <span>{t.bookingCode}</span>
+                          <strong>{trip.id}</strong>
                         </div>
                       </div>
-
-                      <div className="trips-detail-item">
-                        <Clock3 size={18} />
-                        <div>
-                          <span>{t.time}</span>
-                          <strong>{trip.time}</strong>
-                        </div>
-                      </div>
-
-                      <div className="trips-detail-item">
-                        <CarFront size={18} />
-                        <div>
-                          <span>{t.vehicle}</span>
-                          <strong>
-                            {getVehicleLabel(trip.vehicle)}
-                          </strong>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="trips-card-price">
-                      <span>{t.price}</span>
-                      <strong>
-                        {formatPrice(trip.price, language)}
-                      </strong>
 
                       <span
-                        className={`trips-payment ${
-                          trip.payment === "paid"
-                            ? "trips-payment-paid"
-                            : "trips-payment-pending"
-                        }`}
+                        className={`trips-status trips-status-${trip.status}`}
                       >
-                        <ReceiptText size={14} />
-                        {trip.payment === "paid"
-                          ? t.paid
-                          : t.pending}
+                        {getStatusIcon(trip.status)}
+                        {getStatusLabel(trip.status)}
                       </span>
                     </div>
-                  </div>
 
-                  <div className="trips-card-footer">
-                    <span className="trips-distance">
-                      <Route size={16} />
-                      {trip.distance}
-                      <span className="trips-distance-separator">
-                        ·
-                      </span>
-                      {trip.duration}
-                    </span>
+                    <div className="trips-card-content">
+                      <div className="trips-route">
+                        <div className="trips-route-line">
+                          <span className="trips-dot pickup-dot" />
+                          <span className="trips-route-vertical" />
+                          <span className="trips-dot destination-dot" />
+                        </div>
 
-                    <div className="trips-card-actions">
-                      <button
-                        type="button"
-                        className="trips-details-button"
-                        onClick={() => setSelectedTrip(trip)}
-                      >
-                        {t.details}
-                        <ArrowUpRight size={17} />
-                      </button>
+                        <div className="trips-route-locations">
+                          <div className="trips-location">
+                            <span>{t.pickup}</span>
+                            <strong>{trip.pickup}</strong>
+                          </div>
 
-                      {trip.status !== "cancelled" && (
-                        <Link
-                          to={`/booking?pickup=${encodeURIComponent(
-                            trip.pickup
-                          )}&destination=${encodeURIComponent(
-                            trip.destination
-                          )}`}
-                          className="trips-book-again"
+                          <div className="trips-location">
+                            <span>{t.destination}</span>
+                            <strong>{trip.destination}</strong>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="trips-card-details">
+                        <div className="trips-detail-item">
+                          <CalendarDays size={18} />
+                          <div>
+                            <span>{t.date}</span>
+                            <strong>
+                              {formatDate(trip.date, language)}
+                            </strong>
+                          </div>
+                        </div>
+
+                        <div className="trips-detail-item">
+                          <Clock3 size={18} />
+                          <div>
+                            <span>{t.time}</span>
+                            <strong>{trip.time}</strong>
+                          </div>
+                        </div>
+
+                        <div className="trips-detail-item">
+                          <CarFront size={18} />
+                          <div>
+                            <span>{t.vehicle}</span>
+                            <strong>
+                              {getVehicleLabel(trip.vehicle)}
+                            </strong>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="trips-card-price">
+                        <span>{t.price}</span>
+                        <strong>
+                          {formatPrice(trip.price, language)}
+                        </strong>
+
+                        <span
+                          className={`trips-payment ${
+                            trip.payment === "paid"
+                              ? "trips-payment-paid"
+                              : "trips-payment-pending"
+                          }`}
                         >
-                          {t.bookAgain}
-                          <ArrowRight size={16} />
-                        </Link>
-                      )}
+                          <ReceiptText size={14} />
+                          {trip.payment === "paid"
+                            ? t.paid
+                            : t.pending}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              ))}
+
+                    {/* HIỂN THỊ ĐÁNH GIÁ ĐÃ GỬI */}
+                    {trip.status === "completed" && savedReview && (
+                      <div className="trips-review-saved">
+                        <div className="trips-review-saved-heading">
+                          <span>
+                            <CircleCheck size={16} />
+                            {t.alreadyReviewed}
+                          </span>
+
+                          <span className="trips-review-saved-stars">
+                            {Array.from(
+                              { length: savedReview.rating },
+                              (_, index) => (
+                                <Star
+                                  key={index}
+                                  size={15}
+                                  fill="currentColor"
+                                />
+                              )
+                            )}
+                          </span>
+                        </div>
+
+                        {savedReview.comment && (
+                          <p>{savedReview.comment}</p>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="trips-card-footer">
+                      <span className="trips-distance">
+                        <Route size={16} />
+                        {trip.distance}
+                        <span className="trips-distance-separator">
+                          ·
+                        </span>
+                        {trip.duration}
+                      </span>
+
+                      <div className="trips-card-actions">
+                        <button
+                          type="button"
+                          className="trips-details-button"
+                          onClick={() => setSelectedTrip(trip)}
+                        >
+                          {t.details}
+                          <ArrowUpRight size={17} />
+                        </button>
+
+                        {trip.status === "completed" && (
+                          <button
+                            type="button"
+                            className={
+                              savedReview
+                                ? "trips-review-button trips-review-button-done"
+                                : "trips-review-button"
+                            }
+                            onClick={() => openReview(trip)}
+                          >
+                            <Star
+                              size={16}
+                              fill={savedReview ? "currentColor" : "none"}
+                            />
+                            {savedReview ? t.alreadyReviewed : t.review}
+                          </button>
+                        )}
+
+                        {trip.status !== "cancelled" && (
+                          <Link
+                            to={`/booking?pickup=${encodeURIComponent(
+                              trip.pickup
+                            )}&destination=${encodeURIComponent(
+                              trip.destination
+                            )}`}
+                            className="trips-book-again"
+                          >
+                            {t.bookAgain}
+                            <ArrowRight size={16} />
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           ) : (
             <div className="trips-empty">
@@ -733,17 +910,15 @@ export default function Trips({ language = "vi" }) {
             <div className="trips-modal-header">
               <div>
                 <span>{t.bookingCode}</span>
-                <h2 id="trips-modal-title">
-                  {selectedTrip.id}
-                </h2>
+                <h2 id="trips-modal-title">{selectedTrip.id}</h2>
               </div>
 
               <button
                 type="button"
                 onClick={() => setSelectedTrip(null)}
-                aria-label={en ? "Close details" : "Đóng chi tiết"}
+                aria-label={t.close}
               >
-                <CircleX size={23} />
+                <X size={23} />
               </button>
             </div>
 
@@ -804,6 +979,27 @@ export default function Trips({ language = "vi" }) {
               </div>
             </div>
 
+            {reviews[selectedTrip.id] && (
+              <div className="trips-modal-review">
+                <strong>{t.alreadyReviewed}</strong>
+                <div className="trips-review-saved-stars">
+                  {Array.from(
+                    { length: reviews[selectedTrip.id].rating },
+                    (_, index) => (
+                      <Star
+                        key={index}
+                        size={16}
+                        fill="currentColor"
+                      />
+                    )
+                  )}
+                </div>
+                <p>
+                  {reviews[selectedTrip.id].comment || t.noComment}
+                </p>
+              </div>
+            )}
+
             <div className="trips-modal-total">
               <span>{t.price}</span>
               <strong>
@@ -816,8 +1012,150 @@ export default function Trips({ language = "vi" }) {
               className="trips-modal-close-button"
               onClick={() => setSelectedTrip(null)}
             >
-              {en ? "Close" : "Đóng"}
+              {t.close}
             </button>
+          </section>
+        </div>
+      )}
+
+      {/* MODAL ĐÁNH GIÁ */}
+      {reviewTrip && (
+        <div
+          className="trips-modal-overlay"
+          onClick={closeReview}
+          role="presentation"
+        >
+          <section
+            className="trips-modal trips-review-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="review-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="trips-modal-header">
+              <div>
+                <span>{reviewTrip.id}</span>
+                <h2 id="review-modal-title">{t.reviewTitle}</h2>
+              </div>
+
+              <button
+                type="button"
+                onClick={closeReview}
+                aria-label={t.close}
+              >
+                <X size={23} />
+              </button>
+            </div>
+
+            <p className="trips-review-subtitle">
+              {t.reviewSubtitle}
+            </p>
+
+            <div className="trips-review-trip">
+              <CarFront size={23} />
+
+              <div>
+                <strong>
+                  {reviewTrip.pickup} → {reviewTrip.destination}
+                </strong>
+                <span>
+                  {formatDate(reviewTrip.date, language)} ·{" "}
+                  {reviewTrip.time}
+                </span>
+              </div>
+            </div>
+
+            <form onSubmit={handleSubmitReview}>
+              <label className="trips-review-label">
+                {t.ratingLabel} <span>*</span>
+              </label>
+
+              <div
+                className="trips-review-stars-input"
+                role="group"
+                aria-label={t.ratingLabel}
+              >
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    type="button"
+                    className={
+                      star <= reviewRating ? "selected" : ""
+                    }
+                    onClick={() => {
+                      setReviewRating(star);
+                      setReviewError("");
+                    }}
+                    aria-label={`${star} ${
+                      en ? "stars" : "sao"
+                    }`}
+                    aria-pressed={reviewRating === star}
+                  >
+                    <Star
+                      size={34}
+                      fill={
+                        star <= reviewRating
+                          ? "currentColor"
+                          : "none"
+                      }
+                    />
+                  </button>
+                ))}
+              </div>
+
+              <p className="trips-review-rating-text">
+                {getRatingLabel(reviewRating)}
+              </p>
+
+              <label
+                className="trips-review-label"
+                htmlFor="trips-review-comment"
+              >
+                {t.commentLabel}
+                <span className="trips-review-optional">
+                  {" "}
+                  ({t.reviewOptional})
+                </span>
+              </label>
+
+              <textarea
+                id="trips-review-comment"
+                className="trips-review-textarea"
+                value={reviewComment}
+                onChange={(event) =>
+                  setReviewComment(event.target.value)
+                }
+                placeholder={t.reviewPlaceholder}
+                rows={4}
+                maxLength={1000}
+              />
+
+              <div className="trips-review-footer">
+                <span>{reviewComment.length}/1000</span>
+
+                <button
+                  type="button"
+                  className="trips-review-cancel"
+                  onClick={closeReview}
+                >
+                  {t.cancelReview}
+                </button>
+
+                <button
+                  type="submit"
+                  className="trips-review-submit"
+                >
+                  <MessageSquareText size={17} />
+                  {t.submitReview}
+                </button>
+              </div>
+
+              {reviewError && (
+                <p className="trips-review-error" role="alert">
+                  {reviewError}
+                </p>
+              )}
+            </form>
           </section>
         </div>
       )}

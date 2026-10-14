@@ -1,252 +1,266 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
+  ArrowRight,
   CarFront,
-  Check,
+  CheckCircle2,
   Clock3,
   MapPin,
+  Search,
   ShieldCheck,
   Sparkles,
-  ArrowRight,
-  CalendarDays,
   Users,
-  BriefcaseBusiness,
-  Plane,
-  UserRound,
+  AlertCircle,
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
 import "./Pricing.css";
 
-const pricingData = {
-  vi: {
-    badge: "BẢNG GIÁ DỊCH VỤ",
-    title: "Chọn hành trình,",
-    titleHighlight: "chọn mức giá phù hợp",
-    description:
-      "Giá cả minh bạch, dịch vụ chuyên nghiệp. GoAnywhere đồng hành cùng bạn trên mọi hành trình.",
-    primaryButton: "Đặt xe ngay",
-    secondaryButton: "Tìm hiểu dịch vụ",
-    sectionLabel: "BẢNG GIÁ THAM KHẢO",
-    sectionTitle: "Lựa chọn phù hợp với bạn",
-    sectionDescription:
-      "Đa dạng dòng xe và dịch vụ, đáp ứng mọi nhu cầu di chuyển.",
-    popular: "ĐƯỢC LỰA CHỌN NHIỀU",
-    perKm: "/ km",
-    book: "Chọn xe này",
-    featuresTitle: "Điều bạn nhận được",
-    featuresDescription:
-      "Không chỉ là một chuyến đi, đó còn là trải nghiệm an tâm và thoải mái.",
-    features: [
-      {
-        title: "Giá cả minh bạch",
-        description:
-          "Thông tin giá tham khảo rõ ràng để bạn dễ dàng lên kế hoạch.",
-      },
-      {
-        title: "Tài xế chuyên nghiệp",
-        description:
-          "Đội ngũ tài xế tận tâm, lịch sự và chú trọng an toàn.",
-      },
-      {
-        title: "Đặt xe linh hoạt",
-        description:
-          "Chủ động lựa chọn dịch vụ, thời gian và nhu cầu di chuyển.",
-      },
-    ],
-    noteTitle: "Lưu ý về giá dịch vụ",
-    note:
-      "Giá hiển thị là giá tham khảo. Chi phí thực tế có thể thay đổi tùy quãng đường, thời gian, loại dịch vụ, điểm đón/trả và các yêu cầu bổ sung. Vui lòng xác nhận giá khi đặt xe.",
-    ctaTitle: "Sẵn sàng cho hành trình tiếp theo?",
-    ctaDescription:
-      "Đặt xe cùng GoAnywhere để tận hưởng hành trình tiện lợi, an toàn và thoải mái.",
-    ctaButton: "Bắt đầu đặt xe",
-    cars: [
-      {
-        id: "4-seat",
-        name: "Xe 4 chỗ",
-        subtitle: "Gọn nhẹ, tiện lợi",
-        price: "7.000",
-        unit: "VNĐ",
-        description:
-          "Phù hợp cho cá nhân, cặp đôi hoặc những chuyến đi ngắn.",
-        features: [
-          "Tối đa 4 hành khách",
-          "Phù hợp di chuyển nội thành",
-          "Điều hòa thoải mái",
-          "Đón trả linh hoạt",
-        ],
-        icon: "car",
-      },
-      {
-        id: "7-seat",
-        name: "Xe 7 chỗ",
-        subtitle: "Rộng rãi, thoải mái",
-        price: "9.000",
-        unit: "VNĐ",
-        description:
-          "Lựa chọn lý tưởng cho gia đình, nhóm bạn và hành lý nhiều.",
-        features: [
-          "Tối đa 7 hành khách",
-          "Không gian rộng rãi",
-          "Phù hợp đi du lịch",
-          "Thoải mái cho hành trình dài",
-        ],
-        icon: "users",
-        popular: true,
-      },
-      {
-        id: "driver",
-        name: "Tài xế riêng",
-        subtitle: "Chủ động theo lịch trình",
-        price: "Liên hệ",
-        unit: "",
-        description:
-          "Dành cho khách hàng cần tài xế phục vụ theo giờ hoặc theo ngày.",
-        features: [
-          "Linh hoạt thời gian",
-          "Phục vụ theo yêu cầu",
-          "Phù hợp công tác",
-          "Lịch trình cá nhân hóa",
-        ],
-        icon: "driver",
-      },
+// ==========================================
+// BẢNG GIÁ THEO TUYẾN - DỮ LIỆU THAM KHẢO
+// Giá được tính bằng nghìn đồng (k).
+// Điểm được giữ nguyên theo quy tắc bạn cung cấp.
+// ==========================================
+
+const routes = [
+  {
+    id: "hp-bn-bg",
+    name: "Hải Phòng ↔ Bắc Ninh, Bắc Giang",
+    nameEn: "Hai Phong ↔ Bac Ninh, Bac Giang",
+    note: "Ghi rõ nếu khách đi cao tốc.",
+    noteEn: "Specify expressway travel when applicable.",
+    items: [
+      { type: "Ghép 1 ghế", typeEn: "Shared seat", price: "450k", points: "0,5đ" },
+      { type: "Ghép 1 ghế", typeEn: "Shared seat", price: "600k", points: "0,75đ" },
+      { type: "Ghép 2 ghế", typeEn: "2 shared seats", price: "700k", points: "1đ" },
+      { type: "Bao hàng ghế", typeEn: "Full row", price: "800k", points: "1đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "900k", points: "1,5đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "1.100k", points: "2đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "1.300k", points: "2,5đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "1.500k", points: "3đ" },
+      { type: "Bao xe hai chiều - X5", typeEn: "Round trip - 5 seats", price: "1.600k", points: "2đ" },
+      { type: "Bao xe hai chiều - X5", typeEn: "Round trip - 5 seats", price: "1.800k", points: "2,5đ" },
     ],
   },
-  en: {
-    badge: "OUR PRICING",
-    title: "Choose your journey,",
-    titleHighlight: "find your perfect fare",
-    description:
-      "Transparent pricing and professional service for a smoother journey with GoAnywhere.",
-    primaryButton: "Book a ride",
-    secondaryButton: "Explore services",
-    sectionLabel: "ESTIMATED PRICING",
-    sectionTitle: "Find the right ride for you",
-    sectionDescription:
-      "Flexible vehicle options and services for every travel need.",
-    popular: "MOST POPULAR",
-    perKm: "/ km",
-    book: "Choose this option",
-    featuresTitle: "Why ride with us?",
-    featuresDescription:
-      "More than a ride — enjoy a comfortable and dependable experience.",
-    features: [
-      {
-        title: "Transparent pricing",
-        description:
-          "Clear reference prices help you plan your journey with confidence.",
-      },
-      {
-        title: "Professional drivers",
-        description:
-          "Courteous, dedicated drivers who put safety first.",
-      },
-      {
-        title: "Flexible booking",
-        description:
-          "Choose the service, schedule and ride that suit your needs.",
-      },
-    ],
-    noteTitle: "Pricing information",
-    note:
-      "Displayed prices are estimates. The final fare may vary based on distance, time, service type, pickup/drop-off points and additional requirements. Please confirm the fare when booking.",
-    ctaTitle: "Ready for your next journey?",
-    ctaDescription:
-      "Book with GoAnywhere for a convenient, safe and comfortable ride.",
-    ctaButton: "Book your ride",
-    cars: [
-      {
-        id: "4-seat",
-        name: "4-seat car",
-        subtitle: "Compact and convenient",
-        price: "7,000",
-        unit: "VND",
-        description:
-          "Ideal for individuals, couples and short city trips.",
-        features: [
-          "Up to 4 passengers",
-          "Great for city travel",
-          "Comfortable air conditioning",
-          "Flexible pickup and drop-off",
-        ],
-        icon: "car",
-      },
-      {
-        id: "7-seat",
-        name: "7-seat car",
-        subtitle: "Spacious and comfortable",
-        price: "9,000",
-        unit: "VND",
-        description:
-          "Ideal for families, groups and extra luggage.",
-        features: [
-          "Up to 7 passengers",
-          "Spacious interior",
-          "Great for trips",
-          "Comfortable for longer journeys",
-        ],
-        icon: "users",
-        popular: true,
-      },
-      {
-        id: "driver",
-        name: "Private driver",
-        subtitle: "Your schedule, your way",
-        price: "Contact us",
-        unit: "",
-        description:
-          "For customers who need a driver by the hour or by the day.",
-        features: [
-          "Flexible schedule",
-          "Service tailored to your needs",
-          "Ideal for business trips",
-          "Personalized itinerary",
-        ],
-        icon: "driver",
-      },
+  {
+    id: "hp-hd-bn-hd",
+    name: "Hải Phòng ↔ Hải Dương / Bắc Ninh ↔ Hải Dương",
+    nameEn: "Hai Phong ↔ Hai Duong / Bac Ninh ↔ Hai Duong",
+    note: "Áp dụng các mức giá ghép và bao xe bên dưới.",
+    noteEn: "Applicable shared-ride and private-car prices below.",
+    items: [
+      { type: "Ghép", typeEn: "Shared ride", price: "250k", points: "0,25đ" },
+      { type: "Ghép", typeEn: "Shared ride", price: "300k", points: "0,5đ" },
+      { type: "Bao xe", typeEn: "Private car", price: "450k", points: "0,5đ" },
+      { type: "Bao xe", typeEn: "Private car", price: "550k", points: "0,75đ" },
+      { type: "Bao xe", typeEn: "Private car", price: "650k", points: "1đ" },
+      { type: "Bao xe", typeEn: "Private car", price: "900k", points: "1,5đ" },
     ],
   },
-};
+  {
+    id: "hp-hn",
+    name: "Hải Phòng ↔ Hà Nội",
+    nameEn: "Hai Phong ↔ Hanoi",
+    note: "Mặc định chạy cao tốc. X7 cộng thêm 100k theo quy định.",
+    noteEn: "Expressway by default. Add 100k for X7 as specified.",
+    items: [
+      { type: "Ghép 1 ghế", typeEn: "Shared seat", price: "400k", points: "0,5đ" },
+      { type: "Ghép 1 ghế", typeEn: "Shared seat", price: "600k", points: "0,75đ" },
+      { type: "Ghép 2 ghế", typeEn: "2 shared seats", price: "700k", points: "1đ" },
+      { type: "Bao hàng ghế", typeEn: "Full row", price: "800k", points: "1đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "900k", points: "1,5đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "1.100k", points: "2đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "1.200k", points: "2,5đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "1.300k", points: "3đ" },
+      { type: "Bao xe hai chiều - X5", typeEn: "Round trip - 5 seats", price: "1.600k", points: "2đ" },
+      { type: "Bao xe hai chiều - X5", typeEn: "Round trip - 5 seats", price: "1.800k", points: "2,5đ" },
+    ],
+  },
+  {
+    id: "hn-hl",
+    name: "Hà Nội ↔ Hạ Long",
+    nameEn: "Hanoi ↔ Ha Long",
+    note: "Mặc định cao tốc. Bao xe X7 cộng 100k.",
+    noteEn: "Expressway by default. Add 100k for X7.",
+    items: [
+      { type: "Ghép 1 ghế", typeEn: "Shared seat", price: "450k", points: "0,5đ" },
+      { type: "Ghép 2 ghế", typeEn: "2 shared seats", price: "800k", points: "1đ" },
+      { type: "Bao xe", typeEn: "Private car", price: "1.100k–1.299k", points: "2đ" },
+      { type: "Bao xe", typeEn: "Private car", price: "1.300k", points: "2,5đ" },
+      { type: "Bao xe", typeEn: "Private car", price: "1.400k", points: "3đ" },
+      { type: "Bao xe hai chiều - X5", typeEn: "Round trip - 5 seats", price: "1.900k", points: "1,5đ" },
+      { type: "Bao xe hai chiều - X5", typeEn: "Round trip - 5 seats", price: "2.000k", points: "2đ" },
+      { type: "Bao xe hai chiều - X5", typeEn: "Round trip - 5 seats", price: "2.100k", points: "2,5đ" },
+      { type: "Bao xe hai chiều - X5", typeEn: "Round trip - 5 seats", price: "2.200k", points: "3đ" },
+    ],
+  },
+  {
+    id: "hl-bn-bg",
+    name: "Hạ Long ↔ Bắc Ninh, Bắc Giang",
+    nameEn: "Ha Long ↔ Bac Ninh, Bac Giang",
+    note: "Ghi rõ nếu khách đi cao tốc. X7 cộng thêm 100k.",
+    noteEn: "Specify expressway travel. Add 100k for X7.",
+    items: [
+      { type: "Ghép 1 ghế", typeEn: "Shared seat", price: "450k", points: "0,5đ" },
+      { type: "Ghép 1 ghế", typeEn: "Shared seat", price: "600k", points: "0,75đ" },
+      { type: "Ghép 2 ghế", typeEn: "2 shared seats", price: "700k", points: "1đ" },
+      { type: "Bao hàng ghế", typeEn: "Full row", price: "800k", points: "1đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "900k", points: "1,5đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "1.100k", points: "2đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "1.300k", points: "2,5đ" },
+      { type: "Bao xe một chiều", typeEn: "One-way private car", price: "1.500k", points: "3đ" },
+      { type: "Bao xe hai chiều - X5", typeEn: "Round trip - 5 seats", price: "1.600k", points: "2đ" },
+      { type: "Bao xe hai chiều - X5", typeEn: "Round trip - 5 seats", price: "1.800k", points: "2,5đ" },
+    ],
+  },
+  {
+    id: "hp-tn",
+    name: "Hải Phòng ↔ Thái Nguyên",
+    nameEn: "Hai Phong ↔ Thai Nguyen",
+    note: "Bao xe X7 cộng 100k; cao tốc cộng thêm 100k.",
+    noteEn: "Add 100k for X7 and another 100k for expressway.",
+    items: [
+      { type: "Ghép", typeEn: "Shared ride", price: "600k", points: "0,5đ" },
+      { type: "Ghép 2 ghế", typeEn: "2 shared seats", price: "1.000k", points: "1đ" },
+      { type: "Bao hàng ghế", typeEn: "Full row", price: "1.200k", points: "1,25đ" },
+      { type: "Bao xe", typeEn: "Private car", price: "1.500k", points: "1,5đ" },
+      { type: "Bao xe", typeEn: "Private car", price: "1.700k", points: "1,75đ" },
+    ],
+  },
+  {
+    id: "hp-hl",
+    name: "Hải Phòng ↔ Hạ Long",
+    nameEn: "Hai Phong ↔ Ha Long",
+    note: "Mặc định cao tốc. X7 cộng 100k; bao xe hai chiều X7 cộng 200k.",
+    noteEn: "Expressway by default. Add 100k for X7 and 200k for round trips.",
+    items: [
+      { type: "Ghép", typeEn: "Shared ride", price: "250k", points: "0,5đ" },
+      { type: "Bao xe một chiều - X5", typeEn: "One-way private car - 5 seats", price: "400k", points: "0,75đ" },
+      { type: "Bao xe một chiều - X5", typeEn: "One-way private car - 5 seats", price: "500k", points: "1,25đ" },
+      { type: "Bao xe hai chiều", typeEn: "Round trip", price: "700k", points: "1đ" },
+      { type: "Bao xe hai chiều", typeEn: "Round trip", price: "800k", points: "1,5đ" },
+      { type: "Bao xe hai chiều", typeEn: "Round trip", price: "900k", points: "2đ" },
+    ],
+  },
+  {
+    id: "hp-cp",
+    name: "Hải Phòng ↔ Cẩm Phả",
+    nameEn: "Hai Phong ↔ Cam Pha",
+    note: "Mặc định cao tốc. Khu vực ven biển có thể phát sinh phụ phí.",
+    noteEn: "Expressway by default. Coastal areas may incur surcharges.",
+    items: [
+      { type: "Ghép", typeEn: "Shared ride", price: "300k–350k", points: "0,5đ" },
+      { type: "Ghép 2 ghế", typeEn: "2 shared seats", price: "500k", points: "0,75đ" },
+      { type: "Bao xe một chiều - X5", typeEn: "One-way private car - 5 seats", price: "500k", points: "0,75đ" },
+      { type: "Bao xe một chiều - X5", typeEn: "One-way private car - 5 seats", price: "600k", points: "1,25đ" },
+      { type: "Bao xe hai chiều", typeEn: "Round trip", price: "800k", points: "1đ" },
+      { type: "Bao xe hai chiều", typeEn: "Round trip", price: "900k", points: "1,5đ" },
+      { type: "Bao xe hai chiều", typeEn: "Round trip", price: "1.000k", points: "2đ" },
+    ],
+  },
+];
 
-function VehicleIcon({ type }) {
-  if (type === "users") {
-    return <Users size={28} strokeWidth={1.8} />;
-  }
+const generalRules = [
+  {
+    points: "±0,25đ",
+    title: "Gửi đồ / nội thành",
+    description: "Gửi đồ 150k–249k; lịch nội thành 150k–299k.",
+  },
+  {
+    points: "±0,5đ",
+    title: "Gửi đồ / ghép khách / lịch tỉnh",
+    description: "Gửi đồ 250k–549k; ghép 1 khách từ 300k tùy tuyến; lịch tỉnh 300k–549k.",
+  },
+  {
+    points: "±1đ",
+    title: "Lịch từ 550k",
+    description: "Gửi đồ 550k–849k; lịch tỉnh 550k–849k; ghép 2 khách từ 600k tùy tuyến.",
+  },
+  {
+    points: "±1,5đ",
+    title: "Lịch từ 850k",
+    description: "Gửi đồ từ 850k; lịch tỉnh 850k–1.049k.",
+  },
+  {
+    points: "±2đ",
+    title: "Lịch tỉnh từ 1.050k",
+    description: "Lịch tỉnh một chiều hoặc hai chiều 1.050k–1.499k.",
+  },
+  {
+    points: "±2,5đ",
+    title: "Lịch tỉnh từ 1.500k",
+    description: "Lịch tỉnh một chiều hoặc hai chiều 1.500k–1.999k.",
+  },
+  {
+    points: "±3đ",
+    title: "Lịch tỉnh từ 2.000k",
+    description: "Lịch tỉnh một chiều hoặc hai chiều 2.000k–2.999k.",
+  },
+];
 
-  if (type === "driver") {
-    return <UserRound size={28} strokeWidth={1.8} />;
-  }
-
-  return <CarFront size={28} strokeWidth={1.8} />;
-}
+const filters = [
+  { id: "all", vi: "Tất cả", en: "All" },
+  { id: "Ghép", vi: "Lịch ghép", en: "Shared rides" },
+  { id: "một chiều", vi: "Bao xe một chiều", en: "One-way" },
+  { id: "hai chiều", vi: "Bao xe hai chiều", en: "Round trip" },
+];
 
 export default function Pricing({ language = "vi" }) {
+  const [search, setSearch] = useState("");
+  const [selectedRoute, setSelectedRoute] = useState("all");
   const [selectedType, setSelectedType] = useState("all");
+
   const navigate = useNavigate();
+  const isVi = language === "vi";
 
-  const isVietnamese = language === "vi";
-  const t = pricingData[isVietnamese ? "vi" : "en"];
+  const filteredRoutes = useMemo(() => {
+    const keyword = search.trim().toLocaleLowerCase("vi");
 
-  const serviceTypes = isVietnamese
-    ? [
-        { id: "all", label: "Tất cả dịch vụ", icon: <Sparkles size={16} /> },
-        { id: "car", label: "Dịch vụ xe", icon: <CarFront size={16} /> },
-        { id: "driver", label: "Tài xế riêng", icon: <UserRound size={16} /> },
-      ]
-    : [
-        { id: "all", label: "All services", icon: <Sparkles size={16} /> },
-        { id: "car", label: "Car services", icon: <CarFront size={16} /> },
-        { id: "driver", label: "Private driver", icon: <UserRound size={16} /> },
-      ];
+    return routes
+      .filter((route) => {
+        const routeName = isVi ? route.name : route.nameEn;
+        const matchesSearch =
+          !keyword ||
+          routeName.toLocaleLowerCase("vi").includes(keyword);
 
-  const visibleCars = t.cars.filter((car) => {
-    if (selectedType === "all") return true;
-    if (selectedType === "driver") return car.id === "driver";
-    return car.id !== "driver";
-  });
+        const matchesRoute =
+          selectedRoute === "all" || route.id === selectedRoute;
 
-  const handleBooking = (car) => {
-    navigate(`/booking?service=${encodeURIComponent(car.id)}`);
+        return matchesSearch && matchesRoute;
+      })
+      .map((route) => ({
+        ...route,
+        items: route.items.filter((item) => {
+          if (selectedType === "all") return true;
+
+          const type = item.type.toLocaleLowerCase("vi");
+
+          if (selectedType === "Ghép") {
+            return type.includes("ghép");
+          }
+
+          if (selectedType === "một chiều") {
+            return type.includes("một chiều");
+          }
+
+          if (selectedType === "hai chiều") {
+            return type.includes("hai chiều");
+          }
+
+          return true;
+        }),
+      }))
+      .filter((route) => route.items.length > 0);
+  }, [search, selectedRoute, selectedType, isVi]);
+
+  const handleBooking = (route, item) => {
+    const params = new URLSearchParams({
+      route: route.name,
+      service: item.type,
+      price: item.price,
+      points: item.points,
+    });
+
+    navigate(`/booking?${params.toString()}`);
   };
 
   return (
@@ -260,48 +274,56 @@ export default function Pricing({ language = "vi" }) {
           <div className="pricing-hero-content">
             <div className="pricing-eyebrow">
               <Sparkles size={16} />
-              <span>{t.badge}</span>
+              {isVi ? "BẢNG GIÁ THEO TUYẾN" : "ROUTE-BASED PRICING"}
             </div>
 
             <h1>
-              {t.title}
-              <span>{t.titleHighlight}</span>
+              {isVi ? "Chọn tuyến đường," : "Choose your route,"}
+              <span>
+                {isVi ? "tra cứu giá và điểm" : "check fares and points"}
+              </span>
             </h1>
 
             <p className="pricing-hero-description">
-              {t.description}
+              {isVi
+                ? "Tra cứu giá lịch ghép, bao xe một chiều và hai chiều theo quy tắc từng tuyến."
+                : "Check shared rides and one-way or round-trip fares by route."}
             </p>
 
             <div className="pricing-hero-actions">
               <button
                 className="pricing-button pricing-button-primary"
-                onClick={() => navigate("/booking")}
+                onClick={() =>
+                  document
+                    .getElementById("pricing-routes")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
               >
-                {t.primaryButton}
+                {isVi ? "Tra cứu bảng giá" : "Explore fares"}
                 <ArrowRight size={18} />
               </button>
 
               <button
                 className="pricing-button pricing-button-outline"
-                onClick={() => navigate("/home#services")}
+                onClick={() =>
+                  document
+                    .getElementById("pricing-rules")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
               >
-                {t.secondaryButton}
+                {isVi ? "Quy tắc tính điểm" : "Point rules"}
               </button>
             </div>
 
             <div className="pricing-trust-row">
               <div className="pricing-trust-item">
                 <ShieldCheck size={19} />
-                <span>
-                  {isVietnamese ? "Ưu tiên an toàn" : "Safety first"}
-                </span>
+                <span>{isVi ? "Tra cứu minh bạch" : "Clear information"}</span>
               </div>
 
               <div className="pricing-trust-item">
                 <Clock3 size={19} />
-                <span>
-                  {isVietnamese ? "Đặt xe linh hoạt" : "Flexible booking"}
-                </span>
+                <span>{isVi ? "Cập nhật theo tuyến" : "Route-based rules"}</span>
               </div>
             </div>
           </div>
@@ -317,7 +339,7 @@ export default function Pricing({ language = "vi" }) {
 
                 <span className="pricing-visual-status">
                   <span />
-                  {isVietnamese ? "Sẵn sàng khởi hành" : "Ready to go"}
+                  {isVi ? "Bảng giá tham khảo" : "Reference fares"}
                 </span>
               </div>
 
@@ -325,12 +347,8 @@ export default function Pricing({ language = "vi" }) {
                 <div className="pricing-route-point">
                   <span className="pricing-route-dot pickup" />
                   <div>
-                    <small>
-                      {isVietnamese ? "ĐIỂM ĐÓN" : "PICKUP"}
-                    </small>
-                    <strong>
-                      {isVietnamese ? "Vị trí của bạn" : "Your location"}
-                    </strong>
+                    <small>{isVi ? "ĐIỂM ĐÓN" : "PICKUP"}</small>
+                    <strong>Hải Phòng</strong>
                   </div>
                 </div>
 
@@ -343,28 +361,20 @@ export default function Pricing({ language = "vi" }) {
                 <div className="pricing-route-point">
                   <span className="pricing-route-dot destination" />
                   <div>
-                    <small>
-                      {isVietnamese ? "ĐIỂM ĐẾN" : "DESTINATION"}
-                    </small>
-                    <strong>
-                      {isVietnamese ? "Điểm đến mong muốn" : "Your destination"}
-                    </strong>
+                    <small>{isVi ? "ĐIỂM ĐẾN" : "DESTINATION"}</small>
+                    <strong>Bắc Ninh / Hà Nội</strong>
                   </div>
                 </div>
               </div>
 
               <div className="pricing-visual-bottom">
                 <div>
-                  <span>
-                    {isVietnamese ? "Giá tham khảo từ" : "Estimated fares from"}
-                  </span>
-                  <strong>
-                    {isVietnamese ? "7.000đ/km" : "7,000 VND/km"}
-                  </strong>
+                  <span>{isVi ? "Điểm theo lịch" : "Points per booking"}</span>
+                  <strong>0,25đ – 3đ+</strong>
                 </div>
 
                 <div className="pricing-visual-car">
-                  <CarFront size={28} />
+                  <MapPin size={28} />
                 </div>
               </div>
             </div>
@@ -374,128 +384,177 @@ export default function Pricing({ language = "vi" }) {
                 <MapPin size={19} />
               </div>
               <div>
-                <strong>
-                  {isVietnamese ? "Hành trình của bạn" : "Your journey"}
-                </strong>
-                <span>
-                  {isVietnamese ? "Thoải mái và tiện lợi" : "Easy and comfortable"}
-                </span>
+                <strong>{isVi ? "Theo từng tuyến" : "By route"}</strong>
+                <span>{isVi ? "Giá và điểm cụ thể" : "Fare and points"}</span>
               </div>
             </div>
 
             <div className="pricing-floating-card pricing-floating-card-bottom">
               <div className="pricing-floating-icon purple">
-                <ShieldCheck size={20} />
+                <CheckCircle2 size={20} />
               </div>
               <div>
-                <strong>
-                  {isVietnamese ? "An tâm di chuyển" : "Ride with confidence"}
-                </strong>
-                <span>
-                  {isVietnamese ? "Dịch vụ chuyên nghiệp" : "Professional service"}
-                </span>
+                <strong>{isVi ? "Chủ động tra cứu" : "Easy lookup"}</strong>
+                <span>{isVi ? "Lọc loại lịch nhanh" : "Filter booking types"}</span>
               </div>
-              <Check size={18} className="pricing-floating-check" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* PRICE CARDS */}
-      <section className="pricing-plans" id="pricing-plans">
+      {/* TRA CỨU GIÁ */}
+      <section className="pricing-plans" id="pricing-routes">
         <div className="pricing-container">
           <div className="pricing-section-heading">
-            <span className="pricing-section-label">{t.sectionLabel}</span>
-            <h2>{t.sectionTitle}</h2>
-            <p>{t.sectionDescription}</p>
+            <span className="pricing-section-label">
+              {isVi ? "DANH SÁCH TUYẾN" : "ROUTE LIST"}
+            </span>
+            <h2>{isVi ? "Bảng giá và điểm theo tuyến" : "Fares and points by route"}</h2>
+            <p>
+              {isVi
+                ? "Chọn tuyến, loại lịch hoặc nhập tên địa điểm để tra cứu."
+                : "Select a route, booking type or search for a destination."}
+            </p>
+          </div>
+
+          <div className="pricing-toolbar">
+            <div className="pricing-search">
+              <Search size={19} />
+              <input
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder={
+                  isVi
+                    ? "Tìm Hải Phòng, Bắc Ninh, Hạ Long..."
+                    : "Search routes..."
+                }
+                aria-label={isVi ? "Tìm tuyến đường" : "Search routes"}
+              />
+            </div>
+
+            <select
+              value={selectedRoute}
+              onChange={(event) => setSelectedRoute(event.target.value)}
+              aria-label={isVi ? "Chọn tuyến" : "Select route"}
+            >
+              <option value="all">
+                {isVi ? "Tất cả tuyến" : "All routes"}
+              </option>
+              {routes.map((route) => (
+                <option key={route.id} value={route.id}>
+                  {isVi ? route.name : route.nameEn}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="pricing-filter">
-            {serviceTypes.map((type) => (
+            {filters.map((filter) => (
               <button
-                key={type.id}
+                key={filter.id}
                 type="button"
                 className={`pricing-filter-button ${
-                  selectedType === type.id ? "active" : ""
+                  selectedType === filter.id ? "active" : ""
                 }`}
-                onClick={() => setSelectedType(type.id)}
+                onClick={() => setSelectedType(filter.id)}
               >
-                {type.icon}
-                {type.label}
+                {filter.id === "all" ? (
+                  <Sparkles size={16} />
+                ) : filter.id === "Ghép" ? (
+                  <Users size={16} />
+                ) : (
+                  <CarFront size={16} />
+                )}
+                {isVi ? filter.vi : filter.en}
               </button>
             ))}
           </div>
 
-          <div className="pricing-cards">
-            {visibleCars.map((car) => (
-              <article
-                className={`pricing-card ${
-                  car.popular ? "pricing-card-popular" : ""
-                }`}
-                key={car.id}
-              >
-                {car.popular && (
-                  <div className="pricing-popular-label">
-                    <Sparkles size={14} />
-                    {t.popular}
+          <div className="pricing-route-list">
+            {filteredRoutes.map((route) => (
+              <article className="pricing-route-card" key={route.id}>
+                <div className="pricing-route-card-heading">
+                  <div className="pricing-route-heading-icon">
+                    <MapPin size={22} />
                   </div>
-                )}
 
-                <div className="pricing-card-icon">
-                  <VehicleIcon type={car.icon} />
+                  <div>
+                    <h3>{isVi ? route.name : route.nameEn}</h3>
+                    <p>
+                      {isVi ? "Giá tính theo lịch" : "Fare per booking"}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="pricing-card-title">
-                  <h3>{car.name}</h3>
-                  <p>{car.subtitle}</p>
+                <div className="pricing-route-note">
+                  <AlertCircle size={17} />
+                  <span>{isVi ? route.note : route.noteEn}</span>
                 </div>
 
-                <p className="pricing-card-description">
-                  {car.description}
-                </p>
+                <div className="pricing-table-wrapper">
+                  <table className="pricing-table">
+                    <thead>
+                      <tr>
+                        <th>{isVi ? "Loại lịch" : "Booking type"}</th>
+                        <th>{isVi ? "Mức giá" : "Fare"}</th>
+                        <th>{isVi ? "Điểm" : "Points"}</th>
+                        <th>{isVi ? "Đặt xe" : "Book"}</th>
+                      </tr>
+                    </thead>
 
-                <div className="pricing-card-price">
-                  {car.unit && (
-                    <span className="pricing-currency">{car.unit}</span>
-                  )}
-                  <strong>{car.price}</strong>
-                  {car.id !== "driver" && (
-                    <span className="pricing-price-unit">{t.perKm}</span>
-                  )}
+                    <tbody>
+                      {route.items.map((item, index) => (
+                        <tr key={`${route.id}-${item.type}-${index}`}>
+                          <td>
+                            <span className="pricing-type-label">
+                              {isVi ? item.type : item.typeEn}
+                            </span>
+                          </td>
+                          <td className="pricing-price-cell">{item.price}</td>
+                          <td>
+                            <span className="pricing-points-badge">
+                              {item.points}
+                            </span>
+                          </td>
+                          <td>
+                            <button
+                              className="pricing-row-book"
+                              onClick={() => handleBooking(route, item)}
+                              aria-label={`${isVi ? "Đặt xe" : "Book"} ${route.name} - ${item.type}`}
+                            >
+                              <ArrowRight size={17} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-
-                {car.id === "driver" && (
-                  <p className="pricing-contact-hint">
-                    {isVietnamese
-                      ? "Báo giá theo lịch trình"
-                      : "Quote based on your itinerary"}
-                  </p>
-                )}
-
-                <div className="pricing-card-divider" />
-
-                <ul className="pricing-feature-list">
-                  {car.features.map((feature) => (
-                    <li key={feature}>
-                      <span className="pricing-feature-check">
-                        <Check size={14} />
-                      </span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  className={`pricing-card-button ${
-                    car.popular ? "featured" : ""
-                  }`}
-                  onClick={() => handleBooking(car)}
-                >
-                  {t.book}
-                  <ArrowRight size={17} />
-                </button>
               </article>
             ))}
+
+            {filteredRoutes.length === 0 && (
+              <div className="pricing-empty">
+                <Search size={30} />
+                <h3>{isVi ? "Không tìm thấy tuyến phù hợp" : "No routes found"}</h3>
+                <p>
+                  {isVi
+                    ? "Hãy thử từ khóa khác hoặc chọn lại bộ lọc."
+                    : "Try another keyword or reset the filters."}
+                </p>
+                <button
+                  className="pricing-button pricing-button-primary"
+                  onClick={() => {
+                    setSearch("");
+                    setSelectedRoute("all");
+                    setSelectedType("all");
+                  }}
+                >
+                  {isVi ? "Xóa bộ lọc" : "Reset filters"}
+                </button>
+              </div>
+            )}
           </div>
 
           <div className="pricing-disclaimer">
@@ -503,42 +562,79 @@ export default function Pricing({ language = "vi" }) {
               <ShieldCheck size={22} />
             </div>
             <div>
-              <h3>{t.noteTitle}</h3>
-              <p>{t.note}</p>
+              <h3>{isVi ? "Lưu ý khi áp dụng giá" : "Pricing notes"}</h3>
+              <p>
+                {isVi
+                  ? "Đơn vị giá là nghìn đồng (k). Đây là dữ liệu tham khảo được nhập từ quy tắc bạn cung cấp; cần xác nhận các mức giá, phụ phí cao tốc, loại xe và những khoảng giá chưa rõ trước khi dùng làm quy định chính thức."
+                  : "Fares are shown in thousands of VND. Confirm unclear ranges, vehicle types and expressway surcharges before using these as official rules."}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* BENEFITS */}
-      <section className="pricing-benefits">
+      {/* QUY TẮC TÍNH ĐIỂM CHUNG */}
+      <section className="pricing-benefits" id="pricing-rules">
         <div className="pricing-container">
           <div className="pricing-section-heading">
             <span className="pricing-section-label">
-              {isVietnamese ? "TRẢI NGHIỆM GOANYWHERE" : "THE GOANYWHERE EXPERIENCE"}
+              {isVi ? "QUY TẮC TÍNH ĐIỂM" : "POINT RULES"}
             </span>
-            <h2>{t.featuresTitle}</h2>
-            <p>{t.featuresDescription}</p>
+            <h2>{isVi ? "Mức điểm lịch thông thường" : "General booking point tiers"}</h2>
+            <p>
+              {isVi
+                ? "Các mức dưới đây được tách riêng để dễ tra cứu. Nếu quy tắc riêng của tuyến khác với quy tắc chung, cần ưu tiên theo quy định nội bộ đã xác nhận."
+                : "General point tiers are listed separately. Confirm which route-specific rule takes precedence."}
+            </p>
           </div>
 
           <div className="pricing-benefit-grid">
-            {t.features.map((feature, index) => {
-              const icons = [
-                <ShieldCheck size={25} />,
-                <UserRound size={25} />,
-                <CalendarDays size={25} />,
-              ];
+            {generalRules.map((rule, index) => (
+              <article className="pricing-benefit-card" key={rule.points}>
+                <div className={`pricing-benefit-icon icon-${(index % 3) + 1}`}>
+                  <Sparkles size={25} />
+                </div>
+                <span className="pricing-points-badge">{rule.points}</span>
+                <h3>{rule.title}</h3>
+                <p>{rule.description}</p>
+              </article>
+            ))}
+          </div>
 
-              return (
-                <article className="pricing-benefit-card" key={feature.title}>
-                  <div className={`pricing-benefit-icon icon-${index + 1}`}>
-                    {icons[index]}
-                  </div>
-                  <h3>{feature.title}</h3>
-                  <p>{feature.description}</p>
-                </article>
-              );
-            })}
+          <div className="pricing-disclaimer">
+            <div className="pricing-disclaimer-icon">
+              <AlertCircle size={22} />
+            </div>
+            <div>
+              <h3>{isVi ? "Các quy định cần nhớ" : "Important rules"}</h3>
+              <ul>
+                <li>
+                  {isVi
+                    ? "Thành viên san điểm phải để lại tối thiểu 1 điểm."
+                    : "Members transferring points must retain at least 1 point."}
+                </li>
+                <li>
+                  {isVi
+                    ? "Giá bán điểm được quy định là 180.000đ/điểm."
+                    : "The stated point selling price is VND 180,000 per point."}
+                </li>
+                <li>
+                  {isVi
+                    ? "Lịch ngoại tuyến: X5 là 8k/km, X7 là 9k/km theo nội dung quy định; cần xác nhận phạm vi áp dụng và các ngoại lệ."
+                    : "Off-route rates are stated as 8k/km for X5 and 9k/km for X7; confirm exceptions."}
+                </li>
+                <li>
+                  {isVi
+                    ? "Từ 3.000k trở lên, chủ lịch tự ghi mức điểm (+/-); không mặc định 3,5 điểm."
+                    : "For fares of 3,000k or above, the owner specifies the points."}
+                </li>
+                <li>
+                  {isVi
+                    ? "Lịch ngoại tuyến không áp giá sàn riêng của tuyến trong một số trường hợp; cần đối chiếu đúng quy định phòng."
+                    : "Check room-specific minimum fare rules for off-route bookings."}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -556,14 +652,23 @@ export default function Pricing({ language = "vi" }) {
                 GoAnywhere
               </div>
 
-              <h2>{t.ctaTitle}</h2>
-              <p>{t.ctaDescription}</p>
+              <h2>
+                {isVi
+                  ? "Sẵn sàng cho hành trình tiếp theo?"
+                  : "Ready for your next journey?"}
+              </h2>
+
+              <p>
+                {isVi
+                  ? "Chọn tuyến và loại xe phù hợp để bắt đầu đặt chuyến."
+                  : "Choose a route and vehicle to start your booking."}
+              </p>
 
               <button
                 className="pricing-button pricing-cta-button"
                 onClick={() => navigate("/booking")}
               >
-                {t.ctaButton}
+                {isVi ? "Bắt đầu đặt xe" : "Book your ride"}
                 <ArrowRight size={18} />
               </button>
             </div>
@@ -573,19 +678,8 @@ export default function Pricing({ language = "vi" }) {
                 <CarFront size={100} strokeWidth={1.2} />
               </div>
               <div className="pricing-cta-mini-card">
-                <Plane size={20} />
-                <span>
-                  {isVietnamese ? "Đi xa, đi gần" : "Near or far"}
-                </span>
-              </div>
-              <div className="pricing-cta-pin">
-                <MapPin size={24} />
-              </div>
-              <div className="pricing-cta-sparkle">
-                <Sparkles size={23} />
-              </div>
-              <div className="pricing-cta-bag">
-                <BriefcaseBusiness size={23} />
+                <MapPin size={20} />
+                <span>{isVi ? "Đi xa, đi gần" : "Near or far"}</span>
               </div>
             </div>
           </div>

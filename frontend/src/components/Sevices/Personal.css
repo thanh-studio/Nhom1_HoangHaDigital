@@ -1,12 +1,30 @@
+/* =========================================
+   GOANYWHERE - PERSONAL DRIVER SERVICE
+   File: src/Pages/Personal.css
+   Theme: Purple + Orange
+========================================= */
 
 .personal-page {
-  --personal-purple: #6035a5;
-  --personal-orange: #ff8a3d;
-  color: #251c35;
+  --personal-purple: #6938c5;
+  --personal-purple-dark: #4d249c;
+  --personal-purple-light: #f3edff;
+  --personal-orange: #ff782f;
+  --personal-orange-light: #fff1e7;
+  --personal-heading: #281b3c;
+  --personal-text: #71677f;
+  --personal-border: #ece5f5;
+  --personal-white: #ffffff;
+
+  width: 100%;
   overflow: hidden;
+  color: var(--personal-heading);
+  background: #ffffff;
+  font-family: "Be Vietnam Pro", "Segoe UI", sans-serif;
 }
 
-.personal-page * {
+.personal-page *,
+.personal-page *::before,
+.personal-page *::after {
   box-sizing: border-box;
 }
 
@@ -14,41 +32,118 @@
   text-decoration: none;
 }
 
-.personal-hero {
-  display: grid;
-  grid-template-columns: 1fr 0.9fr;
+.personal-page button,
+.personal-page a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.personal-page section {
+  position: relative;
+}
+
+.personal-page .personal-label {
+  display: inline-flex;
   align-items: center;
-  gap: 40px;
-  padding: 85px max(7%, calc((100% - 1200px) / 2));
-  background: linear-gradient(135deg, #f6f1ff, #fff5ec);
-}
-
-.personal-label {
-  color: var(--personal-purple);
-  font-size: 12px;
+  gap: 8px;
+  color: var(--personal-orange);
+  font-size: 11px;
   font-weight: 800;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
+  line-height: 1.6;
 }
 
-.personal-hero h1 {
-  margin: 20px 0;
-  font-size: clamp(36px, 4.5vw, 58px);
-  line-height: 1.13;
-  letter-spacing: -1.5px;
+/* =========================================
+   1. HERO
+========================================= */
+
+.personal-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: 45px;
+  width: 100%;
+  min-height: 620px;
+  padding: 75px max(6.5%, calc((100% - 1200px) / 2));
+  background:
+    radial-gradient(
+      circle at 88% 18%,
+      rgba(255, 120, 47, 0.12),
+      transparent 25%
+    ),
+    linear-gradient(120deg, #faf7ff 0%, #ffffff 54%, #fff7f0 100%);
 }
 
-.personal-hero h1 span {
+.personal-hero-background {
+  position: absolute;
+  top: -180px;
+  right: -100px;
+  width: 480px;
+  height: 480px;
+  border: 1px solid rgba(105, 56, 197, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.personal-hero-background::before,
+.personal-hero-background::after {
+  position: absolute;
+  content: "";
+  border: 1px solid rgba(105, 56, 197, 0.08);
+  border-radius: 50%;
+}
+
+.personal-hero-background::before {
+  inset: 40px;
+}
+
+.personal-hero-background::after {
+  inset: 90px;
+}
+
+.personal-copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 620px;
+}
+
+.personal-copy > .personal-label {
+  padding: 9px 13px;
+  border: 1px solid #e8def8;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.personal-copy h1 {
+  margin: 25px 0 19px;
+  color: var(--personal-heading);
+  font-size: clamp(36px, 4.2vw, 57px);
+  font-weight: 850;
+  line-height: 1.2;
+  letter-spacing: -1.8px;
+}
+
+.personal-copy h1 span {
   display: block;
+  margin-top: 5px;
   color: var(--personal-purple);
 }
 
-.personal-hero p,
-.personal-heading p,
-.personal-card p,
-.personal-cta p {
-  color: #766d83;
-  font-size: 16px;
-  line-height: 1.8;
+.personal-copy > p {
+  max-width: 535px;
+  margin: 0;
+  color: var(--personal-text);
+  font-size: 14px;
+  line-height: 1.95;
+}
+
+.personal-hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 30px;
 }
 
 .personal-button {
@@ -56,183 +151,1196 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 22px;
-  padding: 14px 24px;
-  border-radius: 12px;
-  background: var(--personal-purple);
-  color: #fff;
-  font-weight: 700;
-  transition: 0.25s ease;
+  min-height: 49px;
+  padding: 0 21px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  background: linear-gradient(
+    135deg,
+    var(--personal-purple),
+    #8053d7
+  );
+  box-shadow: 0 9px 23px rgba(105, 56, 197, 0.2);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 750;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease;
 }
 
 .personal-button:hover {
-  background: #492681;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(105, 56, 197, 0.28);
+  background: linear-gradient(
+    135deg,
+    var(--personal-purple-dark),
+    var(--personal-purple)
+  );
+  color: #ffffff;
 }
 
-.personal-visual {
-  min-height: 340px;
-  position: relative;
+.personal-button svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.personal-button:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.personal-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #625570;
+  font-size: 13px;
+  font-weight: 750;
+  transition: color 0.2s ease;
+}
+
+.personal-text-link:hover {
+  color: var(--personal-purple);
+}
+
+.personal-text-link svg {
+  transition: transform 0.2s ease;
+}
+
+.personal-text-link:hover svg {
+  transform: translateX(4px);
+}
+
+.personal-trust-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.personal-trust-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #716680;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.personal-trust-row svg {
   display: grid;
-  place-items: center;
+  flex-shrink: 0;
+  width: 19px;
+  height: 19px;
+  padding: 3px;
+  border-radius: 50%;
+  background: #e8f8ed;
+  color: #259b56;
+}
+
+/* =========================================
+   2. HERO VISUAL
+========================================= */
+
+.personal-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 430px;
 }
 
 .personal-visual-circle {
-  display: grid;
-  place-items: center;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #7042b7, #49227e);
-  box-shadow: 0 25px 70px #6035a533;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 440px);
+  aspect-ratio: 1 / 1;
   overflow: hidden;
+  border: 1px solid rgba(105, 56, 197, 0.1);
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 70% 25%,
+      rgba(255, 120, 47, 0.18),
+      transparent 34%
+    ),
+    linear-gradient(145deg, #f0e8ff 0%, #faf7ff 55%, #fff0e5 100%);
+  box-shadow:
+    0 25px 65px rgba(69, 36, 119, 0.1),
+    inset 0 0 0 15px rgba(255, 255, 255, 0.45);
 }
 
-.personal-visual-circle svg {
-  width: 100%;
-  height: 100%;
-}
-
-.personal-visual-circle span {
-  font-size: 105px;
-}
-
-.personal-floating {
+.personal-visual-circle::before,
+.personal-visual-circle::after {
   position: absolute;
-  right: 0;
-  bottom: 25px;
+  border: 1px solid rgba(105, 56, 197, 0.12);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.personal-visual-circle::before {
+  inset: 8%;
+}
+
+.personal-visual-circle::after {
+  inset: 17%;
+  border-style: dashed;
+}
+
+.personal-visual-circle > * {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+}
+
+.personal-floating,
+.personal-floating-note {
+  position: absolute;
+  z-index: 3;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px;
-  border-radius: 15px;
-  background: #fff;
-  box-shadow: 0 12px 35px #35204b17;
+  padding: 14px 17px;
+  border: 1px solid rgba(105, 56, 197, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 14px 35px rgba(40, 27, 60, 0.11);
+}
+
+.personal-floating {
+  right: -5px;
+  bottom: 53px;
 }
 
 .personal-floating > span {
   display: grid;
+  flex-shrink: 0;
   place-items: center;
-  width: 38px;
-  height: 38px;
+  width: 39px;
+  height: 39px;
   border-radius: 12px;
-  background: #fff0e5;
-  color: #d96b20;
-  font-weight: 900;
+  background: #e6f8ed;
+  color: #219653;
+}
+
+.personal-floating > div,
+.personal-floating-note > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .personal-floating strong,
-.personal-floating small {
-  display: block;
+.personal-floating-note strong {
+  color: #322444;
+  font-size: 12px;
+  font-weight: 800;
 }
 
-.personal-floating small {
-  margin-top: 5px;
-  color: #82798d;
+.personal-floating small,
+.personal-floating-note small {
+  color: #8c8199;
+  font-size: 10px;
 }
 
-.personal-content {
-  padding: 80px max(7%, calc((100% - 1200px) / 2));
+.personal-floating-note {
+  top: 45px;
+  left: -12px;
 }
+
+.personal-floating-note > svg {
+  flex-shrink: 0;
+  color: var(--personal-orange);
+}
+
+/* =========================================
+   3. GENERAL SECTION HEADING
+========================================= */
 
 .personal-heading {
-  max-width: 720px;
-  margin: 0 auto 35px;
+  max-width: 710px;
+  margin: 0 auto 43px;
   text-align: center;
 }
 
-.personal-heading h2,
-.personal-cta h2 {
-  margin: 15px 0;
-  font-size: clamp(28px, 3.5vw, 42px);
-  line-height: 1.25;
+.personal-heading h2 {
+  margin: 13px 0 13px;
+  color: var(--personal-heading);
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 850;
+  line-height: 1.3;
+  letter-spacing: -1px;
+}
+
+.personal-heading > p {
+  max-width: 610px;
+  margin: 0 auto;
+  color: var(--personal-text);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+/* =========================================
+   4. PERSONAL SERVICES
+========================================= */
+
+.personal-content {
+  padding: 90px max(6.5%, calc((100% - 1200px) / 2));
+  background: #ffffff;
+  scroll-margin-top: 90px;
 }
 
 .personal-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+  gap: 21px;
 }
 
 .personal-card {
-  padding: 30px;
-  border: 1px solid #eee6f8;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 255px;
+  padding: 25px;
+  overflow: hidden;
+  border: 1px solid var(--personal-border);
   border-radius: 20px;
-  background: #fff;
-  transition: 0.25s ease;
+  background: #ffffff;
+  box-shadow: 0 8px 28px rgba(43, 25, 73, 0.035);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.personal-card::after {
+  position: absolute;
+  right: -45px;
+  bottom: -55px;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  background: rgba(105, 56, 197, 0.035);
+  content: "";
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
 }
 
 .personal-card:hover {
-  transform: translateY(-5px);
-  border-color: #cbb6ed;
-  box-shadow: 0 15px 35px #6035a512;
+  transform: translateY(-6px);
+  border-color: #d9c8f4;
+  box-shadow: 0 18px 38px rgba(54, 31, 91, 0.09);
+}
+
+.personal-card:hover::after {
+  transform: scale(1.3);
+  background: rgba(255, 120, 47, 0.07);
+}
+
+.personal-card-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .personal-card-icon {
   display: grid;
+  flex-shrink: 0;
   place-items: center;
-  width: 58px;
-  height: 58px;
+  width: 55px;
+  height: 55px;
   border-radius: 17px;
+  background: linear-gradient(135deg, #f0e8ff, #f8f3ff);
   color: var(--personal-purple);
-  background: #f2eaff;
-  font-size: 28px;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.personal-card:hover .personal-card-icon {
+  transform: translateY(-2px) rotate(-3deg);
+  background: linear-gradient(135deg, var(--personal-purple), #8b65d7);
+  color: #ffffff;
+}
+
+.personal-card-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 5px 9px;
+  border: 1px solid #f5e4d7;
+  border-radius: 8px;
+  background: #fff8f2;
+  color: #d86c25;
+  font-size: 9px;
+  font-weight: 750;
+  line-height: 1.4;
+  text-align: center;
 }
 
 .personal-card h3 {
-  margin: 22px 0 10px;
-  font-size: 20px;
+  position: relative;
+  z-index: 1;
+  margin: 23px 0 10px;
+  color: #30223f;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.personal-card > p {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  margin: 0 0 22px;
+  color: var(--personal-text);
+  font-size: 12px;
+  line-height: 1.9;
 }
 
 .personal-card-link {
-  display: inline-block;
-  margin-top: 12px;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
   color: var(--personal-purple);
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 800;
+  transition: color 0.2s ease;
+}
+
+.personal-card-link svg {
+  transition: transform 0.2s ease;
 }
 
 .personal-card-link:hover {
   color: var(--personal-orange);
 }
 
-.personal-cta {
-  padding: 75px 24px;
-  text-align: center;
-  background: linear-gradient(120deg, #f3eaff, #fff1e6);
+.personal-card-link:hover svg {
+  transform: translate(3px, -3px);
 }
 
-@media (max-width: 768px) {
+/* =========================================
+   5. BENEFITS
+========================================= */
+
+.personal-benefits {
+  padding: 82px max(6.5%, calc((100% - 1200px) / 2));
+  background:
+    radial-gradient(
+      circle at 5% 90%,
+      rgba(255, 120, 47, 0.08),
+      transparent 25%
+    ),
+    linear-gradient(120deg, #f8f4ff, #ffffff 75%);
+}
+
+.personal-benefits-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: 80px;
+}
+
+.personal-benefits-copy {
+  max-width: 530px;
+}
+
+.personal-benefits-copy h2 {
+  margin: 16px 0;
+  color: var(--personal-heading);
+  font-size: clamp(29px, 3.5vw, 42px);
+  font-weight: 850;
+  line-height: 1.3;
+  letter-spacing: -1px;
+}
+
+.personal-benefits-copy > p {
+  margin: 0;
+  color: var(--personal-text);
+  font-size: 13px;
+  line-height: 2;
+}
+
+.personal-benefits-copy .personal-button {
+  margin-top: 25px;
+}
+
+.personal-benefit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.personal-benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 17px;
+  padding: 23px;
+  border: 1px solid rgba(105, 56, 197, 0.09);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 25px rgba(44, 27, 72, 0.035);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.personal-benefit-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 13px 30px rgba(44, 27, 72, 0.075);
+}
+
+.personal-benefit-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 49px;
+  height: 49px;
+  border-radius: 15px;
+  background: #f0e8ff;
+  color: var(--personal-purple);
+}
+
+.personal-benefit-item:nth-child(2) .personal-benefit-icon {
+  background: #fff0e6;
+  color: var(--personal-orange);
+}
+
+.personal-benefit-item h3 {
+  margin: 2px 0 7px;
+  color: #322444;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.personal-benefit-item p {
+  margin: 0;
+  color: var(--personal-text);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+/* =========================================
+   6. BOOKING PROCESS
+========================================= */
+
+.personal-process {
+  padding: 88px max(6.5%, calc((100% - 1200px) / 2));
+  background: #ffffff;
+}
+
+.personal-process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 23px;
+}
+
+.personal-process-card {
+  position: relative;
+  min-width: 0;
+  padding: 27px;
+  border: 1px solid var(--personal-border);
+  border-radius: 20px;
+  background: #ffffff;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.personal-process-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(45, 25, 75, 0.075);
+}
+
+.personal-process-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 51px;
+  height: 51px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #f0e8ff, #faf7ff);
+  color: var(--personal-purple);
+  font-size: 16px;
+  font-weight: 850;
+}
+
+.personal-process-card:nth-child(2) .personal-process-number {
+  background: linear-gradient(135deg, #fff0e6, #fff9f4);
+  color: var(--personal-orange);
+}
+
+.personal-process-card h3 {
+  margin: 22px 0 10px;
+  color: #30223f;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.personal-process-card p {
+  margin: 0;
+  color: var(--personal-text);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.personal-process-arrow {
+  position: absolute;
+  top: 39px;
+  right: -24px;
+  z-index: 2;
+  color: #b7a0e3;
+}
+
+/* =========================================
+   7. CTA
+========================================= */
+
+.personal-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 max(6.5%, calc((100% - 1200px) / 2)) 75px;
+  padding: 53px 30px;
+  overflow: hidden;
+  border-radius: 27px;
+  background:
+    radial-gradient(
+      circle at 90% 5%,
+      rgba(255, 255, 255, 0.15),
+      transparent 26%
+    ),
+    linear-gradient(120deg, #4d249c 0%, #6938c5 58%, #8052d8 100%);
+  color: #ffffff;
+  text-align: center;
+}
+
+.personal-cta::before,
+.personal-cta::after {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.personal-cta::before {
+  top: -140px;
+  left: -70px;
+  width: 300px;
+  height: 300px;
+}
+
+.personal-cta::after {
+  right: -80px;
+  bottom: -190px;
+  width: 360px;
+  height: 360px;
+}
+
+.personal-cta-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 61px;
+  height: 61px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 19px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.personal-cta > .personal-label {
+  position: relative;
+  z-index: 1;
+  color: #ffd3b5;
+}
+
+.personal-cta h2 {
+  position: relative;
+  z-index: 1;
+  max-width: 740px;
+  margin: 14px 0;
+  color: #ffffff;
+  font-size: clamp(27px, 3.5vw, 40px);
+  font-weight: 850;
+  line-height: 1.35;
+  letter-spacing: -0.7px;
+}
+
+.personal-cta > p {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.personal-cta-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.personal-cta .personal-button {
+  background: #ffffff;
+  color: var(--personal-purple-dark);
+  box-shadow: 0 8px 22px rgba(25, 10, 53, 0.15);
+}
+
+.personal-cta .personal-button:hover {
+  background: #fff1e7;
+  color: var(--personal-purple-dark);
+}
+
+.personal-cta-phone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 49px;
+  padding: 0 17px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 13px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 750;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.personal-cta-phone:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+/* =========================================
+   8. SCROLL REVEAL
+   Tương thích useScrollReveal nếu hook dùng
+   data-reveal="up/left/right/zoom"
+========================================= */
+
+.personal-page [data-reveal] {
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.personal-page [data-reveal="up"] {
+  transform: translateY(25px);
+}
+
+.personal-page [data-reveal="left"] {
+  transform: translateX(-25px);
+}
+
+.personal-page [data-reveal="right"] {
+  transform: translateX(25px);
+}
+
+.personal-page [data-reveal="zoom"] {
+  transform: scale(0.96);
+}
+
+.personal-page [data-reveal].is-visible,
+.personal-page [data-reveal].revealed,
+.personal-page [data-reveal].active {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+/* =========================================
+   9. TABLET
+========================================= */
+
+@media (max-width: 1100px) {
   .personal-hero {
-    grid-template-columns: 1fr;
-    padding: 60px 22px;
+    gap: 25px;
+    min-height: 550px;
+    padding: 65px 5%;
   }
 
-  .personal-hero h1 {
-    font-size: clamp(34px, 9vw, 48px);
+  .personal-copy h1 {
+    font-size: clamp(34px, 4.4vw, 47px);
   }
 
   .personal-visual {
-    min-height: 300px;
+    min-height: 360px;
   }
 
   .personal-visual-circle {
-    width: 220px;
-    height: 220px;
+    width: min(100%, 360px);
   }
 
-  .personal-visual-circle span {
-    font-size: 82px;
+  .personal-floating {
+    right: -2px;
+    bottom: 35px;
   }
 
-  .personal-content {
-    padding: 60px 22px;
+  .personal-floating-note {
+    top: 28px;
+    left: -5px;
+  }
+
+  .personal-content,
+  .personal-benefits,
+  .personal-process {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+
+  .personal-benefits-inner {
+    gap: 45px;
+  }
+
+  .personal-card {
+    padding: 22px;
+  }
+
+  .personal-card-tag {
+    max-width: 105px;
+  }
+
+  .personal-cta {
+    margin-right: 5%;
+    margin-left: 5%;
+  }
+}
+
+/* =========================================
+   10. TABLET / SMALL LAPTOP
+========================================= */
+
+@media (max-width: 850px) {
+  .personal-hero {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding-top: 60px;
+    padding-bottom: 50px;
+  }
+
+  .personal-copy {
+    max-width: 680px;
+  }
+
+  .personal-copy h1 {
+    max-width: 650px;
+    font-size: clamp(38px, 6vw, 53px);
+  }
+
+  .personal-visual {
+    width: 100%;
+    min-height: 350px;
+  }
+
+  .personal-visual-circle {
+    width: min(100%, 350px);
+  }
+
+  .personal-floating {
+    right: calc(50% - 220px);
+    bottom: 35px;
+  }
+
+  .personal-floating-note {
+    top: 30px;
+    left: calc(50% - 220px);
+  }
+
+  .personal-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .personal-benefits-inner {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .personal-benefits-copy {
+    max-width: 650px;
+  }
+
+  .personal-process-grid {
+    gap: 15px;
+  }
+
+  .personal-process-card {
+    padding: 22px;
+  }
+
+  .personal-process-arrow {
+    right: -19px;
+    width: 17px;
+  }
+}
+
+/* =========================================
+   11. MOBILE
+========================================= */
+
+@media (max-width: 560px) {
+  .personal-hero {
+    gap: 20px;
+    padding: 43px 20px 35px;
+  }
+
+  .personal-page .personal-label {
+    font-size: 9px;
+    letter-spacing: 1.1px;
+  }
+
+  .personal-copy > .personal-label {
+    padding: 8px 10px;
+  }
+
+  .personal-copy h1 {
+    margin: 20px 0 14px;
+    font-size: clamp(32px, 9vw, 43px);
+    line-height: 1.23;
+    letter-spacing: -1.2px;
+  }
+
+  .personal-copy > p {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+
+  .personal-hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 17px;
+    margin-top: 23px;
+  }
+
+  .personal-button {
+    min-height: 46px;
+    padding: 0 17px;
+    font-size: 12px;
+  }
+
+  .personal-trust-row {
+    gap: 10px 15px;
+    margin-top: 23px;
+  }
+
+  .personal-trust-row span {
+    font-size: 10px;
+  }
+
+  .personal-visual {
+    min-height: 285px;
+    margin-top: 4px;
+  }
+
+  .personal-visual-circle {
+    width: min(78%, 290px);
+  }
+
+  .personal-floating,
+  .personal-floating-note {
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 13px;
+  }
+
+  .personal-floating {
+    right: 0;
+    bottom: 19px;
+  }
+
+  .personal-floating > span {
+    width: 31px;
+    height: 31px;
+    border-radius: 9px;
+  }
+
+  .personal-floating > span svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .personal-floating strong,
+  .personal-floating-note strong {
+    font-size: 10px;
+  }
+
+  .personal-floating small,
+  .personal-floating-note small {
+    font-size: 9px;
+  }
+
+  .personal-floating-note {
+    top: 15px;
+    left: 0;
+  }
+
+  .personal-floating-note > svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .personal-content,
+  .personal-process {
+    padding: 58px 20px;
+  }
+
+  .personal-heading {
+    margin-bottom: 29px;
+  }
+
+  .personal-heading h2 {
+    margin: 10px 0;
+    font-size: 27px;
+    letter-spacing: -0.7px;
+  }
+
+  .personal-heading > p {
+    font-size: 12px;
+    line-height: 1.85;
   }
 
   .personal-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .personal-card {
-    padding: 24px;
+    min-height: 0;
+    padding: 21px;
+    border-radius: 17px;
+  }
+
+  .personal-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .personal-card-icon svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .personal-card h3 {
+    margin-top: 17px;
+    font-size: 15px;
+  }
+
+  .personal-card > p {
+    margin-bottom: 17px;
+    font-size: 12px;
+  }
+
+  .personal-benefits {
+    padding: 58px 20px;
+  }
+
+  .personal-benefits-inner {
+    gap: 29px;
+  }
+
+  .personal-benefits-copy h2 {
+    margin: 12px 0;
+    font-size: 29px;
+    letter-spacing: -0.7px;
+  }
+
+  .personal-benefits-copy > p {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+
+  .personal-benefit-list {
+    gap: 12px;
+  }
+
+  .personal-benefit-item {
+    gap: 13px;
+    padding: 17px;
+    border-radius: 15px;
+  }
+
+  .personal-benefit-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .personal-benefit-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .personal-benefit-item h3 {
+    font-size: 13px;
+  }
+
+  .personal-benefit-item p {
+    font-size: 11px;
+  }
+
+  .personal-process-grid {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .personal-process-card {
+    padding: 21px;
+    border-radius: 17px;
+  }
+
+  .personal-process-card h3 {
+    margin-top: 17px;
+    font-size: 14px;
+  }
+
+  .personal-process-card p {
+    font-size: 12px;
+  }
+
+  .personal-process-arrow {
+    display: none;
+  }
+
+  .personal-cta {
+    align-items: flex-start;
+    margin: 0 16px 45px;
+    padding: 31px 22px;
+    border-radius: 21px;
+    text-align: left;
+  }
+
+  .personal-cta-icon {
+    width: 49px;
+    height: 49px;
+    margin-bottom: 16px;
+    border-radius: 15px;
+  }
+
+  .personal-cta-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .personal-cta h2 {
+    font-size: 27px;
+    letter-spacing: -0.5px;
+  }
+
+  .personal-cta > p {
+    font-size: 12px;
+    line-height: 1.85;
+  }
+
+  .personal-cta-actions {
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+    gap: 11px;
+  }
+
+  .personal-cta-actions .personal-button,
+  .personal-cta-phone {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   12. SMALL MOBILE
+========================================= */
+
+@media (max-width: 360px) {
+  .personal-hero {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .personal-copy h1 {
+    font-size: 30px;
+  }
+
+  .personal-visual {
+    min-height: 245px;
+  }
+
+  .personal-floating,
+  .personal-floating-note {
+    padding: 9px;
+  }
+
+  .personal-floating {
+    right: -3px;
+  }
+
+  .personal-floating-note {
+    left: -3px;
+  }
+
+  .personal-content,
+  .personal-benefits,
+  .personal-process {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .personal-card {
+    padding: 18px;
+  }
+
+  .personal-cta {
+    margin-right: 12px;
+    margin-left: 12px;
+    padding: 25px 18px;
+  }
+}
+
+/* =========================================
+   13. ACCESSIBILITY
+========================================= */
+
+.personal-page a:focus-visible {
+  outline: 3px solid rgba(255, 120, 47, 0.7);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .personal-page *,
+  .personal-page *::before,
+  .personal-page *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

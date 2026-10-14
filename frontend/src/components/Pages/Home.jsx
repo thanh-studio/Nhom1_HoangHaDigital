@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CustomerReviews from "../CustomerReviews";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -904,6 +905,8 @@ export default function Home({ language = "vi" }) {
           </p>
         </div>
       </section>
+
+      <CustomerReviews language={language} />
 
       {/* FINAL CTA */}
       <section className="home-cta-section">
