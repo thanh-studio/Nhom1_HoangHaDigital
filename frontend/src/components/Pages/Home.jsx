@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomerReviews from "../CustomerReviews";
+
 import {
   ArrowRight,
   ArrowUpRight,
@@ -26,7 +27,7 @@ import "./Home.css";
 
 const content = {
   vi: {
-    badge: "GIẢI PHÁP DI CHUYỂN THÔNG MINH",
+    badge: "GIẢI PHÁP DI CHUYỂN",
     titleStart: "Hành trình của bạn,",
     titleHighlight: "chúng tôi đồng hành.",
     description:
@@ -36,119 +37,129 @@ const content = {
     trust1: "Tài xế chuyên nghiệp",
     trust2: "Đặt xe linh hoạt",
     trust3: "Ưu tiên an toàn",
-    bookingTitle: "Lên kế hoạch hành trình",
-    bookingDescription: "Điền thông tin để bắt đầu chuyến đi của bạn.",
+
+    bookingTitle: "Bạn muốn đi đâu hôm nay?",
+    bookingDescription:
+      "Nhập thông tin chuyến đi để bắt đầu đặt xe.",
     pickup: "Điểm đón",
     pickupPlaceholder: "Nhập địa điểm đón",
     destination: "Điểm đến",
     destinationPlaceholder: "Bạn muốn đi đâu?",
     date: "Ngày khởi hành",
     time: "Giờ khởi hành",
-    vehicle: "Loại dịch vụ",
+    vehicle: "Loại xe",
     vehicleOptions: [
       { value: "4-seat", label: "Xe 4 chỗ" },
       { value: "7-seat", label: "Xe 7 chỗ" },
       { value: "driver", label: "Tài xế riêng" },
     ],
     search: "Tìm chuyến xe",
-    bookingNote: "Thông tin hành trình có thể được cập nhật trước khi xác nhận.",
+    bookingNote:
+      "Kiểm tra thông tin chuyến đi trước khi xác nhận đặt xe.",
+
     serviceLabel: "DỊCH VỤ CỦA CHÚNG TÔI",
-    serviceTitle: "Một nền tảng,",
-    serviceTitleHighlight: "nhiều giải pháp di chuyển",
+    serviceTitle: "Di chuyển theo cách",
+    serviceTitleHighlight: "phù hợp với bạn",
     serviceDescription:
-      "Dù là chuyến đi thường ngày hay hành trình đặc biệt, GoAnywhere luôn có lựa chọn phù hợp dành cho bạn.",
-    viewAll: "Khám phá tất cả dịch vụ",
+      "Từ những chuyến đi hằng ngày đến các hành trình đặc biệt, chúng tôi luôn có giải pháp dành cho bạn.",
+    viewAll: "Xem bảng giá",
+
     services: [
       {
         id: "personal",
         title: "Di chuyển cá nhân",
         description:
-          "Đặt xe thuận tiện cho công việc, mua sắm, gặp gỡ và những chuyến đi hằng ngày.",
+          "Đặt xe đi làm, mua sắm, gặp gỡ bạn bè hoặc di chuyển hằng ngày.",
         icon: "car",
         link: "/personal",
-        tag: "Linh hoạt mỗi ngày",
+        tag: "Cá nhân",
       },
       {
         id: "business",
-        title: "Giải pháp doanh nghiệp",
+        title: "Dịch vụ doanh nghiệp",
         description:
-          "Tối ưu nhu cầu đi lại cho đội ngũ nhân viên, đối tác và khách hàng doanh nghiệp.",
+          "Giải pháp đi lại cho nhân viên, đối tác và khách hàng doanh nghiệp.",
         icon: "business",
         link: "/business",
-        tag: "Chuyên nghiệp",
+        tag: "Doanh nghiệp",
       },
       {
         id: "events",
         title: "Đưa đón sự kiện",
         description:
-          "Giải pháp đưa đón cho hội nghị, tiệc cưới, sự kiện và chương trình tập thể.",
+          "Sắp xếp xe cho hội nghị, tiệc cưới, sự kiện và chuyến đi tập thể.",
         icon: "events",
         link: "/events",
-        tag: "Theo lịch trình",
+        tag: "Sự kiện",
       },
       {
         id: "driver",
         title: "Dịch vụ tài xế",
         description:
-          "Tài xế riêng phục vụ theo lịch trình, giúp bạn chủ động và thoải mái hơn.",
+          "Chủ động lịch trình với tài xế riêng theo nhu cầu của bạn.",
         icon: "driver",
         link: "/driver",
-        tag: "Theo yêu cầu",
+        tag: "Tài xế riêng",
       },
     ],
-    whyLabel: "VÌ SAO CHỌN GOANYWHERE",
-    whyTitle: "Di chuyển thông minh hơn,",
-    whyHighlight: "an tâm trên mọi hành trình",
+
+    whyLabel: "LÝ DO LỰA CHỌN",
+    whyTitle: "Mỗi chuyến đi đều",
+    whyHighlight: "đáng để an tâm",
     whyDescription:
-      "Chúng tôi đặt trải nghiệm khách hàng làm trọng tâm, từ lúc đặt xe cho đến khi bạn hoàn thành hành trình.",
+      "GoAnywhere hướng đến trải nghiệm thuận tiện, rõ ràng và phù hợp với nhu cầu thực tế của khách hàng.",
+
     benefits: [
       {
-        title: "An toàn là ưu tiên",
+        title: "Chú trọng an toàn",
         description:
-          "Đề cao sự an toàn, chỉn chu và trải nghiệm đáng tin cậy trong mỗi chuyến đi.",
+          "Ưu tiên sự an tâm và trải nghiệm đáng tin cậy trên mỗi hành trình.",
         icon: "shield",
       },
       {
-        title: "Đặt xe đơn giản",
+        title: "Đặt xe thuận tiện",
         description:
-          "Thao tác thuận tiện, thông tin hành trình rõ ràng và dễ dàng quản lý.",
+          "Thông tin điểm đón, điểm đến và thời gian được trình bày rõ ràng.",
         icon: "route",
       },
       {
-        title: "Linh hoạt theo nhu cầu",
+        title: "Dịch vụ linh hoạt",
         description:
-          "Nhiều lựa chọn dịch vụ phù hợp với cá nhân, gia đình và doanh nghiệp.",
+          "Nhiều lựa chọn dành cho cá nhân, gia đình và doanh nghiệp.",
         icon: "users",
       },
     ],
-    processLabel: "CÁCH THỨC HOẠT ĐỘNG",
-    processTitle: "Đặt xe chỉ với 3 bước",
+
+    processLabel: "QUY TRÌNH ĐẶT XE",
+    processTitle: "Ba bước cho chuyến đi",
     processDescription:
-      "Quy trình đơn giản để bạn nhanh chóng sẵn sàng cho hành trình tiếp theo.",
+      "Các bước đơn giản giúp bạn chủ động lên kế hoạch di chuyển.",
+
     steps: [
       {
         number: "01",
         title: "Nhập thông tin",
         description:
-          "Chọn điểm đón, điểm đến, thời gian và loại dịch vụ phù hợp.",
+          "Chọn điểm đón, điểm đến, thời gian và loại xe mong muốn.",
       },
       {
         number: "02",
-        title: "Xác nhận chuyến đi",
+        title: "Kiểm tra chuyến đi",
         description:
-          "Kiểm tra lại thông tin hành trình trước khi gửi yêu cầu đặt xe.",
+          "Xem lại thông tin hành trình trước khi gửi yêu cầu đặt xe.",
       },
       {
         number: "03",
-        title: "Bắt đầu hành trình",
+        title: "Sẵn sàng khởi hành",
         description:
-          "Chuẩn bị cho chuyến đi thuận tiện cùng giải pháp của GoAnywhere.",
+          "Theo dõi yêu cầu và chuẩn bị cho hành trình tiếp theo.",
       },
     ],
-    priceLabel: "GIÁ DỊCH VỤ THAM KHẢO",
-    priceTitle: "Chọn xe phù hợp với bạn",
+
+    priceLabel: "BẢNG GIÁ THAM KHẢO",
+    priceTitle: "Chọn xe phù hợp",
     priceDescription:
-      "Tham khảo các lựa chọn phổ biến trước khi bắt đầu hành trình.",
+      "Tham khảo các lựa chọn phổ biến trước khi đặt chuyến đi.",
     price4: "Xe 4 chỗ",
     price7: "Xe 7 chỗ",
     priceDriver: "Tài xế riêng",
@@ -156,15 +167,17 @@ const content = {
     perKm: "/ km",
     contactPrice: "Theo lịch trình",
     seePrice: "Xem bảng giá",
-    popular: "ĐƯỢC QUAN TÂM",
-    finalTitle: "Hành trình tiếp theo",
-    finalHighlight: "bắt đầu từ đây.",
+    popular: "LỰA CHỌN PHỔ BIẾN",
+
+    finalTitle: "Bạn đã sẵn sàng",
+    finalHighlight: "cho chuyến đi mới?",
     finalDescription:
-      "Dù bạn đi đâu, GoAnywhere luôn sẵn sàng giúp hành trình trở nên thuận tiện hơn.",
-    finalButton: "Đặt xe ngay hôm nay",
-    contactButton: "Liên hệ với chúng tôi",
+      "Lên kế hoạch hành trình cùng GoAnywhere ngay hôm nay.",
+    finalButton: "Bắt đầu đặt xe",
+    contactButton: "Liên hệ",
     footerNote: "GoAnywhere — Đi mọi nơi, an tâm mọi hành trình.",
   },
+
   en: {
     badge: "SMART MOBILITY SOLUTIONS",
     titleStart: "Your journey,",
@@ -176,28 +189,33 @@ const content = {
     trust1: "Professional drivers",
     trust2: "Flexible booking",
     trust3: "Safety first",
-    bookingTitle: "Plan your journey",
-    bookingDescription: "Enter your trip details to get started.",
+
+    bookingTitle: "Where would you like to go?",
+    bookingDescription:
+      "Enter your trip details to start booking.",
     pickup: "Pickup location",
     pickupPlaceholder: "Enter pickup location",
     destination: "Destination",
     destinationPlaceholder: "Where are you going?",
     date: "Departure date",
     time: "Departure time",
-    vehicle: "Service type",
+    vehicle: "Vehicle type",
     vehicleOptions: [
       { value: "4-seat", label: "4-seat car" },
       { value: "7-seat", label: "7-seat car" },
       { value: "driver", label: "Private driver" },
     ],
     search: "Find a ride",
-    bookingNote: "Trip details can be reviewed before confirmation.",
+    bookingNote:
+      "Review your trip details before confirming your booking.",
+
     serviceLabel: "OUR SERVICES",
-    serviceTitle: "One platform,",
-    serviceTitleHighlight: "more ways to travel",
+    serviceTitle: "Travel in a way",
+    serviceTitleHighlight: "that suits you",
     serviceDescription:
-      "From everyday rides to special journeys, find a mobility solution that fits your needs.",
-    viewAll: "Explore all services",
+      "From everyday rides to special occasions, find a transportation solution that fits your needs.",
+    viewAll: "View pricing",
+
     services: [
       {
         id: "personal",
@@ -206,89 +224,94 @@ const content = {
           "Convenient rides for work, shopping, meetings and everyday travel.",
         icon: "car",
         link: "/personal",
-        tag: "Everyday flexibility",
+        tag: "Personal",
       },
       {
         id: "business",
-        title: "Business solutions",
+        title: "Business services",
         description:
-          "Streamlined transportation for employees, partners and business clients.",
+          "Transportation for employees, partners and business clients.",
         icon: "business",
         link: "/business",
-        tag: "Professional",
+        tag: "Business",
       },
       {
         id: "events",
         title: "Event transportation",
         description:
-          "Transportation for conferences, weddings, events and group occasions.",
+          "Arrange transportation for conferences, weddings and group events.",
         icon: "events",
         link: "/events",
-        tag: "Scheduled rides",
+        tag: "Events",
       },
       {
         id: "driver",
         title: "Private driver",
         description:
-          "A dedicated driver for your schedule, giving you more freedom and comfort.",
+          "A dedicated driver arranged around your schedule and needs.",
         icon: "driver",
         link: "/driver",
-        tag: "On demand",
+        tag: "Private driver",
       },
     ],
-    whyLabel: "WHY GOANYWHERE",
-    whyTitle: "Smarter mobility,",
-    whyHighlight: "confidence on every trip",
+
+    whyLabel: "WHY CHOOSE US",
+    whyTitle: "Every journey should",
+    whyHighlight: "feel reassuring",
     whyDescription:
-      "We put your experience first, from booking your ride to reaching your destination.",
+      "GoAnywhere focuses on convenient, transparent and practical transportation experiences.",
+
     benefits: [
       {
-        title: "Safety comes first",
+        title: "Safety matters",
         description:
-          "We value safety, professionalism and a dependable travel experience.",
+          "We prioritize peace of mind and a dependable travel experience.",
         icon: "shield",
       },
       {
-        title: "Easy booking",
+        title: "Convenient booking",
         description:
-          "Convenient steps, clear trip details and a simpler way to plan travel.",
+          "Pickup, destination and departure details are clearly presented.",
         icon: "route",
       },
       {
-        title: "Flexible solutions",
+        title: "Flexible services",
         description:
-          "Service options for individuals, families and businesses.",
+          "Options for individuals, families and businesses.",
         icon: "users",
       },
     ],
-    processLabel: "HOW IT WORKS",
-    processTitle: "Book your ride in 3 steps",
+
+    processLabel: "HOW TO BOOK",
+    processTitle: "Three steps to your ride",
     processDescription:
-      "A simple process to help you get ready for your next journey.",
+      "A straightforward process to help you plan your journey.",
+
     steps: [
       {
         number: "01",
         title: "Enter your details",
         description:
-          "Choose your pickup, destination, schedule and preferred service.",
+          "Choose your pickup, destination, schedule and preferred vehicle.",
       },
       {
         number: "02",
         title: "Review your trip",
         description:
-          "Check your journey information before submitting your booking.",
+          "Check your journey details before submitting your booking request.",
       },
       {
         number: "03",
-        title: "Start your journey",
+        title: "Get ready to go",
         description:
-          "Get ready for a convenient trip with GoAnywhere.",
+          "Track your request and prepare for your upcoming journey.",
       },
     ],
-    priceLabel: "ESTIMATED FARES",
+
+    priceLabel: "ESTIMATED PRICING",
     priceTitle: "Choose your ride",
     priceDescription:
-      "Explore popular options before planning your journey.",
+      "Explore popular vehicle options before booking.",
     price4: "4-seat car",
     price7: "7-seat car",
     priceDriver: "Private driver",
@@ -297,18 +320,23 @@ const content = {
     contactPrice: "Based on itinerary",
     seePrice: "View pricing",
     popular: "POPULAR CHOICE",
-    finalTitle: "Your next journey",
-    finalHighlight: "starts here.",
+
+    finalTitle: "Ready for your",
+    finalHighlight: "next journey?",
     finalDescription:
-      "Wherever you go, GoAnywhere is ready to make your journey easier.",
-    finalButton: "Book your ride today",
+      "Start planning your next trip with GoAnywhere today.",
+    finalButton: "Book a ride",
     contactButton: "Contact us",
     footerNote: "GoAnywhere — Every destination, a better journey.",
   },
 };
 
-function ServiceIcon({ type, size = 25 }) {
-  const props = { size, strokeWidth: 1.8 };
+function ServiceIcon({ type, size = 24 }) {
+  const props = {
+    size,
+    strokeWidth: 1.8,
+    "aria-hidden": true,
+  };
 
   switch (type) {
     case "business":
@@ -363,255 +391,298 @@ export default function Home({ language = "vi" }) {
     navigate(`/booking?${params.toString()}`);
   };
 
-  const scrollToBooking = () => {
-    document.getElementById("home-booking")?.scrollIntoView({
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({
       behavior: "smooth",
-      block: "center",
+      block: "start",
     });
   };
+
+  const today = [
+    new Date().getFullYear(),
+    String(new Date().getMonth() + 1).padStart(2, "0"),
+    String(new Date().getDate()).padStart(2, "0"),
+  ].join("-");
 
   return (
     <main className="home-page">
       {/* HERO */}
       <section className="home-hero" id="home">
-        <div className="home-hero-shape home-hero-shape-one" />
-        <div className="home-hero-shape home-hero-shape-two" />
-
-        <div className="home-container home-hero-grid">
-          <div className="home-hero-content">
-            <div className="home-eyebrow">
-              <span className="home-eyebrow-icon">
-                <Sparkles size={15} />
-              </span>
-              {t.badge}
-            </div>
-
-            <h1>
-              {t.titleStart}
-              <span>{t.titleHighlight}</span>
-            </h1>
-
-            <p className="home-hero-description">{t.description}</p>
-
-            <div className="home-hero-actions">
-              <button
-                type="button"
-                className="home-button home-button-primary"
-                onClick={scrollToBooking}
-              >
-                {t.bookNow}
-                <ArrowRight size={18} />
-              </button>
-
-              <button
-                type="button"
-                className="home-button home-button-secondary"
-                onClick={() =>
-                  document
-                    .getElementById("home-services")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-              >
-                {t.explore}
-                <ArrowUpRight size={18} />
-              </button>
-            </div>
-
-            <div className="home-trust-list">
-              <div className="home-trust-item">
-                <span className="home-trust-check">
-                  <CheckCircle2 size={17} />
-                </span>
-                {t.trust1}
-              </div>
-              <div className="home-trust-item">
-                <span className="home-trust-check">
-                  <CheckCircle2 size={17} />
-                </span>
-                {t.trust2}
-              </div>
-              <div className="home-trust-item">
-                <span className="home-trust-check">
-                  <CheckCircle2 size={17} />
-                </span>
-                {t.trust3}
-              </div>
-            </div>
-          </div>
-
-          {/* Hero illustration */}
-          <div className="home-hero-visual">
-            <div className="home-visual-backdrop" />
-
-            <div className="home-visual-orbit home-visual-orbit-one" />
-            <div className="home-visual-orbit home-visual-orbit-two" />
-
-            <div className="home-car-stage">
-              <div className="home-car-sun" />
-              <div className="home-car-road">
-                <span />
-                <span />
-                <span />
-              </div>
-
-              <div className="home-car-art">
-                <div className="home-car-window" />
-                <div className="home-car-body">
-                  <div className="home-car-door" />
-                  <div className="home-car-handle" />
-                  <div className="home-car-light" />
+        <div className="container home-container">
+          <div className="row align-items-center g-4 g-lg-5">
+            <div className="col-lg-6">
+              <div className="home-hero-content">
+                <div className="home-eyebrow">
+                  <span className="home-eyebrow-icon">
+                    <Sparkles size={15} />
+                  </span>
+                  {t.badge}
                 </div>
-                <div className="home-car-wheel home-car-wheel-left">
-                  <span />
+
+                <h1>
+                  {t.titleStart}
+                  <span>{t.titleHighlight}</span>
+                </h1>
+
+                <p className="home-hero-description">
+                  {t.description}
+                </p>
+
+                <div className="home-hero-actions">
+                  <button
+                    type="button"
+                    className="home-button home-button-primary"
+                    onClick={() => scrollToSection("home-booking")}
+                  >
+                    {t.bookNow}
+                    <ArrowRight size={17} />
+                  </button>
+
+                  <button
+                    type="button"
+                    className="home-button home-button-secondary"
+                    onClick={() => scrollToSection("home-services")}
+                  >
+                    {t.explore}
+                    <ArrowUpRight size={17} />
+                  </button>
                 </div>
-                <div className="home-car-wheel home-car-wheel-right">
-                  <span />
+
+                <div className="home-trust-list">
+                  {[t.trust1, t.trust2, t.trust3].map((item) => (
+                    <div className="home-trust-item" key={item}>
+                      <CheckCircle2 size={16} />
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-
-              <div className="home-car-ground-shadow" />
             </div>
 
-            <div className="home-floating-card home-floating-card-rating">
-              <div className="home-rating-icon">
-                <Star size={19} fill="currentColor" />
-              </div>
-              <div>
-                <strong>
-                  {language === "en" ? "Travel with confidence" : "An tâm trên mọi chuyến đi"}
-                </strong>
-                <span>
-                  {language === "en"
-                    ? "Your journey matters"
-                    : "Trải nghiệm của bạn là ưu tiên"}
-                </span>
-              </div>
-            </div>
+            <div className="col-lg-6">
+              <div className="home-hero-visual">
+                <div className="home-visual-backdrop" />
 
-            <div className="home-floating-card home-floating-card-location">
-              <span className="home-location-icon">
-                <MapPin size={19} />
-              </span>
-              <div>
-                <strong>
-                  {language === "en" ? "Your destination" : "Điểm đến của bạn"}
-                </strong>
-                <span>
-                  {language === "en" ? "Let's get you there" : "Sẵn sàng khởi hành"}
-                </span>
-              </div>
-            </div>
+                <div className="home-visual-label">
+                  <CarFront size={17} />
+                  <span>GoAnywhere</span>
+                </div>
 
-            <div className="home-visual-badge">
-              <Navigation size={17} />
-              <span>GoAnywhere</span>
+                <div className="home-car-stage">
+                  <div className="home-car-sun" />
+
+                  <div className="home-car-road">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+
+                  <div className="home-car-art">
+                    <div className="home-car-window" />
+
+                    <div className="home-car-body">
+                      <div className="home-car-door" />
+                      <div className="home-car-handle" />
+                      <div className="home-car-light" />
+                    </div>
+
+                    <div className="home-car-wheel home-car-wheel-left">
+                      <span />
+                    </div>
+
+                    <div className="home-car-wheel home-car-wheel-right">
+                      <span />
+                    </div>
+                  </div>
+
+                  <div className="home-car-ground-shadow" />
+                </div>
+
+                <div className="home-floating-card home-floating-card-rating">
+                  <div className="home-rating-icon">
+                    <ShieldCheck size={20} />
+                  </div>
+                  <div>
+                    <strong>
+                      {language === "en"
+                        ? "Travel with confidence"
+                        : "An tâm trên hành trình"}
+                    </strong>
+                    <span>
+                      {language === "en"
+                        ? "Your trip matters"
+                        : "Chuyến đi của bạn là ưu tiên"}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="home-floating-card home-floating-card-location">
+                  <div className="home-location-icon">
+                    <MapPin size={19} />
+                  </div>
+                  <div>
+                    <strong>
+                      {language === "en"
+                        ? "Your destination"
+                        : "Điểm đến của bạn"}
+                    </strong>
+                    <span>
+                      {language === "en"
+                        ? "Ready when you are"
+                        : "Sẵn sàng khởi hành"}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <div className="home-hero-bottom-line" />
       </section>
 
-      {/* QUICK BOOKING */}
+      {/* BOOKING */}
       <section className="home-booking-section" id="home-booking">
-        <div className="home-container">
-          <form className="home-booking-card" onSubmit={handleBooking}>
+        <div className="container home-container">
+          <form
+            className="home-booking-card"
+            onSubmit={handleBooking}
+          >
             <div className="home-booking-heading">
               <div className="home-booking-heading-icon">
-                <CarFront size={24} />
+                <CarFront size={23} />
               </div>
+
               <div>
                 <h2>{t.bookingTitle}</h2>
                 <p>{t.bookingDescription}</p>
               </div>
             </div>
 
-            <div className="home-booking-fields">
-              <label className="home-form-field">
-                <span className="home-form-label">
-                  <MapPin size={15} />
-                  {t.pickup}
-                </span>
-                <input
-                  type="text"
-                  name="pickup"
-                  value={formData.pickup}
-                  onChange={updateForm}
-                  placeholder={t.pickupPlaceholder}
-                  autoComplete="street-address"
-                  required
-                />
-              </label>
-
-              <label className="home-form-field">
-                <span className="home-form-label">
-                  <Navigation size={15} />
-                  {t.destination}
-                </span>
-                <input
-                  type="text"
-                  name="destination"
-                  value={formData.destination}
-                  onChange={updateForm}
-                  placeholder={t.destinationPlaceholder}
-                  required
-                />
-              </label>
-
-              <label className="home-form-field">
-                <span className="home-form-label">
-                  <CalendarDays size={15} />
-                  {t.date}
-                </span>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={updateForm}
-                  min={new Date().toLocaleDateString("en-CA")}
-                  required
-                />
-              </label>
-
-              <label className="home-form-field">
-                <span className="home-form-label">
-                  <Clock3 size={15} />
-                  {t.time}
-                </span>
-                <input
-                  type="time"
-                  name="time"
-                  value={formData.time}
-                  onChange={updateForm}
-                  required
-                />
-              </label>
-
-              <label className="home-form-field home-form-service">
-                <span className="home-form-label">
-                  <CarFront size={15} />
-                  {t.vehicle}
-                </span>
-                <select
-                  name="service"
-                  value={formData.service}
-                  onChange={updateForm}
+            <div className="row g-3 align-items-end">
+              <div className="col-12 col-md-6 col-lg-4">
+                <label
+                  className="home-form-field"
+                  htmlFor="home-pickup"
                 >
-                  {t.vehicleOptions.map((option) => (
-                    <option value={option.value} key={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
+                  <span className="home-form-label">
+                    <MapPin size={15} />
+                    {t.pickup}
+                  </span>
 
-              <button
-                type="submit"
-                className="home-booking-submit"
-              >
-                {t.search}
-                <ArrowRight size={18} />
-              </button>
+                  <input
+                    id="home-pickup"
+                    type="text"
+                    name="pickup"
+                    value={formData.pickup}
+                    onChange={updateForm}
+                    placeholder={t.pickupPlaceholder}
+                    autoComplete="street-address"
+                    required
+                  />
+                </label>
+              </div>
+
+              <div className="col-12 col-md-6 col-lg-4">
+                <label
+                  className="home-form-field"
+                  htmlFor="home-destination"
+                >
+                  <span className="home-form-label">
+                    <Navigation size={15} />
+                    {t.destination}
+                  </span>
+
+                  <input
+                    id="home-destination"
+                    type="text"
+                    name="destination"
+                    value={formData.destination}
+                    onChange={updateForm}
+                    placeholder={t.destinationPlaceholder}
+                    required
+                  />
+                </label>
+              </div>
+
+              <div className="col-12 col-md-6 col-lg-2">
+                <label
+                  className="home-form-field"
+                  htmlFor="home-date"
+                >
+                  <span className="home-form-label">
+                    <CalendarDays size={15} />
+                    {t.date}
+                  </span>
+
+                  <input
+                    id="home-date"
+                    type="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={updateForm}
+                    min={today}
+                    required
+                  />
+                </label>
+              </div>
+
+              <div className="col-12 col-md-6 col-lg-2">
+                <label
+                  className="home-form-field"
+                  htmlFor="home-time"
+                >
+                  <span className="home-form-label">
+                    <Clock3 size={15} />
+                    {t.time}
+                  </span>
+
+                  <input
+                    id="home-time"
+                    type="time"
+                    name="time"
+                    value={formData.time}
+                    onChange={updateForm}
+                    required
+                  />
+                </label>
+              </div>
+
+              <div className="col-12 col-md-6">
+                <label
+                  className="home-form-field"
+                  htmlFor="home-service"
+                >
+                  <span className="home-form-label">
+                    <CarFront size={15} />
+                    {t.vehicle}
+                  </span>
+
+                  <select
+                    id="home-service"
+                    name="service"
+                    value={formData.service}
+                    onChange={updateForm}
+                  >
+                    {t.vehicleOptions.map((option) => (
+                      <option
+                        value={option.value}
+                        key={option.value}
+                      >
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+
+              <div className="col-12 col-md-6">
+                <button
+                  type="submit"
+                  className="home-booking-submit"
+                >
+                  {t.search}
+                  <ArrowRight size={18} />
+                </button>
+              </div>
             </div>
 
             <div className="home-booking-note">
@@ -624,54 +695,67 @@ export default function Home({ language = "vi" }) {
 
       {/* SERVICES */}
       <section className="home-services-section" id="home-services">
-        <div className="home-container">
+        <div className="container home-container">
           <div className="home-section-heading">
-            <span className="home-section-label">{t.serviceLabel}</span>
+            <span className="home-section-label">
+              {t.serviceLabel}
+            </span>
+
             <h2>
-              {t.serviceTitle}
+              {t.serviceTitle}{" "}
               <span>{t.serviceTitleHighlight}</span>
             </h2>
+
             <p>{t.serviceDescription}</p>
           </div>
 
-          <div className="home-service-grid">
+          <div className="row g-3">
             {t.services.map((service, index) => (
-              <article
-                className={`home-service-card home-service-card-${index + 1}`}
+              <div
+                className="col-12 col-sm-6 col-lg-3"
                 key={service.id}
               >
-                <div className="home-service-card-top">
-                  <div className="home-service-icon">
-                    <ServiceIcon type={service.icon} size={27} />
+                <article className="home-service-card h-100">
+                  <div className="home-service-card-top">
+                    <div className={`home-service-icon service-icon-${index + 1}`}>
+                      <ServiceIcon type={service.icon} size={26} />
+                    </div>
+
+                    <span className="home-service-number">
+                      0{index + 1}
+                    </span>
                   </div>
-                  <span className="home-service-number">
-                    0{index + 1}
+
+                  <span className="home-service-tag">
+                    {service.tag}
                   </span>
-                </div>
 
-                <span className="home-service-tag">{service.tag}</span>
+                  <h3>{service.title}</h3>
 
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
+                  <p>{service.description}</p>
 
-                <button
-                  type="button"
-                  className="home-service-link"
-                  onClick={() => navigate(service.link)}
-                >
-                  {language === "en" ? "Explore service" : "Khám phá dịch vụ"}
-                  <ArrowUpRight size={17} />
-                </button>
-              </article>
+                  <button
+                    type="button"
+                    className="home-service-link"
+                    onClick={() => navigate(service.link)}
+                  >
+                    {language === "en"
+                      ? "Explore service"
+                      : "Tìm hiểu thêm"}
+                    <ArrowUpRight size={16} />
+                  </button>
+                </article>
+              </div>
             ))}
           </div>
 
           <div className="home-services-bottom">
             <span>
               {language === "en"
-                ? "Discover the right solution for your journey."
-                : "Khám phá giải pháp phù hợp với hành trình của bạn."}
+                ? "Find the right service for your trip."
+                : "Tìm dịch vụ phù hợp với hành trình của bạn."}
             </span>
+
             <button
               type="button"
               className="home-text-link"
@@ -684,127 +768,176 @@ export default function Home({ language = "vi" }) {
         </div>
       </section>
 
-      {/* WHY CHOOSE US */}
+      {/* BENEFITS */}
       <section className="home-benefits-section" id="home-benefits">
-        <div className="home-container home-benefits-grid">
-          <div className="home-benefits-visual">
-            <div className="home-benefits-visual-circle" />
-
-            <div className="home-benefits-main-card">
-              <div className="home-benefits-main-icon">
-                <ShieldCheck size={43} />
-              </div>
-              <span className="home-benefits-overline">
-                {language === "en" ? "YOUR JOURNEY, OUR PRIORITY" : "HÀNH TRÌNH CỦA BẠN"}
-              </span>
-              <h3>
-                {language === "en"
-                  ? "Comfort in every mile."
-                  : "An tâm trên từng chặng đường."}
-              </h3>
-              <p>
-                {language === "en"
-                  ? "A thoughtful travel experience starts with the right service."
-                  : "Trải nghiệm tốt bắt đầu từ lựa chọn dịch vụ phù hợp."}
-              </p>
-
-              <div className="home-benefits-mini-route">
-                <span className="home-mini-route-dot" />
-                <span className="home-mini-route-line" />
-                <span className="home-mini-route-dot orange" />
-              </div>
-            </div>
-
-            <div className="home-benefits-floating">
-              <div className="home-benefits-floating-icon">
-                <Headphones size={21} />
-              </div>
-              <div>
-                <strong>
-                  {language === "en" ? "Customer focused" : "Lấy khách hàng làm trọng tâm"}
-                </strong>
-                <span>
-                  {language === "en" ? "Service with care" : "Phục vụ tận tâm"}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="home-benefits-content">
-            <span className="home-section-label">{t.whyLabel}</span>
-            <h2>
-              {t.whyTitle}
-              <span>{t.whyHighlight}</span>
-            </h2>
-            <p className="home-benefits-description">{t.whyDescription}</p>
-
-            <div className="home-benefit-list">
-              {t.benefits.map((benefit, index) => (
-                <article className="home-benefit-item" key={benefit.title}>
-                  <div className={`home-benefit-item-icon benefit-icon-${index + 1}`}>
-                    <ServiceIcon type={benefit.icon} size={23} />
+        <div className="container home-container">
+          <div className="row align-items-center g-4 g-lg-5">
+            <div className="col-lg-5">
+              <div className="home-benefits-visual">
+                <div className="home-benefits-main-card">
+                  <div className="home-benefits-main-icon">
+                    <ShieldCheck size={39} />
                   </div>
+
+                  <span className="home-benefits-overline">
+                    {language === "en"
+                      ? "YOUR JOURNEY MATTERS"
+                      : "ĐỒNG HÀNH CÙNG BẠN"}
+                  </span>
+
+                  <h3>
+                    {language === "en"
+                      ? "A better way to get there."
+                      : "Mỗi hành trình, thêm an tâm."}
+                  </h3>
+
+                  <p>
+                    {language === "en"
+                      ? "Choose a service that fits your schedule and travel needs."
+                      : "Lựa chọn dịch vụ phù hợp để chủ động hơn trong mỗi chuyến đi."}
+                  </p>
+
+                  <div className="home-benefits-mini-route">
+                    <span className="home-mini-route-dot" />
+                    <span className="home-mini-route-line" />
+                    <span className="home-mini-route-dot orange" />
+                  </div>
+                </div>
+
+                <div className="home-benefits-floating">
+                  <div className="home-benefits-floating-icon">
+                    <Headphones size={21} />
+                  </div>
+
                   <div>
-                    <h3>{benefit.title}</h3>
-                    <p>{benefit.description}</p>
+                    <strong>
+                      {language === "en"
+                        ? "Customer focused"
+                        : "Hỗ trợ khách hàng"}
+                    </strong>
+                    <span>
+                      {language === "en"
+                        ? "Here to help"
+                        : "Luôn sẵn sàng hỗ trợ"}
+                    </span>
                   </div>
-                  <CheckCircle2 className="home-benefit-check" size={19} />
-                </article>
-              ))}
+                </div>
+              </div>
             </div>
 
-            <button
-              type="button"
-              className="home-button home-button-primary home-benefits-button"
-              onClick={() => navigate("/company")}
-            >
-              {language === "en" ? "About GoAnywhere" : "Tìm hiểu GoAnywhere"}
-              <ArrowRight size={18} />
-            </button>
+            <div className="col-lg-7">
+              <div className="home-benefits-content">
+                <span className="home-section-label">
+                  {t.whyLabel}
+                </span>
+
+                <h2>
+                  {t.whyTitle}{" "}
+                  <span>{t.whyHighlight}</span>
+                </h2>
+
+                <p className="home-benefits-description">
+                  {t.whyDescription}
+                </p>
+
+                <div className="home-benefit-list">
+                  {t.benefits.map((benefit, index) => (
+                    <article
+                      className="home-benefit-item"
+                      key={benefit.title}
+                    >
+                      <div
+                        className={`home-benefit-item-icon benefit-icon-${index + 1}`}
+                      >
+                        <ServiceIcon type={benefit.icon} size={22} />
+                      </div>
+
+                      <div>
+                        <h3>{benefit.title}</h3>
+                        <p>{benefit.description}</p>
+                      </div>
+
+                      <CheckCircle2
+                        className="home-benefit-check"
+                        size={18}
+                      />
+                    </article>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  className="home-button home-button-primary home-benefits-button"
+                  onClick={() => navigate("/company")}
+                >
+                  {language === "en"
+                    ? "About GoAnywhere"
+                    : "Về GoAnywhere"}
+                  <ArrowRight size={17} />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* HOW IT WORKS */}
       <section className="home-process-section" id="home-process">
-        <div className="home-container">
+        <div className="container home-container">
           <div className="home-section-heading">
-            <span className="home-section-label">{t.processLabel}</span>
+            <span className="home-section-label">
+              {t.processLabel}
+            </span>
+
             <h2>{t.processTitle}</h2>
+
             <p>{t.processDescription}</p>
           </div>
 
-          <div className="home-process-grid">
+          <div className="row g-3">
             {t.steps.map((step, index) => (
-              <article className="home-process-card" key={step.number}>
-                <div className="home-process-card-top">
-                  <span className="home-process-number">{step.number}</span>
-                  {index < t.steps.length - 1 && (
-                    <span className="home-process-connector">
-                      <ArrowRight size={20} />
+              <div className="col-12 col-md-4" key={step.number}>
+                <article className="home-process-card h-100">
+                  <div className="home-process-card-top">
+                    <span className="home-process-number">
+                      {step.number}
                     </span>
-                  )}
-                </div>
-                <div className={`home-process-icon process-icon-${index + 1}`}>
-                  {index === 0 && <MapPin size={28} />}
-                  {index === 1 && <CheckCircle2 size={28} />}
-                  {index === 2 && <CarFront size={28} />}
-                </div>
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
-              </article>
+
+                    {index < t.steps.length - 1 && (
+                      <span className="home-process-connector">
+                        <ArrowRight size={19} />
+                      </span>
+                    )}
+                  </div>
+
+                  <div
+                    className={`home-process-icon process-icon-${index + 1}`}
+                  >
+                    {index === 0 && <MapPin size={27} />}
+                    {index === 1 && <CheckCircle2 size={27} />}
+                    {index === 2 && <CarFront size={27} />}
+                  </div>
+
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </article>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* PRICING PREVIEW */}
+      {/* PRICING */}
       <section className="home-price-section" id="home-pricing">
-        <div className="home-container">
+        <div className="container home-container">
           <div className="home-price-heading">
             <div className="home-section-heading home-price-title">
-              <span className="home-section-label">{t.priceLabel}</span>
+              <span className="home-section-label">
+                {t.priceLabel}
+              </span>
+
               <h2>{t.priceTitle}</h2>
+
               <p>{t.priceDescription}</p>
             </div>
 
@@ -814,126 +947,155 @@ export default function Home({ language = "vi" }) {
               onClick={() => navigate("/pricing")}
             >
               {t.seePrice}
-              <ArrowUpRight size={17} />
+              <ArrowUpRight size={16} />
             </button>
           </div>
 
-          <div className="home-price-grid">
-            <article className="home-price-card">
-              <div className="home-price-icon">
-                <CarFront size={27} />
-              </div>
-              <h3>{t.price4}</h3>
-              <p>
-                {language === "en"
-                  ? "Compact and convenient for everyday rides."
-                  : "Gọn nhẹ, tiện lợi cho nhu cầu di chuyển hằng ngày."}
-              </p>
-              <div className="home-price-value">
-                <span>{t.from}</span>
-                <strong>{language === "en" ? "7,000" : "7.000đ"}</strong>
-                <span>{t.perKm}</span>
-              </div>
-              <button
-                type="button"
-                className="home-price-link"
-                onClick={() => navigate("/booking?service=4-seat")}
-              >
-                {t.bookNow}
-                <ArrowRight size={16} />
-              </button>
-            </article>
+          <div className="row g-3">
+            <div className="col-12 col-md-6 col-lg-4">
+              <article className="home-price-card h-100">
+                <div className="home-price-icon">
+                  <CarFront size={26} />
+                </div>
 
-            <article className="home-price-card home-price-card-featured">
-              <span className="home-price-popular">
-                <Sparkles size={13} />
-                {t.popular}
-              </span>
-              <div className="home-price-icon">
-                <Users size={27} />
-              </div>
-              <h3>{t.price7}</h3>
-              <p>
-                {language === "en"
-                  ? "More room for family trips and groups."
-                  : "Rộng rãi cho gia đình, nhóm bạn và hành lý."}
-              </p>
-              <div className="home-price-value">
-                <span>{t.from}</span>
-                <strong>{language === "en" ? "9,000" : "9.000đ"}</strong>
-                <span>{t.perKm}</span>
-              </div>
-              <button
-                type="button"
-                className="home-price-link"
-                onClick={() => navigate("/booking?service=7-seat")}
-              >
-                {t.bookNow}
-                <ArrowRight size={16} />
-              </button>
-            </article>
+                <h3>{t.price4}</h3>
 
-            <article className="home-price-card">
-              <div className="home-price-icon">
-                <UserRound size={27} />
-              </div>
-              <h3>{t.priceDriver}</h3>
-              <p>
-                {language === "en"
-                  ? "A driver tailored to your schedule."
-                  : "Tài xế riêng phục vụ theo lịch trình."}
-              </p>
-              <div className="home-price-value home-price-value-contact">
-                <strong>{t.contactPrice}</strong>
-              </div>
-              <button
-                type="button"
-                className="home-price-link"
-                onClick={() => navigate("/booking?service=driver")}
-              >
-                {t.bookNow}
-                <ArrowRight size={16} />
-              </button>
-            </article>
+                <p>
+                  {language === "en"
+                    ? "Practical for everyday travel and small groups."
+                    : "Phù hợp cho nhu cầu đi lại hằng ngày và nhóm nhỏ."}
+                </p>
+
+                <div className="home-price-value">
+                  <span>{t.from}</span>
+                  <strong>
+                    {language === "en" ? "7,000" : "7.000đ"}
+                  </strong>
+                  <span>{t.perKm}</span>
+                </div>
+
+                <button
+                  type="button"
+                  className="home-price-link"
+                  onClick={() =>
+                    navigate("/booking?service=4-seat")
+                  }
+                >
+                  {t.bookNow}
+                  <ArrowRight size={16} />
+                </button>
+              </article>
+            </div>
+
+            <div className="col-12 col-md-6 col-lg-4">
+              <article className="home-price-card home-price-card-featured h-100">
+                <span className="home-price-popular">
+                  <Star size={13} />
+                  {t.popular}
+                </span>
+
+                <div className="home-price-icon">
+                  <Users size={26} />
+                </div>
+
+                <h3>{t.price7}</h3>
+
+                <p>
+                  {language === "en"
+                    ? "More room for families, friends and luggage."
+                    : "Rộng rãi cho gia đình, nhóm bạn và hành lý."}
+                </p>
+
+                <div className="home-price-value">
+                  <span>{t.from}</span>
+                  <strong>
+                    {language === "en" ? "9,000" : "9.000đ"}
+                  </strong>
+                  <span>{t.perKm}</span>
+                </div>
+
+                <button
+                  type="button"
+                  className="home-price-link"
+                  onClick={() =>
+                    navigate("/booking?service=7-seat")
+                  }
+                >
+                  {t.bookNow}
+                  <ArrowRight size={16} />
+                </button>
+              </article>
+            </div>
+
+            <div className="col-12 col-md-6 col-lg-4">
+              <article className="home-price-card h-100">
+                <div className="home-price-icon">
+                  <UserRound size={26} />
+                </div>
+
+                <h3>{t.priceDriver}</h3>
+
+                <p>
+                  {language === "en"
+                    ? "A private driver arranged around your schedule."
+                    : "Tài xế riêng phục vụ theo nhu cầu và lịch trình."}
+                </p>
+
+                <div className="home-price-value home-price-value-contact">
+                  <strong>{t.contactPrice}</strong>
+                </div>
+
+                <button
+                  type="button"
+                  className="home-price-link"
+                  onClick={() =>
+                    navigate("/booking?service=driver")
+                  }
+                >
+                  {t.bookNow}
+                  <ArrowRight size={16} />
+                </button>
+              </article>
+            </div>
           </div>
 
           <p className="home-price-disclaimer">
             <ShieldCheck size={15} />
             {language === "en"
-              ? "Reference prices only. Final fares depend on trip details and service conditions."
-              : "Giá chỉ mang tính tham khảo. Chi phí thực tế phụ thuộc thông tin hành trình và điều kiện dịch vụ."}
+              ? "Reference prices only. Actual fares depend on the route and service conditions."
+              : "Giá mang tính tham khảo. Chi phí thực tế phụ thuộc tuyến đường và điều kiện dịch vụ."}
           </p>
         </div>
       </section>
 
+      {/* CUSTOMER REVIEWS */}
       <CustomerReviews language={language} />
 
       {/* FINAL CTA */}
       <section className="home-cta-section">
-        <div className="home-container">
+        <div className="container home-container">
           <div className="home-cta">
-            <div className="home-cta-decoration home-cta-decoration-one" />
-            <div className="home-cta-decoration home-cta-decoration-two" />
-
             <div className="home-cta-content">
               <div className="home-cta-label">
-                <Sparkles size={15} />
+                <CarFront size={17} />
                 GoAnywhere
               </div>
+
               <h2>
                 {t.finalTitle}
                 <span>{t.finalHighlight}</span>
               </h2>
+
               <p>{t.finalDescription}</p>
 
               <div className="home-cta-actions">
                 <button
                   type="button"
                   className="home-button home-cta-primary"
-                  onClick={scrollToBooking}
+                  onClick={() => scrollToSection("home-booking")}
                 >
                   {t.finalButton}
-                  <ArrowRight size={18} />
+                  <ArrowRight size={17} />
                 </button>
 
                 <button
@@ -942,23 +1104,26 @@ export default function Home({ language = "vi" }) {
                   onClick={() => navigate("/contact")}
                 >
                   {t.contactButton}
-                  <ArrowUpRight size={18} />
+                  <ArrowUpRight size={17} />
                 </button>
               </div>
             </div>
 
             <div className="home-cta-visual">
               <div className="home-cta-car-circle">
-                <CarFront size={92} strokeWidth={1.3} />
+                <CarFront size={86} strokeWidth={1.5} />
               </div>
+
               <div className="home-cta-pin">
-                <MapPin size={24} />
+                <MapPin size={22} />
               </div>
+
               <div className="home-cta-star">
-                <Sparkles size={24} />
+                <Sparkles size={21} />
               </div>
+
               <div className="home-cta-route">
-                <Route size={24} />
+                <Route size={22} />
               </div>
             </div>
           </div>
